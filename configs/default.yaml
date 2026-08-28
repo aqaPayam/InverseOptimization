@@ -1,0 +1,25 @@
+experiment:
+  name: inverse-optimization-experiment
+  seed: 7
+  compute_geometry: true
+  geometry_samples: 1000
+
+problem:
+  type: random_finite_choice
+  parameter_dimension: 2
+  observations: 16
+  alternatives: 5
+  parameter_space: l2_ball
+
+noise:
+  type: none
+
+estimator:
+  type: incenter
+  sequential_history: true
+
+outputs:
+  directory: outputs/experiments/default
+  html_report: true
+  static_plots: true
+  interactive_plots: true
