@@ -12,6 +12,8 @@ reproducible reports.
 - [User guide](docs/user_guide.md): the core workflow and extension rules.
 - [Mathematical background](docs/mathematical_background.md): consistency inequalities, losses,
   identifiability, and regret definitions.
+- [Active benchmark](docs/active_benchmark.md): environment axes, algorithm contract, configuration,
+  execution, and raw trajectory format.
 - [Executed feature tour](notebooks/06_complete_feature_tour.ipynb): a small end-to-end experiment
   whose tables and figures render directly on GitHub.
 - [Loss over theta through time](notebooks/07_loss_landscape_over_time.ipynb): SL and ASL evaluated
@@ -35,6 +37,9 @@ reproducible reports.
 - Static 2D geometry, interactive 2D animations, sampled 3D geometry, loss landscapes, parameter
   paths, regret plots, comparisons, and standalone HTML reports.
 - Python, notebook, and command-line workflows.
+- Algorithm-independent active inverse-optimization environments with minimizing/Gibbs experts,
+  four decision-space families, eight query geometries, and configurable parameter/observation
+  channels.
 
 ## Installation
 
@@ -106,9 +111,19 @@ For a continuous or specialized forward problem, provide `CallableOracle`, `Scip
 invoptlab demo --dimension 2 --observations 16 --estimator incenter
 invoptlab demo --dimension 2 --noise 0.15 --estimator asl --epochs 120
 invoptlab run configs/default.yaml
+invoptlab active-smoke --dimension 5 --horizon 3
 ```
 
 You can also use `python -m invoptlab ...` if the console command is not on your path.
+
+## Active benchmark
+
+The active benchmark asks an algorithm for `(theta_hat_t, s_t)`, returns the resulting noisy or
+clean expert observation, and records the complete trajectory. It deliberately does not define
+evaluation, scoring, or stopping policy yet. Start with the tiny configuration in
+`configs/active_smoke.yaml`; the complete lazy 34,560-scenario grid is in
+`configs/active_benchmark.yaml`. Custom algorithms follow the small interface shown in
+`examples/active_algorithm_template.py`.
 
 ## Notebooks
 

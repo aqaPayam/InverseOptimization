@@ -8,5 +8,7 @@ htmlcov/
 .ipynb_checkpoints/
 outputs/experiments/*
 !outputs/experiments/.gitkeep
+outputs/active/*
+!outputs/active/.gitkeep
 tmp/
 pytest-cache-files-*/

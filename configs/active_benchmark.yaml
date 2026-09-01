@@ -1,0 +1,72 @@
+# Complete lazy grid from the active inverse-optimization benchmark specification.
+# It describes 34,560 scenarios but does not materialize or run them until requested.
+grid:
+  name_prefix: active-inverse-optimization
+  dimensions: [5, 20, 50]
+  horizon: 100
+  seeds: [0, 1, 2]
+
+  experts:
+    - kind: min
+      tie_breaking: lexicographic
+    - kind: gibbs
+      temperature: low       # 0.1 * automatically estimated reference gap
+    - kind: gibbs
+      temperature: medium    # 0.5 * automatically estimated reference gap
+    - kind: gibbs
+      temperature: high      # 2.0 * automatically estimated reference gap
+
+  decision_spaces:
+    - kind: independent_binary
+    - kind: fixed_cardinality
+    - kind: continuous_polytope
+    - kind: structured       # reproducible random DAG shortest-path instance
+
+  query_spaces:
+    - kind: balanced
+      candidate_count: 128
+    - kind: clustered
+      candidate_count: 128
+      clusters: 4
+      cluster_radius: 0.12
+    - kind: sharp_boundary
+      candidate_count: 128
+      boundary_epsilon: 0.08
+    - kind: low_rank
+      candidate_count: 128
+    - kind: rare_informative
+      candidate_count: 128
+      informative_fraction: 0.08
+    - kind: aliased
+      candidate_count: 128
+    - kind: sparse
+      candidate_count: 128
+    - kind: dense
+      candidate_count: 128
+
+  observation_noises:
+    - kind: clean
+    - kind: local
+      sigma: 0.10
+    - kind: outlier
+      outlier_probability: 0.05
+    - kind: biased
+      sigma: 0.10
+    - kind: query_dependent
+      minimum_scale: 0.02
+      maximum_scale: 0.20
+    - kind: partial
+      mask_probability: 0.25
+
+  parameter_noises:
+    - kind: none
+    - kind: isotropic
+      sigma: 0.10
+    - kind: anisotropic
+      sigma: 0.10
+    - kind: query_dependent
+      minimum_scale: 0.02
+      maximum_scale: 0.20
+    - kind: persistent
+      sigma: 0.10
+

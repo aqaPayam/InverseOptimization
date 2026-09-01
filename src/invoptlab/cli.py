@@ -13,6 +13,14 @@ from .experiments import ExperimentConfig, ExperimentRunner
 from .losses import AugmentedSuboptimalityLoss
 from .noise import RandomFeasibleNoise
 from .problems import random_choice_experiment
+from .active import (
+    ActiveBenchmarkRunner,
+    ActiveScenarioConfig,
+    QuerySpaceConfig,
+    RandomActiveAlgorithm,
+    load_active_benchmark,
+    load_algorithm_factory,
+)
 
 
 def _demo(arguments: argparse.Namespace) -> int:
@@ -62,6 +70,57 @@ def _run_config(arguments: argparse.Namespace) -> int:
     return 0
 
 
+def _active_smoke(arguments: argparse.Namespace) -> int:
+    scenario = ActiveScenarioConfig(
+        name="active-smoke",
+        dimension=arguments.dimension,
+        horizon=arguments.horizon,
+        seed=arguments.seed,
+        query_space=QuerySpaceConfig(candidate_count=max(8, 2 * arguments.dimension)),
+    )
+    result = ActiveBenchmarkRunner().run(scenario, RandomActiveAlgorithm())
+    destination = result.save_json(arguments.output)
+    print(json.dumps({
+        "scenario": result.scenario.name,
+        "algorithm": result.algorithm_name,
+        "steps": len(result.records),
+        "trajectory": str(destination.resolve()),
+        "evaluation_applied": False,
+        "scoring_applied": False,
+    }, indent=2))
+    return 0
+
+
+def _active_run(arguments: argparse.Namespace) -> int:
+    suite = load_active_benchmark(arguments.config, limit=arguments.limit)
+    algorithms = {}
+    for specification in arguments.algorithm:
+        if specification == "random":
+            algorithms["random-smoke-test"] = lambda: RandomActiveAlgorithm()
+            continue
+        name, separator, import_path = specification.partition("=")
+        if not separator:
+            import_path = name
+            name = import_path.rsplit(":", 1)[-1]
+        algorithms[name] = load_algorithm_factory(import_path)
+    result = suite.run(
+        algorithms,
+        fail_fast=not arguments.continue_on_error,
+        respect_stop_requests=arguments.respect_stop,
+        progress=lambda index, scenario, algorithm: print(
+            f"[{index}] {scenario.name} :: {algorithm}", flush=True
+        ),
+    )
+    destination = result.save(arguments.output)
+    print(json.dumps({
+        **result.metadata,
+        "successful_runs": len(result.successful_runs),
+        "failed_runs": len(result.failed_runs),
+        "output": str(destination.resolve()),
+    }, indent=2))
+    return 1 if result.failed_runs else 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="invoptlab", description="Inverse-optimization experiment laboratory")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -81,6 +140,29 @@ def build_parser() -> argparse.ArgumentParser:
     run = subparsers.add_parser("run", help="Run a YAML or JSON experiment configuration")
     run.add_argument("config")
     run.set_defaults(function=_run_config)
+    active_smoke = subparsers.add_parser(
+        "active-smoke", help="Run a tiny random-algorithm plumbing check"
+    )
+    active_smoke.add_argument("--dimension", type=int, default=5)
+    active_smoke.add_argument("--horizon", type=int, default=3)
+    active_smoke.add_argument("--seed", type=int, default=7)
+    active_smoke.add_argument("--output", default="outputs/active/smoke.json")
+    active_smoke.set_defaults(function=_active_smoke)
+    active_run = subparsers.add_parser(
+        "active-run", help="Run active benchmark scenarios with plug-in algorithms"
+    )
+    active_run.add_argument("config")
+    active_run.add_argument(
+        "--algorithm",
+        action="append",
+        required=True,
+        help="random or name=python.module:factory",
+    )
+    active_run.add_argument("--output", default="outputs/active/benchmark")
+    active_run.add_argument("--limit", type=int)
+    active_run.add_argument("--respect-stop", action="store_true")
+    active_run.add_argument("--continue-on-error", action="store_true")
+    active_run.set_defaults(function=_active_run)
     return parser
 
 

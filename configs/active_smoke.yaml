@@ -1,0 +1,17 @@
+scenarios:
+  - name: tiny-active-smoke
+    dimension: 5
+    horizon: 3
+    seed: 7
+    expert:
+      kind: min
+    decision_space:
+      kind: independent_binary
+    query_space:
+      kind: balanced
+      candidate_count: 10
+    observation_noise:
+      kind: clean
+    parameter_noise:
+      kind: none
+

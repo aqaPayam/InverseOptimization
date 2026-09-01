@@ -13,3 +13,6 @@ All notable changes to this project will be documented here.
 - Added static and interactive figures, HTML reports, CLI/config workflows, and notebooks.
 - Added a lightweight executed feature-tour notebook and regression tests.
 - Added a sequential notebook visualizing SL and ASL directly over theta after every observation.
+- Added an algorithm-independent active inverse-optimization benchmark with minimizing and Gibbs
+  experts, four decision-space families, eight query geometries, observation/parameter channels,
+  lazy grid execution, public/latent trajectory exports, CLI commands, and a custom-algorithm API.

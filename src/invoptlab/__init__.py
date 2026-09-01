@@ -42,6 +42,7 @@ from .oracles import CVXPYOracle, CallableOracle, ScipyOracle
 from .problems import finite_choice_problem, knapsack_problem, random_choice_experiment
 from .risk import CVaRRisk, MeanRisk, QuantileRisk, TrimmedMeanRisk
 from .statistics import BootstrapResult, bootstrap_parameters, leave_one_out_influence
+from . import active
 
 __all__ = [
     "Capability",
@@ -101,6 +102,7 @@ __all__ = [
     "run_sweep",
     "load_config",
     "run_configuration",
+    "active",
 ]
 
 __version__ = "0.1.0"
