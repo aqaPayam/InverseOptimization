@@ -21,6 +21,7 @@ from .config import (
     QuerySpaceConfig,
 )
 from .environment import ActiveInverseEnvironment
+from .stopping import RegretStoppingConfig, RegretStoppingRule
 from .types import (
     ActiveAction,
     ActiveBenchmarkResult,
@@ -51,8 +52,14 @@ def _validate_action(action: ActiveAction, dimension: int) -> tuple[np.ndarray, 
 
 
 class ActiveBenchmarkRunner:
-    def __init__(self, *, respect_stop_requests: bool = False):
+    def __init__(
+        self,
+        *,
+        respect_stop_requests: bool = False,
+        stopping_config: RegretStoppingConfig | None = None,
+    ):
         self.respect_stop_requests = bool(respect_stop_requests)
+        self.stopping_config = stopping_config or RegretStoppingConfig()
 
     def run(
         self,
@@ -66,9 +73,16 @@ class ActiveBenchmarkRunner:
         algorithm_rng = np.random.default_rng(np.random.SeedSequence([scenario.seed, seed, 99173]))
         context = environment.algorithm_context(algorithm_seed=seed)
         algorithm.reset(context, algorithm_rng)
+        stopping_rule = None
+        if self.stopping_config.enabled:
+            stopping_rule = RegretStoppingRule(self.stopping_config)
+            stopping_rule.reset(scenario, environment.theta_true, environment.decision_space)
         history: list[AlgorithmObservation] = []
         records: list[ActiveStepRecord] = []
         stopped_early = False
+        stopping_criterion_met = False
+        stopping_reason: str | None = None
+        final_stopping_diagnostics: dict[str, Any] = {}
         started = time.perf_counter()
         for _ in range(scenario.horizon):
             action = algorithm.propose(tuple(history))
@@ -81,6 +95,18 @@ class ActiveBenchmarkRunner:
                 scenario.dimension,
                 "algorithm current estimate",
             )
+            stopping_check = (
+                stopping_rule.check(theta_after, feedback.step)
+                if stopping_rule is not None
+                else None
+            )
+            benchmark_stop_requested = bool(
+                stopping_check is not None and stopping_check.should_stop
+            )
+            stopping_diagnostics = (
+                stopping_check.to_dict() if stopping_check is not None else {}
+            )
+            final_stopping_diagnostics = stopping_diagnostics
             history.append(observation)
             records.append(
                 ActiveStepRecord(
@@ -95,14 +121,26 @@ class ActiveBenchmarkRunner:
                     observation_mask=None if feedback.observation_mask is None else feedback.observation_mask.copy(),
                     objective_value=feedback.objective_value,
                     stop_requested=bool(action.stop_requested),
+                    benchmark_stop_requested=benchmark_stop_requested,
+                    benchmark_stop_reason=(
+                        stopping_check.reason if stopping_check is not None else None
+                    ),
+                    stopping_diagnostics=stopping_diagnostics,
                     action_diagnostics=dict(action.diagnostics),
+                    update_diagnostics=dict(algorithm.diagnostics()),
                     expert_metadata=dict(feedback.expert_metadata),
                     parameter_noise_metadata=dict(feedback.parameter_noise_metadata),
                     observation_noise_metadata=dict(feedback.observation_noise_metadata),
                 )
             )
-            if action.stop_requested and self.respect_stop_requests:
-                stopped_early = True
+            algorithm_stop = bool(action.stop_requested and self.respect_stop_requests)
+            if benchmark_stop_requested:
+                stopping_criterion_met = True
+                stopping_reason = stopping_check.reason
+            elif algorithm_stop:
+                stopping_reason = "algorithm stop request"
+            if benchmark_stop_requested or algorithm_stop:
+                stopped_early = feedback.step < scenario.horizon
                 break
         runtime = time.perf_counter() - started
         return ActiveRunResult(
@@ -118,6 +156,12 @@ class ActiveBenchmarkRunner:
                 "environment_class": type(environment).__name__,
                 "scoring_applied": False,
                 "evaluation_applied": False,
+                "external_stopping_enabled": self.stopping_config.enabled,
+                "stopping_rule": self.stopping_config.to_dict(),
+                "stopping_time": len(records),
+                "stopping_criterion_met": stopping_criterion_met,
+                "stopping_reason": stopping_reason,
+                "final_stopping_diagnostics": final_stopping_diagnostics,
             },
         )
 
@@ -138,9 +182,13 @@ class ActiveBenchmarkSuite:
         *,
         fail_fast: bool = True,
         respect_stop_requests: bool = False,
+        stopping_config: RegretStoppingConfig | None = None,
         progress: Callable[[int, ActiveScenarioConfig, str], None] | None = None,
     ) -> ActiveBenchmarkResult:
-        runner = ActiveBenchmarkRunner(respect_stop_requests=respect_stop_requests)
+        runner = ActiveBenchmarkRunner(
+            respect_stop_requests=respect_stop_requests,
+            stopping_config=stopping_config,
+        )
         runs: list[ActiveRunResult] = []
         scenario_count = 0
         run_index = 0
@@ -179,6 +227,8 @@ class ActiveBenchmarkSuite:
                 "run_count": len(runs),
                 "scoring_applied": False,
                 "evaluation_applied": False,
+                "external_stopping_enabled": runner.stopping_config.enabled,
+                "stopping_rule": runner.stopping_config.to_dict(),
             },
         )
 

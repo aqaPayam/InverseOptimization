@@ -18,6 +18,10 @@ reproducible reports.
   whose tables and figures render directly on GitHub.
 - [Loss over theta through time](notebooks/07_loss_landscape_over_time.ipynb): SL and ASL evaluated
   over the full 2D parameter domain after every incoming observation.
+- [Active uniform-query incenter baseline](notebooks/08_active_uniform_incenter_clean_2d.ipynb): an
+  executed 12-step clean 2D run with hidden-query angular-error and normalized-regret evaluation.
+- [Curated active benchmark](notebooks/09_active_curated_25_scenarios.ipynb): 25 permanently
+  executed one-factor-at-a-time scenarios covering every benchmark axis without the full grid.
 
 ## What is implemented
 
@@ -119,11 +123,17 @@ You can also use `python -m invoptlab ...` if the console command is not on your
 ## Active benchmark
 
 The active benchmark asks an algorithm for `(theta_hat_t, s_t)`, returns the resulting noisy or
-clean expert observation, and records the complete trajectory. It deliberately does not define
-evaluation, scoring, or stopping policy yet. Start with the tiny configuration in
+clean expert observation, and records the complete trajectory. An external benchmark rule stops at
+the first zero-regret hidden-test estimate, or at the fixed horizon if zero regret is not reached.
+The algorithm never sees the stopping data, and no composite score is defined. Start with the tiny configuration in
 `configs/active_smoke.yaml`; the complete lazy 34,560-scenario grid is in
 `configs/active_benchmark.yaml`. Custom algorithms follow the small interface shown in
 `examples/active_algorithm_template.py`.
+
+The first estimation baseline is available as `--algorithm uniform-incenter`. It chooses queries
+uniformly at random and updates a sequential consistency-cone incenter using only observed `Y`.
+Add `--evaluate` to calculate final angular error and normalized regret on a shared hidden set of
+new uniform test queries. No single composite score is imposed.
 
 ## Notebooks
 

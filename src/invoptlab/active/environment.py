@@ -11,6 +11,7 @@ from .decision_spaces import DecisionSpace, make_decision_space
 from .experts import Expert, make_expert
 from .noise import ObservationNoise, ParameterNoise, make_observation_noise, make_parameter_noise
 from .query_spaces import QuerySpace, make_query_space
+from .public import PublicDecisionProblem
 from .types import AlgorithmContext, EnvironmentFeedback
 
 
@@ -116,6 +117,8 @@ class ActiveInverseEnvironment:
         public = self.config.to_dict()
         public.pop("true_theta", None)
         public["objective"] = "(s * theta)^T x"
+        decision_problem = PublicDecisionProblem(self.decision_space)
+        public["decision_problem"] = decision_problem.description()
         public["query_space_metadata"] = {
             "kind": self.query_space.kind.value,
             "candidate_count": self.query_space.size,
@@ -124,6 +127,7 @@ class ActiveInverseEnvironment:
             dimension=self.dimension,
             horizon=self.horizon,
             query_candidates=self.query_space.candidates.copy(),
+            decision_problem=decision_problem,
             seed=self.config.seed if algorithm_seed is None else int(algorithm_seed),
             scenario_name=self.config.name,
             public_environment=public,
@@ -190,4 +194,3 @@ class ActiveInverseEnvironment:
             "parameter_noise": type(self.parameter_noise).__name__,
             "observation_noise": type(self.observation_noise).__name__,
         }
-

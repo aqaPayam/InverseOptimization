@@ -18,6 +18,7 @@ class AlgorithmContext:
     dimension: int
     horizon: int
     query_candidates: Array
+    decision_problem: Any
     seed: int
     scenario_name: str
     public_environment: Mapping[str, Any]
@@ -79,7 +80,11 @@ class ActiveStepRecord:
     observation_mask: Array | None
     objective_value: float
     stop_requested: bool
+    benchmark_stop_requested: bool = False
+    benchmark_stop_reason: str | None = None
+    stopping_diagnostics: Mapping[str, Any] = field(default_factory=dict)
     action_diagnostics: Mapping[str, Any] = field(default_factory=dict)
+    update_diagnostics: Mapping[str, Any] = field(default_factory=dict)
     expert_metadata: Mapping[str, Any] = field(default_factory=dict)
     parameter_noise_metadata: Mapping[str, Any] = field(default_factory=dict)
     observation_noise_metadata: Mapping[str, Any] = field(default_factory=dict)
@@ -103,6 +108,7 @@ class ActiveRunResult:
     stopped_early: bool = False
     error: str | None = None
     metadata: dict[str, Any] = field(default_factory=dict)
+    evaluation: dict[str, Any] | None = None
 
     @property
     def queries(self) -> Array:
@@ -126,6 +132,7 @@ class ActiveRunResult:
             "stopped_early": self.stopped_early,
             "error": self.error,
             "metadata": self.metadata,
+            "evaluation": self.evaluation,
             "records": [record.to_dict(include_latent=include_latent) for record in self.records],
         }
         if not include_latent:
@@ -189,4 +196,3 @@ class ActiveBenchmarkResult:
             encoding="utf-8",
         )
         return destination
-

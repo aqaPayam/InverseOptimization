@@ -16,3 +16,11 @@ All notable changes to this project will be documented here.
 - Added an algorithm-independent active inverse-optimization benchmark with minimizing and Gibbs
   experts, four decision-space families, eight query geometries, observation/parameter channels,
   lazy grid execution, public/latent trajectory exports, CLI commands, and a custom-algorithm API.
+- Added a uniform-random query baseline with sequential consistency-hyperplane construction and
+  normalized incenter estimates based only on public observed decisions.
+- Added optional universal active-run evaluation using final angular parameter error and normalized
+  clean regret on reproducible hidden uniform test queries, with optional learning curves.
+- Added an external benchmark stopping time: stop at the first zero-regret hidden-test estimate or
+  continue to the fixed horizon, without exposing evaluation information to the algorithm.
+- Added executed notebooks for the clean 2D stopping example and a curated 25-scenario
+  one-factor-at-a-time active benchmark with embedded tables and comparison plots.

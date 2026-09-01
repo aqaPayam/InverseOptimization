@@ -15,9 +15,13 @@ from .noise import RandomFeasibleNoise
 from .problems import random_choice_experiment
 from .active import (
     ActiveBenchmarkRunner,
+    ActiveEvaluationConfig,
     ActiveScenarioConfig,
     QuerySpaceConfig,
     RandomActiveAlgorithm,
+    RegretStoppingConfig,
+    UniformRandomIncenterAlgorithm,
+    evaluate_active_benchmark,
     load_active_benchmark,
     load_algorithm_factory,
 )
@@ -98,6 +102,11 @@ def _active_run(arguments: argparse.Namespace) -> int:
         if specification == "random":
             algorithms["random-smoke-test"] = lambda: RandomActiveAlgorithm()
             continue
+        if specification == "uniform-incenter":
+            algorithms["uniform-random-sequential-incenter"] = (
+                lambda: UniformRandomIncenterAlgorithm()
+            )
+            continue
         name, separator, import_path = specification.partition("=")
         if not separator:
             import_path = name
@@ -107,10 +116,26 @@ def _active_run(arguments: argparse.Namespace) -> int:
         algorithms,
         fail_fast=not arguments.continue_on_error,
         respect_stop_requests=arguments.respect_stop,
+        stopping_config=RegretStoppingConfig(
+            enabled=not arguments.no_zero_regret_stop,
+            test_query_count=arguments.test_queries,
+            seed=arguments.evaluation_seed,
+            zero_regret_tolerance=arguments.stop_regret_tolerance,
+            minimum_steps=arguments.minimum_stop_time,
+        ),
         progress=lambda index, scenario, algorithm: print(
             f"[{index}] {scenario.name} :: {algorithm}", flush=True
         ),
     )
+    if arguments.evaluate:
+        evaluate_active_benchmark(
+            result,
+            ActiveEvaluationConfig(
+                test_query_count=arguments.test_queries,
+                seed=arguments.evaluation_seed,
+                evaluate_trajectory=arguments.evaluation_trajectory,
+            ),
+        )
     destination = result.save(arguments.output)
     print(json.dumps({
         **result.metadata,
@@ -156,12 +181,31 @@ def build_parser() -> argparse.ArgumentParser:
         "--algorithm",
         action="append",
         required=True,
-        help="random or name=python.module:factory",
+        help="random, uniform-incenter, or name=python.module:factory",
     )
     active_run.add_argument("--output", default="outputs/active/benchmark")
     active_run.add_argument("--limit", type=int)
     active_run.add_argument("--respect-stop", action="store_true")
     active_run.add_argument("--continue-on-error", action="store_true")
+    active_run.add_argument(
+        "--evaluate",
+        action="store_true",
+        help="Evaluate final angular error and hidden-query normalized regret",
+    )
+    active_run.add_argument("--test-queries", type=int, default=128)
+    active_run.add_argument("--evaluation-seed", type=int, default=0)
+    active_run.add_argument(
+        "--no-zero-regret-stop",
+        action="store_true",
+        help="Disable the default external zero-regret stopping rule",
+    )
+    active_run.add_argument("--stop-regret-tolerance", type=float, default=1e-8)
+    active_run.add_argument("--minimum-stop-time", type=int, default=1)
+    active_run.add_argument(
+        "--evaluation-trajectory",
+        action="store_true",
+        help="Also evaluate regret after every time step",
+    )
     active_run.set_defaults(function=_active_run)
     return parser
 

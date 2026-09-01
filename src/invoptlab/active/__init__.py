@@ -1,6 +1,12 @@
 """Algorithm-independent active inverse-optimization benchmark environments."""
 
-from .algorithms import ActiveAlgorithm, CallbackActiveAlgorithm, RandomActiveAlgorithm
+from .algorithms import (
+    ActiveAlgorithm,
+    CallbackActiveAlgorithm,
+    RandomActiveAlgorithm,
+    UniformRandomIncenterAlgorithm,
+    create_uniform_random_incenter_algorithm,
+)
 from .config import (
     ActiveBenchmarkGrid,
     ActiveScenarioConfig,
@@ -25,9 +31,19 @@ from .decision_spaces import (
     make_decision_space,
 )
 from .environment import ActiveInverseEnvironment
+from .evaluation import (
+    ActiveEvaluationConfig,
+    ActiveEvaluationResult,
+    angular_error_degrees,
+    evaluate_active_benchmark,
+    evaluate_active_run,
+    normalized_test_regret,
+    sample_uniform_test_queries,
+)
 from .experts import Expert, GibbsExpert, MinExpert
 from .noise import ObservationNoise, ParameterNoise
 from .query_spaces import QuerySpace, make_query_space
+from .public import ConsistencyNormalBatch, PublicDecisionProblem
 from .runner import (
     ActiveBenchmarkRunner,
     ActiveBenchmarkSuite,
@@ -36,6 +52,7 @@ from .runner import (
     load_algorithm_factory,
     load_active_scenarios,
 )
+from .stopping import RegretStoppingCheck, RegretStoppingConfig, RegretStoppingRule
 from .types import (
     ActiveAction,
     ActiveBenchmarkResult,
@@ -54,6 +71,8 @@ __all__ = [
     "ActiveBenchmarkRunner",
     "ActiveBenchmarkSuite",
     "ActiveInverseEnvironment",
+    "ActiveEvaluationConfig",
+    "ActiveEvaluationResult",
     "ActiveRunResult",
     "ActiveScenarioConfig",
     "ActiveStepRecord",
@@ -61,6 +80,7 @@ __all__ = [
     "AlgorithmObservation",
     "CallbackActiveAlgorithm",
     "ContinuousPolytopeDecisionSpace",
+    "ConsistencyNormalBatch",
     "DAGPathDecisionSpace",
     "DecisionSpace",
     "DecisionSpaceConfig",
@@ -79,15 +99,26 @@ __all__ = [
     "ParameterNoise",
     "ParameterNoiseConfig",
     "ParameterNoiseKind",
+    "PublicDecisionProblem",
     "QuerySpace",
     "QuerySpaceConfig",
     "QuerySpaceKind",
     "RandomActiveAlgorithm",
+    "RegretStoppingCheck",
+    "RegretStoppingConfig",
+    "RegretStoppingRule",
+    "UniformRandomIncenterAlgorithm",
     "StructuredBinaryDecisionSpace",
     "load_active_scenarios",
     "load_active_benchmark",
     "load_algorithm_factory",
     "active_grid_from_dict",
+    "angular_error_degrees",
+    "create_uniform_random_incenter_algorithm",
+    "evaluate_active_benchmark",
+    "evaluate_active_run",
     "make_decision_space",
     "make_query_space",
+    "normalized_test_regret",
+    "sample_uniform_test_queries",
 ]

@@ -14,7 +14,11 @@ from invoptlab.active import (
     ParameterNoiseConfig,
     QuerySpaceConfig,
     RandomActiveAlgorithm,
+    RegretStoppingConfig,
 )
+
+
+NO_EXTERNAL_STOPPING = RegretStoppingConfig(enabled=False)
 
 
 @pytest.mark.parametrize("decision_kind", list(DecisionSpaceKind))
@@ -31,7 +35,9 @@ def test_environment_runs_every_decision_and_expert_family(decision_kind, expert
         observation_noise=ObservationNoiseConfig(kind="clean"),
         parameter_noise=ParameterNoiseConfig(kind="none"),
     )
-    result = ActiveBenchmarkRunner().run(scenario, RandomActiveAlgorithm())
+    result = ActiveBenchmarkRunner(stopping_config=NO_EXTERNAL_STOPPING).run(
+        scenario, RandomActiveAlgorithm()
+    )
     assert len(result.records) == 2
     assert result.queries.shape == (2, 5)
     assert result.parameter_history.shape == (2, 5)
@@ -48,7 +54,7 @@ def test_active_run_is_reproducible_and_public_observation_hides_latent_state():
         observation_noise=ObservationNoiseConfig(kind="outlier", outlier_probability=0.3),
         parameter_noise=ParameterNoiseConfig(kind="isotropic", sigma=0.1),
     )
-    runner = ActiveBenchmarkRunner()
+    runner = ActiveBenchmarkRunner(stopping_config=NO_EXTERNAL_STOPPING)
     first = runner.run(scenario, RandomActiveAlgorithm())
     second = runner.run(scenario, RandomActiveAlgorithm())
     np.testing.assert_allclose(first.queries, second.queries)
@@ -77,10 +83,13 @@ def test_lazy_grid_and_multi_algorithm_suite():
     )
     assert grid.size == 2
     suite = ActiveBenchmarkSuite.from_grid(grid)
-    result = suite.run({
-        "random-a": lambda: RandomActiveAlgorithm(),
-        "random-b": lambda: RandomActiveAlgorithm(without_replacement=True),
-    })
+    result = suite.run(
+        {
+            "random-a": lambda: RandomActiveAlgorithm(),
+            "random-b": lambda: RandomActiveAlgorithm(without_replacement=True),
+        },
+        stopping_config=NO_EXTERNAL_STOPPING,
+    )
     assert len(result.runs) == 4
     assert not result.failed_runs
 
@@ -91,7 +100,9 @@ def test_result_can_hide_latent_values_when_exported(tmp_path):
         horizon=1,
         query_space=QuerySpaceConfig(candidate_count=6),
     )
-    result = ActiveBenchmarkRunner().run(scenario, RandomActiveAlgorithm())
+    result = ActiveBenchmarkRunner(stopping_config=NO_EXTERNAL_STOPPING).run(
+        scenario, RandomActiveAlgorithm()
+    )
     public = result.to_dict(include_latent=False)
     assert "true_theta" not in public
     assert "true_theta" not in public["records"][0]
