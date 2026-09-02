@@ -39,6 +39,7 @@ from .evaluation import (
     evaluate_active_run,
     normalized_test_regret,
     sample_uniform_test_queries,
+    sample_scenario_hidden_queries,
 )
 from .experts import Expert, GibbsExpert, MinExpert
 from .noise import ObservationNoise, ParameterNoise
@@ -53,6 +54,13 @@ from .runner import (
     load_active_scenarios,
 )
 from .stopping import RegretStoppingCheck, RegretStoppingConfig, RegretStoppingRule
+from .research import (
+    ActiveResearchConfig,
+    build_active_research_scenarios,
+    run_active_research_benchmark,
+    save_active_research,
+    summarize_active_research,
+)
 from .types import (
     ActiveAction,
     ActiveBenchmarkResult,
@@ -74,6 +82,7 @@ __all__ = [
     "ActiveEvaluationConfig",
     "ActiveEvaluationResult",
     "ActiveRunResult",
+    "ActiveResearchConfig",
     "ActiveScenarioConfig",
     "ActiveStepRecord",
     "AlgorithmContext",
@@ -121,4 +130,9 @@ __all__ = [
     "make_query_space",
     "normalized_test_regret",
     "sample_uniform_test_queries",
+    "sample_scenario_hidden_queries",
+    "build_active_research_scenarios",
+    "run_active_research_benchmark",
+    "save_active_research",
+    "summarize_active_research",
 ]

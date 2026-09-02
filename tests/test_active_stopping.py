@@ -100,6 +100,24 @@ def test_minimum_stop_time_is_respected():
     assert run.records[1].benchmark_stop_requested is True
 
 
+def test_consecutive_successes_prevent_first_lucky_stop():
+    run = ActiveBenchmarkRunner(
+        stopping_config=RegretStoppingConfig(
+            test_query_count=32,
+            seed=2,
+            consecutive_successes=3,
+        )
+    ).run(
+        make_scenario(horizon=4),
+        ConstantEstimateAlgorithm([0.8, -0.6]),
+    )
+    assert len(run.records) == 3
+    assert [
+        record.stopping_diagnostics["consecutive_successes"] for record in run.records
+    ] == [1, 2, 3]
+    assert run.records[-1].benchmark_stop_requested is True
+
+
 def test_stopping_test_queries_are_reproducible_and_hidden_from_algorithm():
     scenario = make_scenario()
     algorithm = ConstantEstimateAlgorithm([-0.8, 0.6])

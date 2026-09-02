@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from typing import Any, Mapping
 
 import numpy as np
@@ -17,6 +17,18 @@ from .decision_spaces import DecisionSpace, IndependentBinaryDecisionSpace
 
 
 Array = np.ndarray
+
+
+@dataclass(slots=True)
+class BehavioralNoiseCalibration:
+    target_change_rate: float
+    achieved_change_rate: float
+    effective_strength: float
+    trials: int
+    channel: str
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
 
 
 def normalize_parameter(value: Array, fallback: Array) -> Array:
@@ -49,6 +61,7 @@ def query_dependent_scale(
 
 class ParameterNoise(ABC):
     kind: ParameterNoiseKind
+    calibration: BehavioralNoiseCalibration | None = None
 
     def reset(self, theta_true: Array, rng: np.random.Generator) -> None:
         del theta_true, rng
@@ -82,11 +95,14 @@ class IsotropicParameterNoise(ParameterNoise):
         del query, step
         perturbation = rng.normal(scale=self.sigma, size=np.asarray(theta_true).size)
         value = normalize_parameter(np.asarray(theta_true) + perturbation, np.asarray(theta_true))
-        return value, {
+        metadata = {
             "kind": self.kind.value,
             "sigma": self.sigma,
             "perturbation": perturbation,
         }
+        if self.calibration is not None:
+            metadata["behavioral_calibration"] = self.calibration.to_dict()
+        return value, metadata
 
 
 class AnisotropicParameterNoise(ParameterNoise):
@@ -202,6 +218,7 @@ class ObservationNoiseResult:
 
 class ObservationNoise(ABC):
     kind: ObservationNoiseKind
+    calibration: BehavioralNoiseCalibration | None = None
 
     @abstractmethod
     def apply(
@@ -240,14 +257,17 @@ class LocalObservationNoise(ObservationNoise):
             rng,
             distance=self.distance,
         )
+        metadata = {
+            "kind": self.kind.value,
+            "sigma": sigma,
+            "distance": self.distance,
+            "changed": not np.allclose(noisy, true_decision),
+        }
+        if self.calibration is not None:
+            metadata["behavioral_calibration"] = self.calibration.to_dict()
         return ObservationNoiseResult(
             noisy,
-            metadata={
-                "kind": self.kind.value,
-                "sigma": sigma,
-                "distance": self.distance,
-                "changed": not np.allclose(noisy, true_decision),
-            },
+            metadata=metadata,
         )
 
     def apply(self, true_decision, query, decision_space, step, rng):
@@ -271,14 +291,17 @@ class OutlierObservationNoise(ObservationNoise):
                 decision = candidate
                 if not np.allclose(candidate, true_decision):
                     break
+        metadata = {
+            "kind": self.kind.value,
+            "probability": self.probability,
+            "contaminated": contaminated,
+            "changed": not np.allclose(decision, true_decision),
+        }
+        if self.calibration is not None:
+            metadata["behavioral_calibration"] = self.calibration.to_dict()
         return ObservationNoiseResult(
             decision,
-            metadata={
-                "kind": self.kind.value,
-                "probability": self.probability,
-                "contaminated": contaminated,
-                "changed": not np.allclose(decision, true_decision),
-            },
+            metadata=metadata,
         )
 
 
@@ -407,3 +430,134 @@ def make_observation_noise(config: ObservationNoiseConfig, dimension: int) -> Ob
         )
     return PartialObservationNoise(config.mask_probability)
 
+
+def _closest_behavioral_strength(
+    strengths: Array,
+    estimate_rate,
+    target: float,
+) -> tuple[float, float]:
+    rates = np.asarray([estimate_rate(float(value)) for value in strengths], dtype=float)
+    index = int(np.argmin(np.abs(rates - target)))
+    return float(strengths[index]), float(rates[index])
+
+
+def calibrate_noise_behavior(
+    parameter_noise: ParameterNoise,
+    observation_noise: ObservationNoise,
+    parameter_config: ParameterNoiseConfig,
+    observation_config: ObservationNoiseConfig,
+    theta_true: Array,
+    queries: Array,
+    decision_space: DecisionSpace,
+    *,
+    seed: int,
+) -> dict[str, Any]:
+    """Calibrate supported channels by the probability that behavior changes.
+
+    Calibration is private benchmark setup: it uses the clean parameter only to choose
+    an effective channel strength, and exposes neither theta nor calibration samples to
+    the evaluated algorithm.
+    """
+
+    theta = np.asarray(theta_true, dtype=float)
+    candidates = np.asarray(queries, dtype=float)
+    decision_rng = np.random.default_rng(np.random.SeedSequence([seed, 77_219]))
+    clean = [
+        decision_space.min_decision(query * theta, decision_rng, tie_breaking="lexicographic")
+        for query in candidates
+    ]
+    results: dict[str, Any] = {}
+
+    if parameter_config.target_decision_change_rate is not None:
+        if not isinstance(parameter_noise, IsotropicParameterNoise):  # validated config guard
+            raise ValidationError("parameter behavioral calibration requires isotropic noise")
+        trials = parameter_config.calibration_trials
+
+        def parameter_rate(sigma: float) -> float:
+            rng = np.random.default_rng(np.random.SeedSequence([seed, 91_337]))
+            changed = 0
+            for trial in range(trials):
+                index = trial % len(candidates)
+                perturbed = normalize_parameter(
+                    theta + rng.normal(scale=sigma, size=theta.size), theta
+                )
+                response = decision_space.min_decision(
+                    candidates[index] * perturbed,
+                    rng,
+                    tie_breaking="lexicographic",
+                )
+                changed += int(not np.allclose(response, clean[index]))
+            return changed / trials
+
+        strength, achieved = _closest_behavioral_strength(
+            np.geomspace(1e-4, 2.0, 31),
+            parameter_rate,
+            parameter_config.target_decision_change_rate,
+        )
+        parameter_noise.sigma = strength
+        parameter_noise.calibration = BehavioralNoiseCalibration(
+            parameter_config.target_decision_change_rate,
+            achieved,
+            strength,
+            trials,
+            "isotropic_parameter",
+        )
+        results["parameter_noise"] = parameter_noise.calibration.to_dict()
+
+    if observation_config.target_decision_change_rate is not None:
+        trials = observation_config.calibration_trials
+        if isinstance(observation_noise, LocalObservationNoise):
+
+            def observation_rate(strength: float) -> float:
+                rng = np.random.default_rng(np.random.SeedSequence([seed, 54_011]))
+                changed = 0
+                for trial in range(trials):
+                    index = trial % len(candidates)
+                    response = decision_space.sample_local(
+                        clean[index],
+                        strength,
+                        rng,
+                        distance=observation_noise.distance,
+                    )
+                    changed += int(not np.allclose(response, clean[index]))
+                return changed / trials
+
+            strength, achieved = _closest_behavioral_strength(
+                np.geomspace(1e-3, 4.0, 31),
+                observation_rate,
+                observation_config.target_decision_change_rate,
+            )
+            observation_noise.sigma = strength
+            channel = "local_observation"
+        elif isinstance(observation_noise, OutlierObservationNoise):
+
+            def observation_rate(strength: float) -> float:
+                rng = np.random.default_rng(np.random.SeedSequence([seed, 54_011]))
+                changed = 0
+                for trial in range(trials):
+                    index = trial % len(candidates)
+                    if rng.random() >= strength:
+                        continue
+                    response = decision_space.sample_feasible(rng)
+                    changed += int(not np.allclose(response, clean[index]))
+                return changed / trials
+
+            strength, achieved = _closest_behavioral_strength(
+                np.linspace(0.0, 1.0, 31),
+                observation_rate,
+                observation_config.target_decision_change_rate,
+            )
+            observation_noise.probability = strength
+            channel = "outlier_observation"
+        else:  # pragma: no cover - validated config guard
+            raise ValidationError("unsupported observation channel for behavioral calibration")
+        observation_noise.calibration = BehavioralNoiseCalibration(
+            observation_config.target_decision_change_rate,
+            achieved,
+            strength,
+            trials,
+            channel,
+        )
+        results["observation_noise"] = observation_noise.calibration.to_dict()
+
+    return results

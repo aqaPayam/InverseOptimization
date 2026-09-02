@@ -17,6 +17,7 @@ from .active import (
     ActiveBenchmarkRunner,
     ActiveEvaluationConfig,
     ActiveScenarioConfig,
+    ActiveResearchConfig,
     QuerySpaceConfig,
     RandomActiveAlgorithm,
     RegretStoppingConfig,
@@ -24,6 +25,8 @@ from .active import (
     evaluate_active_benchmark,
     load_active_benchmark,
     load_algorithm_factory,
+    run_active_research_benchmark,
+    save_active_research,
 )
 
 
@@ -146,6 +149,47 @@ def _active_run(arguments: argparse.Namespace) -> int:
     return 1 if result.failed_runs else 0
 
 
+def _active_research(arguments: argparse.Namespace) -> int:
+    algorithms = {}
+    for specification in arguments.algorithm:
+        if specification == "random":
+            algorithms["random-smoke-test"] = lambda: RandomActiveAlgorithm()
+            continue
+        if specification == "uniform-incenter":
+            algorithms["uniform-random-sequential-incenter"] = (
+                lambda: UniformRandomIncenterAlgorithm()
+            )
+            continue
+        name, separator, import_path = specification.partition("=")
+        if not separator:
+            import_path = name
+            name = import_path.rsplit(":", 1)[-1]
+        algorithms[name] = load_algorithm_factory(import_path)
+    protocol = ActiveResearchConfig(
+        seeds=tuple(arguments.seeds),
+        horizon=arguments.horizon,
+        candidate_count=arguments.candidates,
+        validation_query_count=arguments.validation_queries,
+        test_query_count=arguments.test_queries,
+    )
+    result, summary = run_active_research_benchmark(
+        algorithms,
+        protocol,
+        fail_fast=not arguments.continue_on_error,
+        progress=lambda index, scenario, algorithm: print(
+            f"[{index}] {scenario.name} :: {algorithm}", flush=True
+        ),
+    )
+    destination = save_active_research(result, summary, arguments.output)
+    print(json.dumps({
+        **result.metadata,
+        "successful_runs": len(result.successful_runs),
+        "failed_runs": len(result.failed_runs),
+        "output": str(destination.resolve()),
+    }, indent=2))
+    return 1 if result.failed_runs else 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="invoptlab", description="Inverse-optimization experiment laboratory")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -207,6 +251,24 @@ def build_parser() -> argparse.ArgumentParser:
         help="Also evaluate regret after every time step",
     )
     active_run.set_defaults(function=_active_run)
+    active_research = subparsers.add_parser(
+        "active-research",
+        help="Run the compact hard active inverse-optimization research protocol",
+    )
+    active_research.add_argument(
+        "--algorithm",
+        action="append",
+        required=True,
+        help="random, uniform-incenter, or name=python.module:factory",
+    )
+    active_research.add_argument("--output", default="outputs/active/research")
+    active_research.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2, 3, 4])
+    active_research.add_argument("--horizon", type=int, default=40)
+    active_research.add_argument("--candidates", type=int, default=48)
+    active_research.add_argument("--validation-queries", type=int, default=64)
+    active_research.add_argument("--test-queries", type=int, default=128)
+    active_research.add_argument("--continue-on-error", action="store_true")
+    active_research.set_defaults(function=_active_research)
     return parser
 
 

@@ -14,6 +14,8 @@ reproducible reports.
   identifiability, and regret definitions.
 - [Active benchmark](docs/active_benchmark.md): environment axes, algorithm contract, configuration,
   execution, and raw trajectory format.
+- [Hard active research protocol](docs/active_research_protocol.md): twelve interpretable coupled
+  and information-limited families, behavioral noise, fair stopping, and multi-seed evaluation.
 - [Executed feature tour](notebooks/06_complete_feature_tour.ipynb): a small end-to-end experiment
   whose tables and figures render directly on GitHub.
 - [Loss over theta through time](notebooks/07_loss_landscape_over_time.ipynb): SL and ASL evaluated
@@ -22,6 +24,8 @@ reproducible reports.
   executed 12-step clean 2D run with hidden-query angular-error and normalized-regret evaluation.
 - [Curated active benchmark](notebooks/09_active_curated_25_scenarios.ipynb): 25 permanently
   executed one-factor-at-a-time scenarios covering every benchmark axis without the full grid.
+- [Hard active research benchmark](notebooks/10_active_hard_research_protocol.ipynb): the compact
+  protocol with complete regret, angular-error, correctness, and incenter trajectories.
 
 ## What is implemented
 
@@ -129,6 +133,14 @@ The algorithm never sees the stopping data, and no composite score is defined. S
 `configs/active_smoke.yaml`; the complete lazy 34,560-scenario grid is in
 `configs/active_benchmark.yaml`. Custom algorithms follow the small interface shown in
 `examples/active_algorithm_template.py`.
+
+For scientific comparisons, use the compact hard protocol rather than the complete Cartesian
+software grid. It preserves the linear objective but adds coupled decisions, scarce information,
+behavior-calibrated noise, robust validation stopping, and a separate final test set:
+
+```bash
+python -m invoptlab active-research --algorithm uniform-incenter
+```
 
 The first estimation baseline is available as `--algorithm uniform-incenter`. It chooses queries
 uniformly at random and updates a sequential consistency-cone incenter using only observed `Y`.

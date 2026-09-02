@@ -159,6 +159,8 @@ class UniformRandomIncenterAlgorithm(ActiveAlgorithm):
         self.decision_problem = context.decision_problem
         self.rng = rng
         self._estimate = self._unit_initial_estimate(context.dimension)
+        self.estimate_status_ = "insufficient_information"
+        self.failure_reason_ = "no usable consistency constraints have been observed"
         self.incenter_radius_ = 0.0
         self.constraints_ = np.empty((0, context.dimension))
         self.constraint_sources_: list[dict[str, object]] = []
@@ -285,7 +287,29 @@ class UniformRandomIncenterAlgorithm(ActiveAlgorithm):
         self._append_deduplicated(batch.normals)
         solver_message = "observation skipped"
         if batch.skipped_reason is None and self.constraints_.size:
-            self._estimate, self.incenter_radius_, solver_message = self._solve_incenter()
+            try:
+                self._estimate, self.incenter_radius_, solver_message = self._solve_incenter()
+                if np.linalg.norm(self._estimate) <= self.tolerance:
+                    self.estimate_status_ = "degenerate_cone"
+                    self.failure_reason_ = (
+                        "the consistency cone has no valid nonzero parameter direction"
+                    )
+                else:
+                    self.estimate_status_ = "valid"
+                    self.failure_reason_ = None
+            except SolverError as exc:
+                # Hard consistency cones may become empty under noisy observations.
+                # Preserve the last valid estimate so the benchmark run remains measurable;
+                # diagnostics make the inconsistency explicit to the researcher.
+                solver_message = f"infeasible/noisy hard cone; kept previous estimate: {exc}"
+                self.estimate_status_ = "solver_failure"
+                self.failure_reason_ = str(exc)
+        elif not self.constraints_.size:
+            self.estimate_status_ = "insufficient_information"
+            self.failure_reason_ = (
+                batch.skipped_reason
+                or "no usable consistency constraints have been observed"
+            )
         self.incenter_history_.append(
             {
                 "step": observation.step,
@@ -296,6 +320,8 @@ class UniformRandomIncenterAlgorithm(ActiveAlgorithm):
                 "constraint_method": batch.method,
                 "constraints_exact": batch.exact,
                 "skipped_reason": batch.skipped_reason,
+                "estimate_status": self.estimate_status_,
+                "failure_reason": self.failure_reason_,
             }
         )
 
@@ -307,6 +333,8 @@ class UniformRandomIncenterAlgorithm(ActiveAlgorithm):
             return {
                 "constraint_count": 0,
                 "incenter_radius": self.incenter_radius_,
+                "estimate_status": self.estimate_status_,
+                "failure_reason": self.failure_reason_,
             }
         latest = self.incenter_history_[-1]
         return {
@@ -316,6 +344,8 @@ class UniformRandomIncenterAlgorithm(ActiveAlgorithm):
             "constraint_method": latest["constraint_method"],
             "constraints_exact": latest["constraints_exact"],
             "skipped_reason": latest["skipped_reason"],
+            "estimate_status": latest["estimate_status"],
+            "failure_reason": latest["failure_reason"],
         }
 
 

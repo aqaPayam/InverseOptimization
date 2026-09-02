@@ -9,7 +9,13 @@ from ..exceptions import ValidationError
 from .config import ActiveScenarioConfig
 from .decision_spaces import DecisionSpace, make_decision_space
 from .experts import Expert, make_expert
-from .noise import ObservationNoise, ParameterNoise, make_observation_noise, make_parameter_noise
+from .noise import (
+    ObservationNoise,
+    ParameterNoise,
+    calibrate_noise_behavior,
+    make_observation_noise,
+    make_parameter_noise,
+)
 from .query_spaces import QuerySpace, make_query_space
 from .public import PublicDecisionProblem
 from .types import AlgorithmContext, EnvironmentFeedback
@@ -103,6 +109,16 @@ class ActiveInverseEnvironment:
             self.config.observation_noise,
             self.dimension,
         )
+        self.noise_calibration = calibrate_noise_behavior(
+            self.parameter_noise,
+            self.observation_noise,
+            self.config.parameter_noise,
+            self.config.observation_noise,
+            self.theta_true,
+            self.query_space.candidates,
+            self.decision_space,
+            seed=self.config.seed,
+        )
         self.parameter_noise.reset(self.theta_true, self.parameter_rng)
         self.current_step = 0
         self.used_query_indices: set[int] = set()
@@ -193,4 +209,5 @@ class ActiveInverseEnvironment:
             "expert": type(self.expert).__name__,
             "parameter_noise": type(self.parameter_noise).__name__,
             "observation_noise": type(self.observation_noise).__name__,
+            "noise_calibration": self.noise_calibration,
         }

@@ -18,12 +18,12 @@ from invoptlab.active import (
 )
 
 
-def test_angular_error_preserves_sign_and_rejects_zero_estimate():
+def test_angular_error_preserves_sign_and_marks_zero_estimate_undefined():
     truth = np.asarray([1.0, 0.0])
     assert angular_error_degrees(truth, truth) == pytest.approx((0.0, True))
     assert angular_error_degrees(-truth, truth) == pytest.approx((180.0, True))
     assert angular_error_degrees([0.0, 1.0], truth) == pytest.approx((90.0, True))
-    assert angular_error_degrees([0.0, 0.0], truth) == (180.0, False)
+    assert angular_error_degrees([0.0, 0.0], truth) == (None, False)
 
 
 def test_hidden_uniform_test_queries_are_reproducible_and_unit_norm():
@@ -113,6 +113,28 @@ def test_run_evaluation_attaches_final_and_optional_trajectory_metrics():
     assert result.metadata["test_queries_hidden_from_algorithm"] is True
     assert run.metadata["evaluation_applied"] is True
     assert run.evaluation == result.to_dict()
+
+
+def test_failed_estimate_returns_status_and_undefined_metrics():
+    run = make_run()
+    run.records[-1].theta_hat_after = np.zeros(2)
+    run.records[-1].update_diagnostics = {
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction",
+    }
+    result = evaluate_active_run(
+        run,
+        ActiveEvaluationConfig(test_query_count=12, seed=4, evaluate_trajectory=True),
+    )
+    assert result.final_estimate_valid is False
+    assert result.final_status == "degenerate_cone"
+    assert result.final_failure_reason is not None
+    assert result.final_angular_error_degrees is None
+    assert result.final_normalized_regret is None
+    assert result.final_zero_regret_rate is None
+    assert result.angular_error_history_degrees[-1] is None
+    assert result.normalized_regret_history[-1] is None
+    assert run.metadata["algorithm_failed"] is True
 
 
 def test_benchmark_evaluation_summarizes_algorithms_without_a_composite_score():

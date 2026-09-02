@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented here.
 
+## Active research protocol
+
+- Added a compact twelve-family hard benchmark separating its easy sanity control from coupled,
+  information-limited, boundary, partial-feedback, and stochastic research cases.
+- Added behavioral calibration for local observation and isotropic parameter noise using their
+  empirical probability of changing the expert decision.
+- Added scenario-distribution held-out queries, independent validation/final-test streams,
+  consecutive-success stopping, fixed-horizon stochastic evaluation, first/stable threshold times,
+  and multi-seed mean/standard-deviation summaries.
+- Made the hard sequential incenter baseline record solver failures without terminating the
+  benchmark.
+- Replaced artificial angular-error penalties for invalid estimates with explicit
+  `degenerate_cone` and `insufficient_information` failures and undefined performance metrics.
+- Added the `active-research` command and a permanently executed research notebook.
+
 ## 0.1.0
 
 - Added extensible objectives, parameter spaces, forward oracles, and datasets.

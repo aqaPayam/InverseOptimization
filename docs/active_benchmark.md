@@ -114,8 +114,9 @@ scenario receives exactly the same test set.
 
 The two primary measurements are the final angular error between `theta_hat_T` and `theta_true`,
 and final normalized regret on the hidden test queries. Positive rescaling is removed by the angular
-measurement, but reversing the sign is not treated as equivalent. A zero or invalid estimate is
-marked invalid and assigned 180 degrees. Normalized regret compares the decision selected by the
+measurement, but reversing the sign is not treated as equivalent. A zero or otherwise invalid
+estimate is marked as a failed estimate; its angular error and regret are undefined rather than
+replaced by an artificial number. Normalized regret compares the decision selected by the
 estimate with the true optimal decision, evaluates both under the clean base parameter, and divides
 by that query's best-to-worst objective range. It therefore lies between zero and one across every
 implemented decision-space family. The evaluator also reports the fraction of test queries with

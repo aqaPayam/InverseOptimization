@@ -179,6 +179,8 @@ class ObservationNoiseConfig:
     minimum_scale: float = 0.02
     maximum_scale: float = 0.20
     distance: str = "euclidean"
+    target_decision_change_rate: float | None = None
+    calibration_trials: int = 96
 
     def __post_init__(self) -> None:
         self.kind = coerce_enum(self.kind, ObservationNoiseKind, "observation-noise kind")
@@ -194,6 +196,20 @@ class ObservationNoiseConfig:
             raise ValidationError("unsupported query noise profile")
         if self.distance not in {"euclidean", "hamming"}:
             raise ValidationError("distance must be euclidean or hamming")
+        if (
+            self.target_decision_change_rate is not None
+            and not 0 < self.target_decision_change_rate < 1
+        ):
+            raise ValidationError("target_decision_change_rate must lie in (0, 1)")
+        if self.calibration_trials < 16:
+            raise ValidationError("calibration_trials must be at least 16")
+        if (
+            self.target_decision_change_rate is not None
+            and self.kind not in {ObservationNoiseKind.LOCAL, ObservationNoiseKind.OUTLIER}
+        ):
+            raise ValidationError(
+                "behavioral calibration is supported for local and outlier observation noise"
+            )
 
 
 @dataclass(slots=True)
@@ -204,6 +220,8 @@ class ParameterNoiseConfig:
     query_profile: str = "first_coordinate"
     minimum_scale: float = 0.02
     maximum_scale: float = 0.20
+    target_decision_change_rate: float | None = None
+    calibration_trials: int = 96
 
     def __post_init__(self) -> None:
         self.kind = coerce_enum(self.kind, ParameterNoiseKind, "parameter-noise kind")
@@ -213,6 +231,20 @@ class ParameterNoiseConfig:
             raise ValidationError("query-dependent parameter-noise scales are invalid")
         if self.query_profile not in {"first_coordinate", "absolute_first", "sparsity", "norm"}:
             raise ValidationError("unsupported query parameter-noise profile")
+        if (
+            self.target_decision_change_rate is not None
+            and not 0 < self.target_decision_change_rate < 1
+        ):
+            raise ValidationError("target_decision_change_rate must lie in (0, 1)")
+        if self.calibration_trials < 16:
+            raise ValidationError("calibration_trials must be at least 16")
+        if (
+            self.target_decision_change_rate is not None
+            and self.kind != ParameterNoiseKind.ISOTROPIC
+        ):
+            raise ValidationError(
+                "behavioral calibration is supported for isotropic parameter noise"
+            )
 
 
 @dataclass(slots=True)

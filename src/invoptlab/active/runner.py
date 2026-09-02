@@ -162,6 +162,7 @@ class ActiveBenchmarkRunner:
                 "stopping_criterion_met": stopping_criterion_met,
                 "stopping_reason": stopping_reason,
                 "final_stopping_diagnostics": final_stopping_diagnostics,
+                "noise_calibration": environment.noise_calibration,
             },
         )
 

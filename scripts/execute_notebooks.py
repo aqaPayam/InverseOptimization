@@ -13,6 +13,11 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("paths", nargs="*", type=Path)
     parser.add_argument("--timeout", type=int, default=600)
+    parser.add_argument(
+        "--in-place",
+        action="store_true",
+        help="Persist executed cell outputs back into each notebook",
+    )
     arguments = parser.parse_args()
     paths = arguments.paths or sorted(Path("notebooks").glob("*.ipynb"))
     failures = []
@@ -26,6 +31,8 @@ def main() -> int:
                 kernel_name="python3",
                 resources={"metadata": {"path": str(path.parent.resolve())}},
             ).execute()
+            if arguments.in_place:
+                nbformat.write(notebook, path)
         except Exception as exc:  # pragma: no cover - integration helper
             failures.append((path, exc))
             print(f"FAILED {path}: {exc}", flush=True)
@@ -41,4 +48,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
