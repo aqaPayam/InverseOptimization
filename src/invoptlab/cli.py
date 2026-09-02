@@ -264,7 +264,7 @@ def build_parser() -> argparse.ArgumentParser:
     active_research.add_argument("--output", default="outputs/active/research")
     active_research.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2, 3, 4])
     active_research.add_argument("--horizon", type=int, default=40)
-    active_research.add_argument("--candidates", type=int, default=48)
+    active_research.add_argument("--candidates", type=int, default=64)
     active_research.add_argument("--validation-queries", type=int, default=64)
     active_research.add_argument("--test-queries", type=int, default=128)
     active_research.add_argument("--continue-on-error", action="store_true")

@@ -330,14 +330,17 @@ class UniformRandomIncenterAlgorithm(ActiveAlgorithm):
 
     def diagnostics(self) -> Mapping[str, Any]:
         if not self.incenter_history_:
-            return {
+            diagnostics = {
                 "constraint_count": 0,
                 "incenter_radius": self.incenter_radius_,
                 "estimate_status": self.estimate_status_,
                 "failure_reason": self.failure_reason_,
             }
+            if self.context.dimension <= 3:
+                diagnostics["constraint_normals"] = self.constraints_.copy()
+            return diagnostics
         latest = self.incenter_history_[-1]
-        return {
+        diagnostics = {
             "constraint_count": latest["constraint_count"],
             "incenter_radius": latest["incenter_radius"],
             "solver_message": latest["solver_message"],
@@ -347,6 +350,9 @@ class UniformRandomIncenterAlgorithm(ActiveAlgorithm):
             "estimate_status": latest["estimate_status"],
             "failure_reason": latest["failure_reason"],
         }
+        if self.context.dimension <= 3:
+            diagnostics["constraint_normals"] = self.constraints_.copy()
+        return diagnostics
 
 
 def create_uniform_random_incenter_algorithm() -> UniformRandomIncenterAlgorithm:

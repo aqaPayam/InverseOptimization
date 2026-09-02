@@ -16,6 +16,9 @@ All notable changes to this project will be documented here.
 - Replaced artificial angular-error penalties for invalid estimates with explicit
   `degenerate_cone` and `insufficient_information` failures and undefined performance metrics.
 - Added the `active-research` command and a permanently executed research notebook.
+- Replaced the initial research suite with twelve MIN-only, clean-observation families covering
+  3D geometry, cardinality, knapsack, paths, a continuous simplex, limited queries, and calibrated
+  parameter noise at dimensions 3, 10, 18, and 20.
 
 ## 0.1.0
 

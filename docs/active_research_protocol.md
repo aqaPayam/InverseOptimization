@@ -4,29 +4,29 @@ This protocol is the scientific benchmark. The older 34,560-case Cartesian grid 
 for software coverage, but it should not be used by itself to claim that an algorithm learns a
 difficult active inverse-optimization problem.
 
-The objective remains `F_theta(s, x) = (s * theta)^T x`. Difficulty is created by coupled feasible
-decisions, limited query information, controlled decision boundaries, partial feedback, and
-behaviorally meaningful stochasticity. This keeps the hyperplane/cone interpretation while
+The objective remains `F_theta(S, x) = (S * theta)^T x`. Every family uses the deterministic MIN
+expert and clean observations, so `Y = X`. Difficulty is created by coupled feasible decisions,
+limited query information, controlled decision boundaries, and behaviorally calibrated parameter
+noise. This keeps the hyperplane/cone interpretation while
 avoiding the one-observation sign-recovery shortcut of an independent binary decision set.
 
 ## The twelve scenario families
 
-1. `easy-independent`: separable binary sanity check; not research evidence.
-2. `cardinality-coupled`: exactly half of the items must be selected.
-3. `knapsack-coupled`: unequal item weights share a resource budget.
-4. `dag-path-coupled`: decisions are complete source-to-sink paths.
-5. `continuous-simplex`: a coupled continuous simplex decision.
-6. `sparse-queries`: every query touches only two coordinates.
-7. `rare-informative`: most queries live in a rank-two subspace.
-8. `small-margin-boundary`: candidate pairs straddle nearby decision boundaries.
-9. `partial-feedback`: half of the response coordinates are hidden on average.
-10. `behavioral-observation-noise`: local noise is calibrated to alter about 15% of decisions.
-11. `behavioral-parameter-noise`: parameter perturbations are calibrated to alter about 15% of
-    decisions.
-12. `gibbs-expert`: the coupled expert stochastically selects plausible suboptimal decisions.
+1. `geometry-cardinality-3d`: `d=3`, cardinality one, with cone/incenter visualization.
+2. `cardinality-balanced-d20`: `d=20`, cardinality ten, balanced queries.
+3. `cardinality-small-margin-d20`: `d=20`, cardinality ten, boundary queries.
+4. `knapsack-d20`: 20 unequal-weight items under one resource budget.
+5. `dag-path-d18`: decisions are source-to-sink paths over 18 edge variables.
+6. `continuous-simplex-d10`: a coupled ten-dimensional continuous simplex.
+7. `cardinality-sparse-queries-d20`: each query touches only three coordinates.
+8. `cardinality-rare-informative-d20`: 90% of queries lie in a rank-three subspace.
+9. `cardinality-parameter-noise-mild-d20`: IID noise changes about 5% of MIN decisions.
+10. `cardinality-parameter-noise-moderate-d20`: IID noise changes about 15% of MIN decisions.
+11. `dag-path-parameter-noise-moderate-d18`: IID noise changes about 15% of MIN paths.
+12. `knapsack-parameter-noise-moderate-d20`: IID noise changes about 15% of MIN knapsacks.
 
 The suite is intentional rather than factorial: each family has a specific interpretation. By
-default it uses five seeds, 40 interactions, 48 available query candidates, 64 hidden validation
+default it uses five seeds, 40 interactions, 64 available query candidates, 64 hidden validation
 queries, and 128 separate hidden test queries.
 
 ## Fair stopping and final testing
@@ -93,8 +93,9 @@ the built-in incenter baseline.
 
 ## Interpretation
 
-The independent binary result is a plumbing control. The coupled, information-limited, boundary,
-and stochastic families are the meaningful comparisons. Angular error and behavioral regret can
+The independent binary problem remains available separately as a plumbing control; it is not one
+of these twelve research families. The coupled, information-limited, boundary, and parameter-noise
+families are the meaningful comparisons. Angular error and behavioral regret can
 disagree because some parameter directions may not affect decisions; both should be reported. The
 hidden true-parameter validation rule is an oracle sample-complexity measurement, not a deployable
 stopping detector available to an algorithm.

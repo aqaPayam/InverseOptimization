@@ -2,14 +2,9 @@ import pytest
 
 from invoptlab.active import (
     ActiveInverseEnvironment,
-    ActiveBenchmarkRunner,
-    ActiveEvaluationConfig,
     ActiveResearchConfig,
     RandomActiveAlgorithm,
-    RegretStoppingConfig,
-    UniformRandomIncenterAlgorithm,
     build_active_research_scenarios,
-    evaluate_active_run,
     run_active_research_benchmark,
 )
 
@@ -32,24 +27,36 @@ def test_curated_suite_has_twelve_interpretable_families_per_seed():
     assert len(scenarios) == 24
     families = {scenario.metadata["research_family"] for scenario in scenarios}
     assert len(families) == 12
-    assert "easy-independent" in families
-    assert "knapsack-coupled" in families
-    assert "continuous-simplex" in families
-    assert "behavioral-observation-noise" in families
-    assert sum(scenario.metadata["role"] == "sanity-check" for scenario in scenarios) == 2
+    assert "geometry-cardinality-3d" in families
+    assert "knapsack-d20" in families
+    assert "continuous-simplex-d10" in families
+    assert "knapsack-parameter-noise-moderate-d20" in families
+    assert all(scenario.expert.kind.value == "min" for scenario in scenarios)
+    assert all(scenario.observation_noise.kind.value == "clean" for scenario in scenarios)
+    assert sum(scenario.parameter_noise.kind.value == "isotropic" for scenario in scenarios) == 8
+
+    dimensions = {
+        scenario.metadata["research_family"]: scenario.dimension
+        for scenario in scenarios
+        if scenario.seed == 2
+    }
+    assert dimensions["geometry-cardinality-3d"] == 3
+    assert dimensions["cardinality-balanced-d20"] == 20
+    assert dimensions["dag-path-d18"] == 18
+    assert dimensions["continuous-simplex-d10"] == 10
 
 
-def test_behavioral_noise_is_calibrated_and_saved_privately():
+def test_behavioral_parameter_noise_is_calibrated_and_saved_privately():
     scenarios = build_active_research_scenarios(tiny_protocol())
     scenario = next(
         item
         for item in scenarios
-        if item.metadata["research_family"] == "behavioral-observation-noise"
+        if item.metadata["research_family"] == "cardinality-parameter-noise-mild-d20"
     )
     environment = ActiveInverseEnvironment(scenario)
-    calibration = environment.noise_calibration["observation_noise"]
-    assert calibration["target_change_rate"] == pytest.approx(0.15)
-    assert abs(calibration["achieved_change_rate"] - 0.15) <= 0.1
+    calibration = environment.noise_calibration["parameter_noise"]
+    assert calibration["target_change_rate"] == pytest.approx(0.05)
+    assert abs(calibration["achieved_change_rate"] - 0.05) <= 0.05
     assert calibration["effective_strength"] > 0
     context = environment.algorithm_context()
     assert "noise_calibration" not in context.public_environment
@@ -72,22 +79,3 @@ def test_research_protocol_runs_stochastic_cases_to_horizon_and_uses_independent
     assert all(run.evaluation["metadata"]["independent_from_stopping"] for run in result.runs)
     assert all(len(run.evaluation["normalized_regret_history"]) == len(run.records) for run in result.runs)
     assert result.metadata["composite_score_created"] is False
-
-
-def test_incenter_reports_partial_feedback_without_usable_constraints_as_failure():
-    protocol = tiny_protocol()
-    scenario = next(
-        item
-        for item in build_active_research_scenarios(protocol)
-        if item.metadata["research_family"] == "partial-feedback"
-    )
-    run = ActiveBenchmarkRunner(
-        stopping_config=RegretStoppingConfig(enabled=False)
-    ).run(scenario, UniformRandomIncenterAlgorithm(alternative_budget=16))
-    evaluation = evaluate_active_run(
-        run,
-        ActiveEvaluationConfig(test_query_count=5, seed=9, evaluate_trajectory=True),
-    )
-    assert evaluation.final_status == "insufficient_information"
-    assert evaluation.final_angular_error_degrees is None
-    assert evaluation.final_normalized_regret is None

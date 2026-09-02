@@ -31,7 +31,7 @@ class ActiveResearchConfig:
 
     seeds: tuple[int, ...] = (0, 1, 2, 3, 4)
     horizon: int = 40
-    candidate_count: int = 48
+    candidate_count: int = 64
     validation_query_count: int = 64
     test_query_count: int = 128
     validation_seed: int = 40_001
@@ -74,8 +74,6 @@ def _scenario(
     dimension: int = 10,
     decision_space: DecisionSpaceConfig | None = None,
     query_space: QuerySpaceConfig | None = None,
-    expert: ExpertConfig | None = None,
-    observation_noise: ObservationNoiseConfig | None = None,
     parameter_noise: ParameterNoiseConfig | None = None,
     stochastic: bool = False,
     difficulty: str = "hard",
@@ -87,12 +85,12 @@ def _scenario(
         horizon=protocol.horizon,
         seed=seed,
         true_theta=_theta(dimension),
-        expert=expert or ExpertConfig(kind="min"),
+        expert=ExpertConfig(kind="min"),
         decision_space=decision_space or DecisionSpaceConfig(kind="fixed_cardinality", cardinality=dimension // 2),
         query_space=query_space or QuerySpaceConfig(
             kind="balanced", candidate_count=protocol.candidate_count
         ),
-        observation_noise=observation_noise or ObservationNoiseConfig(kind="clean"),
+        observation_noise=ObservationNoiseConfig(kind="clean"),
         parameter_noise=parameter_noise or ParameterNoiseConfig(kind="none"),
         metadata={
             "research_family": family,
@@ -117,143 +115,187 @@ def build_active_research_scenarios(
     protocol = config or ActiveResearchConfig()
     scenarios: list[ActiveScenarioConfig] = []
     dag_edges = [
-        (0, 1), (0, 2),
-        (1, 3), (1, 4), (2, 3), (2, 4),
-        (3, 5), (4, 5),
+        (0, 1), (0, 2), (0, 3),
+        (1, 4), (1, 5), (1, 6),
+        (2, 4), (2, 5), (2, 6),
+        (3, 4), (3, 5), (3, 6),
+        (4, 7), (5, 7), (6, 7),
+        (0, 4), (0, 5), (0, 6),
     ]
-    knapsack_weights = [2, 3, 4, 5, 1, 2, 4, 3, 5, 1]
-    simplex_A = [np.ones(8).tolist(), (-np.ones(8)).tolist()]
+    knapsack_weights = [2, 3, 4, 5, 6, 1, 3, 5, 2, 4, 6, 2, 5, 3, 1, 4, 2, 6, 3, 5]
+    simplex_A = [np.ones(10).tolist(), (-np.ones(10)).tolist()]
     for seed in protocol.seeds:
         scenarios.extend(
             [
                 _scenario(
-                    "easy-independent",
+                    "geometry-cardinality-3d",
                     seed,
                     protocol,
-                    decision_space=DecisionSpaceConfig(kind="independent_binary"),
-                    query_space=QuerySpaceConfig(
-                        kind="dense", candidate_count=protocol.candidate_count
+                    dimension=3,
+                    decision_space=DecisionSpaceConfig(
+                        kind="fixed_cardinality", cardinality=1
                     ),
-                    difficulty="sanity",
-                    rationale="Separable easy control; verifies implementation only.",
+                    rationale="A three-dimensional coupled case for cone and incenter visualization.",
                 ),
                 _scenario(
-                    "cardinality-coupled",
+                    "cardinality-balanced-d20",
                     seed,
                     protocol,
+                    dimension=20,
+                    decision_space=DecisionSpaceConfig(
+                        kind="fixed_cardinality", cardinality=10
+                    ),
                     rationale="Selecting exactly half the items reveals rankings, not coordinate signs.",
                 ),
                 _scenario(
-                    "knapsack-coupled",
+                    "cardinality-small-margin-d20",
                     seed,
                     protocol,
+                    dimension=20,
+                    decision_space=DecisionSpaceConfig(
+                        kind="fixed_cardinality", cardinality=10
+                    ),
+                    query_space=QuerySpaceConfig(
+                        kind="sharp_boundary",
+                        boundary_epsilon=0.025,
+                        candidate_count=protocol.candidate_count,
+                    ),
+                    rationale="Nearby queries straddle small decision boundaries between tied selections.",
+                ),
+                _scenario(
+                    "knapsack-d20",
+                    seed,
+                    protocol,
+                    dimension=20,
                     decision_space=DecisionSpaceConfig(
                         kind="structured",
                         C_ub=[knapsack_weights],
-                        r_ub=[15],
-                        max_enumeration=65_536,
+                        r_ub=[32],
+                        max_enumeration=4_096,
                     ),
-                    rationale="A resource budget couples items with unequal weights.",
+                    rationale="Twenty unequal-weight items share a strict resource budget.",
                 ),
                 _scenario(
-                    "dag-path-coupled",
+                    "dag-path-d18",
                     seed,
                     protocol,
                     dimension=len(dag_edges),
                     decision_space=DecisionSpaceConfig(
-                        kind="structured", edges=dag_edges, source=0, sink=5
+                        kind="structured", edges=dag_edges, source=0, sink=7
                     ),
                     rationale="Each observation compares complete source-to-sink paths.",
                 ),
                 _scenario(
-                    "continuous-simplex",
+                    "continuous-simplex-d10",
                     seed,
                     protocol,
-                    dimension=8,
+                    dimension=10,
                     decision_space=DecisionSpaceConfig(
                         kind="continuous_polytope",
-                        lower=[0.0] * 8,
-                        upper=[1.0] * 8,
+                        lower=[0.0] * 10,
+                        upper=[1.0] * 10,
                         A=simplex_A,
                         b=[1.0, -1.0],
                     ),
                     rationale="A simplex equality creates a genuinely coupled continuous decision.",
                 ),
                 _scenario(
-                    "sparse-queries",
+                    "cardinality-sparse-queries-d20",
                     seed,
                     protocol,
+                    dimension=20,
+                    decision_space=DecisionSpaceConfig(
+                        kind="fixed_cardinality", cardinality=10
+                    ),
                     query_space=QuerySpaceConfig(
                         kind="sparse",
-                        sparsity=2,
+                        sparsity=3,
                         candidate_count=protocol.candidate_count,
                     ),
-                    rationale="Each interaction probes only two parameter coordinates.",
+                    rationale="Each interaction probes only three of twenty coordinates.",
                 ),
                 _scenario(
-                    "rare-informative",
+                    "cardinality-rare-informative-d20",
                     seed,
                     protocol,
+                    dimension=20,
+                    decision_space=DecisionSpaceConfig(
+                        kind="fixed_cardinality", cardinality=10
+                    ),
                     query_space=QuerySpaceConfig(
                         kind="rare_informative",
-                        rank=2,
+                        rank=3,
                         informative_fraction=0.1,
                         candidate_count=protocol.candidate_count,
                     ),
-                    rationale="Most allowed queries lie in a low-dimensional subspace.",
+                    rationale="Ninety percent of allowed queries lie in a rank-three subspace.",
                 ),
                 _scenario(
-                    "small-margin-boundary",
+                    "cardinality-parameter-noise-mild-d20",
                     seed,
                     protocol,
-                    query_space=QuerySpaceConfig(
-                        kind="sharp_boundary",
-                        boundary_epsilon=0.025,
-                        candidate_count=protocol.candidate_count,
+                    dimension=20,
+                    decision_space=DecisionSpaceConfig(
+                        kind="fixed_cardinality", cardinality=10
                     ),
-                    rationale="Queries are paired across nearby decision boundaries.",
-                ),
-                _scenario(
-                    "partial-feedback",
-                    seed,
-                    protocol,
-                    observation_noise=ObservationNoiseConfig(
-                        kind="partial", mask_probability=0.5
-                    ),
-                    stochastic=True,
-                    rationale="Half of the response coordinates are hidden on average.",
-                ),
-                _scenario(
-                    "behavioral-observation-noise",
-                    seed,
-                    protocol,
-                    observation_noise=ObservationNoiseConfig(
-                        kind="local",
-                        target_decision_change_rate=0.15,
+                    parameter_noise=ParameterNoiseConfig(
+                        kind="isotropic",
+                        target_decision_change_rate=0.05,
                         calibration_trials=64,
                     ),
                     stochastic=True,
-                    rationale="Noise strength is calibrated to alter about 15% of decisions.",
+                    rationale="IID parameter perturbations alter about 5% of MIN decisions.",
                 ),
                 _scenario(
-                    "behavioral-parameter-noise",
+                    "cardinality-parameter-noise-moderate-d20",
                     seed,
                     protocol,
+                    dimension=20,
+                    decision_space=DecisionSpaceConfig(
+                        kind="fixed_cardinality", cardinality=10
+                    ),
                     parameter_noise=ParameterNoiseConfig(
                         kind="isotropic",
                         target_decision_change_rate=0.15,
                         calibration_trials=64,
                     ),
                     stochastic=True,
-                    rationale="Parameter perturbations alter about 15% of expert decisions.",
+                    rationale="IID parameter perturbations alter about 15% of MIN decisions.",
                 ),
                 _scenario(
-                    "gibbs-expert",
+                    "dag-path-parameter-noise-moderate-d18",
                     seed,
                     protocol,
-                    expert=ExpertConfig(kind="gibbs", temperature="medium"),
+                    dimension=len(dag_edges),
+                    decision_space=DecisionSpaceConfig(
+                        kind="structured", edges=dag_edges, source=0, sink=7
+                    ),
+                    parameter_noise=ParameterNoiseConfig(
+                        kind="isotropic",
+                        target_decision_change_rate=0.15,
+                        calibration_trials=64,
+                    ),
                     stochastic=True,
-                    rationale="The expert samples plausible suboptimal coupled decisions.",
+                    rationale="Parameter perturbations alter about 15% of exact MIN paths.",
+                ),
+                _scenario(
+                    "knapsack-parameter-noise-moderate-d20",
+                    seed,
+                    protocol,
+                    dimension=20,
+                    decision_space=DecisionSpaceConfig(
+                        kind="structured",
+                        C_ub=[knapsack_weights],
+                        r_ub=[32],
+                        max_enumeration=4_096,
+                    ),
+                    parameter_noise=ParameterNoiseConfig(
+                        kind="isotropic",
+                        target_decision_change_rate=0.15,
+                        calibration_trials=64,
+                    ),
+                    stochastic=True,
+                    rationale="Parameter perturbations alter about 15% of exact MIN knapsacks.",
                 ),
             ]
         )

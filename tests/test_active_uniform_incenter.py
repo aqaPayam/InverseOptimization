@@ -56,6 +56,8 @@ def test_uniform_incenter_recovers_first_quadrant_incenter_from_public_y():
     assert algorithm.incenter_radius_ == pytest.approx(1 / root_two, abs=2e-4)
     assert algorithm.constraints_.shape == (2, 2)
     assert algorithm.constraint_sources_[0]["exact"] is True
+    assert algorithm.diagnostics()["estimate_status"] == "valid"
+    assert algorithm.diagnostics()["constraint_normals"].shape == (2, 2)
 
 
 def test_uniform_query_selection_is_reproducible_and_uses_candidate_pool():
@@ -87,6 +89,7 @@ def test_partial_y_is_skipped_without_using_hidden_x():
     np.testing.assert_allclose(algorithm.current_estimate(), initial)
     assert algorithm.constraints_.shape == (0, 2)
     assert algorithm.constraint_sources_[0]["skipped_reason"] is not None
+    assert algorithm.diagnostics()["estimate_status"] == "insufficient_information"
 
 
 def test_contradictory_noisy_observations_produce_zero_radius_not_a_crash():
@@ -101,6 +104,7 @@ def test_contradictory_noisy_observations_produce_zero_radius_not_a_crash():
     )
     assert algorithm.incenter_radius_ == pytest.approx(0.0, abs=2e-5)
     assert np.linalg.norm(algorithm.current_estimate()) <= 2e-4
+    assert algorithm.diagnostics()["estimate_status"] == "degenerate_cone"
 
 
 def test_coupled_continuous_space_marks_forward_oracle_cuts_as_approximate():
