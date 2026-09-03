@@ -79,3 +79,32 @@ def test_research_protocol_runs_stochastic_cases_to_horizon_and_uses_independent
     assert all(run.evaluation["metadata"]["independent_from_stopping"] for run in result.runs)
     assert all(len(run.evaluation["normalized_regret_history"]) == len(run.records) for run in result.runs)
     assert result.metadata["composite_score_created"] is False
+
+
+def test_fixed_horizon_ignores_early_success_and_algorithm_stop_requests(monkeypatch):
+    import numpy as np
+    from invoptlab.active import (
+        ActiveAction, ActiveScenarioConfig, CallbackActiveAlgorithm, QuerySpaceConfig,
+    )
+    from invoptlab.active import research
+
+    scenario = ActiveScenarioConfig(
+        dimension=2, horizon=3, true_theta=[1., 1.],
+        query_space=QuerySpaceConfig(candidate_count=8),
+        metadata={"stochastic": False, "research_family": "unit-test-clean"},
+    )
+    monkeypatch.setattr(research, "build_active_research_scenarios", lambda config: [scenario])
+    protocol = tiny_protocol(horizon=3, fixed_horizon=True)
+    result, summary = run_active_research_benchmark({
+        "constant": lambda: CallbackActiveAlgorithm(
+            lambda ctx, history: ActiveAction(ctx.query_candidates[0], np.ones(2), stop_requested=True)
+        ),
+    }, protocol)
+    run = result.runs[0]
+    assert len(run.records) == 3
+    assert not run.stopped_early and not run.metadata["external_stopping_enabled"]
+    assert result.metadata["all_runs_use_fixed_horizon"]
+    assert run.evaluation["first_joint_threshold_step"] == 1
+    times = summary["groups"][0]["threshold_times"]["first_joint_threshold_step"]
+    assert times["mean"] == 1 and times["reached_rate"] == 1
+    assert times["not_reached_count"] == 0

@@ -39,6 +39,8 @@ class ActiveResearchConfig:
     consecutive_validation_successes: int = 3
     zero_regret_tolerance: float = 1e-8
     learning_regret_threshold: float = 0.01
+    learning_angular_threshold_degrees: float = 5.0
+    fixed_horizon: bool = False
 
     def __post_init__(self) -> None:
         if not self.seeds:
@@ -53,6 +55,8 @@ class ActiveResearchConfig:
             raise ValidationError("consecutive validation successes must be positive")
         if not 0 <= self.learning_regret_threshold <= 1:
             raise ValidationError("learning regret threshold must lie in [0, 1]")
+        if not 0 <= self.learning_angular_threshold_degrees <= 180:
+            raise ValidationError("learning angular threshold must lie in [0, 180]")
 
     def to_dict(self) -> dict[str, Any]:
         return _jsonable(asdict(self))
@@ -356,6 +360,24 @@ def summarize_active_research(result: ActiveBenchmarkResult) -> dict[str, Any]:
                     1.0 - len(valid_evaluated) / len(evaluated) if evaluated else None
                 ),
                 "failure_statuses": failed_statuses,
+                "threshold_times": {
+                    key: {
+                        **_mean_std([run.evaluation.get(key) for run in evaluated]),
+                        "reached_rate": (
+                            sum(run.evaluation.get(key) is not None for run in evaluated)
+                            / len(evaluated) if evaluated else None
+                        ),
+                        "not_reached_count": sum(
+                            run.evaluation.get(key) is None for run in evaluated
+                        ),
+                    }
+                    for key in (
+                        "first_angular_threshold_step", "stable_angular_threshold_step",
+                        "first_threshold_step", "stable_threshold_step",
+                        "first_joint_threshold_step", "stable_joint_threshold_step",
+                        "first_zero_regret_step", "stable_zero_regret_step",
+                    )
+                },
                 "final_normalized_regret": _mean_std(
                     [run.evaluation["final_normalized_regret"] for run in valid_evaluated]
                 ),
@@ -393,8 +415,9 @@ def run_active_research_benchmark(
     *,
     fail_fast: bool = True,
     progress: Callable[[int, ActiveScenarioConfig, str], None] | None = None,
+    run_completed: Callable[[ActiveRunResult], None] | None = None,
 ) -> tuple[ActiveBenchmarkResult, dict[str, Any]]:
-    """Run the protocol with robust clean stopping and fixed-horizon stochastic runs."""
+    """Run with clean stopping, or fixed T for ALL cases when fixed_horizon=True."""
 
     protocol = config or ActiveResearchConfig()
     all_runs: list[ActiveRunResult] = []
@@ -402,7 +425,7 @@ def run_active_research_benchmark(
     for scenario in build_active_research_scenarios(protocol):
         stochastic = bool(scenario.metadata.get("stochastic", False))
         stop_config = RegretStoppingConfig(
-            enabled=not stochastic,
+            enabled=not stochastic and not protocol.fixed_horizon,
             test_query_count=protocol.validation_query_count,
             seed=protocol.validation_seed,
             zero_regret_tolerance=protocol.zero_regret_tolerance,
@@ -433,8 +456,11 @@ def run_active_research_benchmark(
                     zero_regret_tolerance=protocol.zero_regret_tolerance,
                     query_distribution="scenario",
                     learning_regret_threshold=protocol.learning_regret_threshold,
+                    learning_angular_threshold_degrees=protocol.learning_angular_threshold_degrees,
                 ),
             )
+            if run_completed is not None:
+                run_completed(run)
         all_runs.extend(batch.runs)
 
     result = ActiveBenchmarkResult(
@@ -447,6 +473,7 @@ def run_active_research_benchmark(
             "run_count": len(all_runs),
             "validation_and_test_are_independent": True,
             "stochastic_runs_use_fixed_horizon": True,
+            "all_runs_use_fixed_horizon": protocol.fixed_horizon,
             "objective": "(s * theta)^T x",
             "composite_score_created": False,
         },

@@ -641,6 +641,11 @@ class StructuredBinaryDecisionSpace(DecisionSpace):
             raise ValidationError("A_eq and b_eq have incompatible shapes")
         if self.C_ub.shape != (self.r_ub.size, dimension):
             raise ValidationError("C_ub and r_ub have incompatible shapes")
+        # Small structured problems can be solved exactly by a cached feasible
+        # set, avoiding a MILP launch at every inverse-loss evaluation. The cap
+        # prevents accidental exponential work in larger benchmark scenarios.
+        self._min_decisions = (np.asarray(self.enumerate_decisions())
+                               if 2**dimension <= min(max_enumeration, 4096) else None)
         self.min_decision(np.zeros(dimension), np.random.default_rng(0))
 
     def _solve(self, cost: Array, extra_constraints: list | None = None) -> Array:
@@ -668,7 +673,19 @@ class StructuredBinaryDecisionSpace(DecisionSpace):
         cost = _as_vector(cost, self.dimension, "cost")
         if tie_breaking == "random":
             cost = cost + rng.uniform(-1e-11, 1e-11, self.dimension)
+        if self._min_decisions is not None:
+            return self._min_decisions[np.argmin(self._min_decisions @ cost)].copy()
         return self._solve(cost)
+
+    def min_decision_batch(self, costs: Array, rng: np.random.Generator) -> Array:
+        costs = np.asarray(costs, dtype=float)
+        if costs.ndim != 2 or costs.shape[1] != self.dimension or not np.all(np.isfinite(costs)):
+            raise ValidationError("cost batch must be a finite (N, d) matrix")
+        if not len(costs):
+            return np.empty_like(costs)
+        if self._min_decisions is not None:
+            return self._min_decisions[np.argmin(costs @ self._min_decisions.T, axis=1)].copy()
+        return np.vstack([self.min_decision(cost, rng) for cost in costs])
 
     def sample_gibbs(self, cost, temperature, rng, *, burn_in=40, steps=20) -> Array:
         del burn_in, steps

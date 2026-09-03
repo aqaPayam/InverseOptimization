@@ -1,0 +1,79 @@
+{
+  "name": "inverse-optimization-experiment",
+  "theta": [
+    -0.9539022972080096,
+    0.3001173226944463
+  ],
+  "metrics": {
+    "observed_decision_accuracy": 1.0,
+    "mean_observed_decision_distance": 0.0,
+    "mean_surrogate_suboptimality": 0.0,
+    "max_surrogate_suboptimality": 0.0,
+    "clean_decision_accuracy": 1.0,
+    "mean_clean_decision_distance": 0.0,
+    "mean_true_regret": 0.0,
+    "cumulative_true_regret": 0.0,
+    "max_true_regret": 0.0,
+    "true_regret_cvar_20": 0.0,
+    "parameter_angular_error": 0.004901345295997296,
+    "parameter_cosine_similarity": 0.9999879884311911,
+    "parameter_l1_error_normalized": 0.006154211539081245,
+    "parameter_l2_error_normalized": 0.004901340389942958,
+    "parameter_linf_error_normalized": 0.004671780937749781,
+    "parameter_sign_accuracy": 1.0,
+    "constraint_count": 64.0,
+    "constraint_violation_rate": 0.0,
+    "mean_constraint_violation": 0.0,
+    "max_constraint_violation": 0.0,
+    "minimum_margin": 0.014626407219191256,
+    "median_margin": 0.7055505896453103,
+    "mean_margin": 0.6084908385578791,
+    "fit_time_seconds": 3.422553500000504
+  },
+  "dataset": {
+    "name": "random-choice-data",
+    "size": 16,
+    "fingerprint": "3f5f34cff91a4d85da774394ac484e5bb07ffca04585703af0c413b6091b53d0",
+    "weight_sum": 16.0,
+    "timestamped_fraction": 1.0,
+    "ground_truth_theta_fraction": 1.0,
+    "clean_decision_fraction": 1.0,
+    "experts": [],
+    "noise_types": {
+      "none": 16
+    },
+    "validation_warnings": []
+  },
+  "diagnostics": {
+    "warnings": [],
+    "estimator": "IncenterEstimator",
+    "problem_capabilities": [
+      "differentiable_in_theta",
+      "finite_feasible_set",
+      "linear_in_theta",
+      "supports_enumeration",
+      "supports_separation"
+    ],
+    "python": "3.13.0",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "solver_result": {
+      "x": [
+        -0.9539022973684541,
+        0.3001173227449255,
+        0.014626407221658482
+      ],
+      "fun": -0.014626407221658482,
+      "jac": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "nit": 7,
+      "nfev": 28,
+      "njev": 7,
+      "status": 0,
+      "message": "Optimization terminated successfully",
+      "success": true
+    }
+  }
+}

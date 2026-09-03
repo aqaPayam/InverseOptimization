@@ -2,6 +2,7 @@ import copy
 
 import numpy as np
 import pytest
+from invoptlab.exceptions import ValidationError
 
 from invoptlab.active import (
     ActiveBenchmarkResult,
@@ -151,3 +152,47 @@ def test_benchmark_evaluation_summarizes_algorithms_without_a_composite_score():
     assert summary["algorithms"]["algorithm-a"]["mean_final_normalized_regret"] == 0
     assert benchmark.metadata["evaluation_applied"] is True
     assert benchmark.metadata["scoring_applied"] is False
+
+
+def test_first_angular_and_regret_times_are_distinct_and_joint_is_simultaneous():
+    run = make_run()
+    run.records[0].theta_hat_after = np.array([1., 0.1])  # Correct signs, wrong direction.
+    result = evaluate_active_run(run, ActiveEvaluationConfig(
+        test_query_count=12, evaluate_trajectory=True, learning_angular_threshold_degrees=5.,
+    ))
+    assert result.first_threshold_step == 1
+    assert result.stable_threshold_step == 1
+    assert result.first_angular_threshold_step == 2
+    assert result.stable_angular_threshold_step == 2
+    assert result.first_joint_threshold_step == 2
+    assert result.stable_joint_threshold_step == 2
+
+
+def test_invalid_later_estimate_breaks_stable_recovery_without_erasing_first_hit():
+    run = make_run()
+    run.records[0].theta_hat_after = run.true_theta.copy()
+    run.records[1].theta_hat_after = np.zeros(2)
+    result = evaluate_active_run(run, ActiveEvaluationConfig(evaluate_trajectory=True))
+    assert result.first_joint_threshold_step == 1
+    assert result.first_angular_threshold_step == 1
+    assert result.stable_joint_threshold_step is None
+    assert result.stable_angular_threshold_step is None
+    assert result.stable_threshold_step is None
+
+
+def test_no_recovery_is_none_not_the_horizon_and_final_only_does_not_invent_times():
+    run = make_run()
+    for record in run.records:
+        record.theta_hat_after = -run.true_theta
+    result = evaluate_active_run(run, ActiveEvaluationConfig(evaluate_trajectory=True))
+    assert result.first_joint_threshold_step is None
+    assert result.first_angular_threshold_step is None
+    final_only = evaluate_active_run(make_run(), ActiveEvaluationConfig())
+    assert final_only.first_joint_threshold_step is None
+    assert final_only.first_angular_threshold_step is None
+
+
+@pytest.mark.parametrize("threshold", [-1., 181., float("nan")])
+def test_angular_recovery_threshold_validation(threshold):
+    with pytest.raises(ValidationError):
+        ActiveEvaluationConfig(learning_angular_threshold_degrees=threshold)

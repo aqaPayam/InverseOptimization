@@ -2,6 +2,52 @@
 
 All notable changes to this project will be documented here.
 
+## Pedro versus Score base: eight-scenario experiment
+
+- Added unambiguous `PedroAlgorithm` (uniform query, incenter) and `ScoreBaseAlgorithm`
+  (disagreement query, mean of parameter samples) names without relabeling historical controls.
+- Added eight predeclared 4D/6D scenarios, five paired seeds, full T=20 trajectories,
+  and separate ordinary/balanced held-out evaluations for imbalanced candidate pools.
+- Added source/configuration-validated per-run checkpoints and a standalone resumable runner.
+- Added exact cached enumeration for small structured binary MIN problems (at most 4096
+  possible binary states, also honoring the user enumeration limit); larger spaces retain MILP.
+  Small-space ties now consistently use lexicographic enumeration, including batch solves.
+- Added a self-contained results notebook with full per-step parameter/query/decision outputs,
+  five-seed plots, failure counts, recovery times and explicitly conditional valid-only means.
+
+## Corrected diffusion sampling and controlled query comparison
+
+- Replaced the default projected Euler sampler with target-invariant Gaussian-augmented
+  Gibbs and full-chord random-direction slice transitions. This is a documented change
+  from v2, retaining the same full-sum loss and bounded Lebesgue target, not a new likelihood.
+- Preserved the original backend as `sampler="projected_langevin"` and explicitly pinned
+  notebooks 11–13 to legacy settings without recomputing or relabeling their saved results.
+- Added ensemble-mean estimates (new default, 16 samples), configurable first-sample
+  estimates, uniform query ablation, independent query RNGs and randomized score ties.
+- Added a conditional-radius slice refresh with the polar Jacobian to improve
+  magnitude mixing, validated against uniform radial moments and coupled 2D integration.
+- Added exact batched binary/cardinality MIN solves, with generic solver fallback.
+- Added explicit candidate pools and separately supplied held-out query designs, with
+  three small threshold/rare-information/coordinate-coverage scenarios, all noisy MIN.
+- Fixed invalid-estimate stopping: failed/zero estimates never count as zero-regret success.
+- Added quadrature and stationary-moment checks, solver-family integration tests, matched
+  estimator/RNG tests, and an executed 18-run, T=12, d=2/4 validation notebook (14).
+
+## Nested Langevin active algorithm
+
+- Added the v2 Gaussian-smoothed nested parameter sampler with bounded box/ball support,
+  projected inner states, unprojected outer states, and final latent-state extraction.
+- Added first-retained-sample estimates and full-ensemble maximum-disagreement queries.
+- Added configurable sampling schedules, warm starts, reproducible parallel trajectories,
+  forward-solve profiling and inner/outer diagnostics without exposing latent expert data.
+- Registered `nested-langevin` in both active CLI workflows, with a complete input guide.
+- Included algorithm initialization in benchmark runtime (important for t=0 sampling).
+- Added mathematical and integration sanity tests and an executed two-example 2D notebook.
+- Added the `diffusion` CLI alias and an optional all-scenario fixed-horizon research mode.
+- Added first/sustained angular and joint angle-regret recovery times, with not-reached counts.
+- Added incremental run checkpoints and a twelve-family Random + incenter vs Diffusion notebook,
+  preserving all parameter-noise cases and both full T=8 trajectories.
+
 ## Active research protocol
 
 - Added a compact twelve-family hard benchmark separating its easy sanity control from coupled,

@@ -7,6 +7,13 @@ reproducible reports.
 
 ## Documentation
 
+- [Pedro versus Score base: eight-scenario results](notebooks/15_pedro_vs_score_base_eight_scenarios.ipynb):
+  the actual incenter Pedro algorithm versus the sample-mean Score base model, five paired
+  seeds, T=20, explicit failures, every-step tables, full parameter/query outputs and plots.
+- [Pedro/Score base comparison protocol](docs/pedro_score_comparison.md): exact algorithm
+  definitions, eight scenario designs, noise, test distributions and reproducibility.
+- [Saved experiment outputs](outputs/README.md): versioned raw trajectories, reports and
+  overview plots, including all 80 runs of the current comparison and historical snapshots.
 - [Complete input reference](docs/input_reference.md): every model, data, noise, estimator,
   statistical, and plotting input in one place.
 - [User guide](docs/user_guide.md): the core workflow and extension rules.
@@ -16,6 +23,20 @@ reproducible reports.
   execution, and raw trajectory format.
 - [Hard active research protocol](docs/active_research_protocol.md): twelve interpretable coupled
   and information-limited families, behavioral noise, fair stopping, and multi-seed evaluation.
+- [Corrected diffusion and legacy v2 algorithm](docs/active_nested_langevin.md): the Gaussian-augmented
+  sampler, configurable estimate and query policies, and all configuration inputs.
+- [Corrected diffusion validation and query comparison](notebooks/14_corrected_diffusion_validation.ipynb):
+  numerical reference checks, three small noisy query-sensitive scenarios, a matched-estimator
+  comparison of uniform versus disagreement queries, and plots at every step. **Its uniform
+  control is not Pedro's incenter algorithm; use notebook 15 for Pedro-versus-Score-base results.**
+- [Executed nested Langevin sanity examples](notebooks/11_active_nested_langevin_sanity.ipynb):
+  two tiny 2D examples with loss surfaces, samples and query scores at every step.
+- [Random vs Diffusion comparison](notebooks/12_random_vs_diffusion_fixed_horizon.ipynb):
+  historical **legacy v2** results on twelve scenarios (including parameter noise), equal fixed query budgets,
+  first/sustained recovery times, failures, and full trajectory plots.
+- [Diffusion accuracy audit and query designs](notebooks/13_diffusion_audit_and_query_designs.ipynb):
+  saved-score verification, a numerical inner-sampler bias check, and three small candidate-pool
+  designs where query selection has a clear information advantage.
 - [Executed feature tour](notebooks/06_complete_feature_tour.ipynb): a small end-to-end experiment
   whose tables and figures render directly on GitHub.
 - [Loss over theta through time](notebooks/07_loss_landscape_over_time.ipynb): SL and ASL evaluated

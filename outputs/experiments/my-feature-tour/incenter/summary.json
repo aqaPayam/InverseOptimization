@@ -1,0 +1,79 @@
+{
+  "name": "clean-incenter",
+  "theta": [
+    0.6155304345915986,
+    0.7881131163046824
+  ],
+  "metrics": {
+    "observed_decision_accuracy": 1.0,
+    "mean_observed_decision_distance": 0.0,
+    "mean_surrogate_suboptimality": 0.0,
+    "max_surrogate_suboptimality": 0.0,
+    "clean_decision_accuracy": 1.0,
+    "mean_clean_decision_distance": 0.0,
+    "mean_true_regret": 0.0,
+    "cumulative_true_regret": 0.0,
+    "max_true_regret": 0.0,
+    "true_regret_cvar_20": 0.0,
+    "parameter_angular_error": 0.04227766100302987,
+    "parameter_cosine_similarity": 0.9991064327988329,
+    "parameter_l1_error_normalized": 0.059170875353669494,
+    "parameter_l2_error_normalized": 0.04227451244348673,
+    "parameter_linf_error_normalized": 0.03385967195181128,
+    "parameter_sign_accuracy": 1.0,
+    "constraint_count": 24.0,
+    "constraint_violation_rate": 0.0,
+    "mean_constraint_violation": 0.0,
+    "max_constraint_violation": 0.0,
+    "minimum_margin": 0.14562446042262642,
+    "median_margin": 0.7272419847387253,
+    "mean_margin": 0.660453469093427,
+    "fit_time_seconds": 0.7979905999964103
+  },
+  "dataset": {
+    "name": "random-choice-data",
+    "size": 8,
+    "fingerprint": "88420afef641e088939c498798f6ee28ae179a70d2ae303734867fd2b94db951",
+    "weight_sum": 8.0,
+    "timestamped_fraction": 1.0,
+    "ground_truth_theta_fraction": 1.0,
+    "clean_decision_fraction": 1.0,
+    "experts": [],
+    "noise_types": {
+      "none": 8
+    },
+    "validation_warnings": []
+  },
+  "diagnostics": {
+    "warnings": [],
+    "estimator": "IncenterEstimator",
+    "problem_capabilities": [
+      "differentiable_in_theta",
+      "finite_feasible_set",
+      "linear_in_theta",
+      "supports_enumeration",
+      "supports_separation"
+    ],
+    "python": "3.13.0",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "solver_result": {
+      "x": [
+        0.6155304346650596,
+        0.7881131163987405,
+        0.14562446044003005
+      ],
+      "fun": -0.14562446044003005,
+      "jac": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "nit": 5,
+      "nfev": 20,
+      "njev": 5,
+      "status": 0,
+      "message": "Optimization terminated successfully",
+      "success": true
+    }
+  }
+}

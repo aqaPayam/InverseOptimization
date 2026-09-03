@@ -173,3 +173,24 @@ Additional experiment inputs include:
 The default examples use low resolutions and small datasets. Increase them only when a research
 run needs greater numerical or visual detail.
 
+## Active diffusion and explicit query inputs
+
+See [all corrected and legacy sampler inputs](active_nested_langevin.md#all-sampler-inputs).
+`NestedLangevinConfig` now defaults to the corrected `gaussian_gibbs` backend, 16 samples,
+an ensemble-mean estimate and disagreement queries. `query_policy="uniform"` changes
+only query selection, for a matched-estimator comparison.
+
+`QuerySpaceConfig(kind="explicit", candidates=my_matrix)` accepts a finite nonzero N-by-d
+candidate matrix. Rows are normalized to unit length; `candidate_count` is inferred.
+Duplicates count as repeated rows in the uniform candidate distribution. With repeats
+disabled, selecting one row removes all numerically identical rows.
+
+`evaluate_active_run(run, config, test_queries=my_test_matrix)` accepts a separate finite,
+nonempty, unit-norm N-by-d held-out design, records it in evaluation output, and uses its
+actual row count. It is not passed to the algorithm. Without this override, `scenario`
+evaluation on an explicit pool samples rows uniformly WITH replacement (not unseen queries).
+
+`build_query_sensitive_scenarios(seed=0, horizon=12, parameter_sigma=0.02)` returns three
+designs, each containing its scenario, separate test queries, candidate-group labels and
+description. Evaluation weights the fresh informative ratios / coordinate pairs evenly,
+which differs intentionally from the imbalanced training pool.

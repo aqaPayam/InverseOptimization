@@ -56,6 +56,28 @@ class PublicDecisionProblem:
     def enumerate_decisions(self) -> tuple[Array, ...]:
         return tuple(item.copy() for item in self._space.enumerate_decisions())
 
+    def minimize_batch(self, costs: Array, rng: np.random.Generator) -> Array:
+        """Exact public MIN for multiple costs, with the same deterministic ties.
+
+        Vectorized for binary/cardinality sets, ordinary public solver otherwise.
+        This changes neither the feasible set nor the optimizer's accuracy.
+        """
+        costs = np.asarray(costs, dtype=float)
+        if costs.ndim != 2 or costs.shape[1] != self.dimension or not np.all(np.isfinite(costs)):
+            raise ValidationError("cost batch must be finite with shape (N, dimension)")
+        if isinstance(self._space, IndependentBinaryDecisionSpace):
+            return (costs < 0).astype(float)
+        if isinstance(self._space, FixedCardinalityDecisionSpace):
+            order = np.argsort(costs, axis=1, kind="stable")[:, :self._space.cardinality]
+            decisions = np.zeros_like(costs)
+            np.put_along_axis(decisions, order, 1., axis=1)
+            return decisions
+        if isinstance(self._space, StructuredBinaryDecisionSpace):
+            return self._space.min_decision_batch(costs, rng)
+        if not len(costs):
+            return np.empty_like(costs)
+        return np.vstack([self.minimize(cost, rng) for cost in costs])
+
     def description(self) -> dict[str, Any]:
         value: dict[str, Any] = {
             "kind": self.kind,

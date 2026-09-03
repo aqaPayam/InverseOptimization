@@ -18,7 +18,7 @@ def normalize_rows(values: Array) -> Array:
     if matrix.ndim != 2:
         raise ValidationError("query candidates must be a matrix")
     norms = np.linalg.norm(matrix, axis=1)
-    if np.any(norms <= 1e-15):
+    if not np.all(np.isfinite(matrix)) or not np.all(np.isfinite(norms)) or np.any(norms <= 1e-15):
         raise ValidationError("query candidates cannot contain zero vectors")
     return matrix / norms[:, None]
 
@@ -287,7 +287,12 @@ def make_query_space(
 ) -> QuerySpace:
     count = config.candidate_count
     metadata: dict[str, Any] = {}
-    if config.kind == QuerySpaceKind.BALANCED:
+    if config.kind == QuerySpaceKind.EXPLICIT:
+        candidates = np.asarray(config.candidates, dtype=float).copy()
+        if candidates.shape[1] != dimension:
+            raise ValidationError("explicit query dimension must match the scenario")
+        metadata = {"construction": "user-supplied, independent of hidden theta"}
+    elif config.kind == QuerySpaceKind.BALANCED:
         candidates = balanced_queries(count, dimension, rng)
     elif config.kind == QuerySpaceKind.CLUSTERED:
         candidates, metadata = clustered_queries(

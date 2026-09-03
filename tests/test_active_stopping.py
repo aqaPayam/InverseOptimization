@@ -137,3 +137,16 @@ def test_stopping_test_queries_are_reproducible_and_hidden_from_algorithm():
     right.reset(scenario, environment.theta_true, environment.decision_space)
     np.testing.assert_allclose(left.test_queries, right.test_queries)
     assert run.metadata["external_stopping_enabled"] is True
+
+
+def test_invalid_estimates_never_pass_stopping_even_if_decisions_are_optimal():
+    class FailedAlgorithm(ConstantEstimateAlgorithm):
+        def diagnostics(self):
+            return {"estimate_status": "degenerate_cone", "failure_reason": "no valid direction"}
+
+    for algorithm in (FailedAlgorithm([0.8, -0.6]), ConstantEstimateAlgorithm([0., 0.])):
+        run = ActiveBenchmarkRunner().run(make_scenario(horizon=3), algorithm)
+        assert len(run.records) == 3
+        assert not run.metadata["stopping_criterion_met"]
+        assert all(r.stopping_diagnostics["mean_normalized_regret"] is None for r in run.records)
+        assert all(r.stopping_diagnostics["consecutive_successes"] == 0 for r in run.records)

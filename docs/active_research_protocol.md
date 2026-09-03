@@ -36,6 +36,11 @@ calculation. Clean deterministic scenarios stop only after zero validation regre
 consecutive interactions. Stochastic scenarios always run to the fixed horizon, which prevents a
 lucky response from ending the experiment.
 
+Set `fixed_horizon=True` to disable early stopping for **all** algorithms and
+scenarios, including clean cases. Each execution then collects exactly T queries
+unless it encounters an execution error. Evaluation thresholds are retrospective
+measurements, not stopping commands or feedback to the algorithms.
+
 Validation and final testing use different random seeds. Both draw fresh held-out queries from the
 scenario's query family. The final report therefore does not reuse the set that decided when a run
 ended.
@@ -85,6 +90,8 @@ JSON alongside `manifest.json` and `research-summary.json`.
 - `consecutive_validation_successes`;
 - `zero_regret_tolerance`;
 - `learning_regret_threshold`.
+- `learning_angular_threshold_degrees` (default 5 degrees);
+- `fixed_horizon` (default false; true forces the full budget for every scenario).
 
 Use `build_active_research_scenarios(config)` to inspect or modify scenarios before running. Use
 `run_active_research_benchmark(algorithms, config)` to obtain the complete benchmark result and
@@ -99,3 +106,52 @@ families are the meaningful comparisons. Angular error and behavioral regret can
 disagree because some parameter directions may not affect decisions; both should be reported. The
 hidden true-parameter validation rule is an oracle sample-complexity measurement, not a deployable
 stopping detector available to an algorithm.
+
+## Fixed-horizon Random vs Diffusion comparison
+
+[Notebook 12](../notebooks/12_random_vs_diffusion_fixed_horizon.ipynb) compares
+**uniform Random S + incenter estimation** with **Diffusion**, the new nested
+Langevin sampler plus maximum-disagreement query selection. Both run to T=8 on
+all 12 existing families, including all four parameter-noise cases. It uses seed
+0, 16 candidates, and 32 hidden scenario-distribution test queries. Observation
+noise remains disabled; parameter noise is retained exactly as specified by each
+scenario. The same seeds give shared candidate pools, true parameters, hidden
+queries and noise streams, not identical chosen queries or responses.
+
+The notebook uses a deliberately small Diffusion budget: four samples, three tau
+levels, 32 inner steps (16 burn-in, thinning 4), and four outer steps per level.
+Its source code, configuration and outputs are saved; no larger or tuned run is
+implied. The earlier sanity notebook uses a larger per-round sampling budget.
+
+For every run the evaluator reports first and sustained-through-T threshold times:
+
+- `first_angular_threshold_step`, `stable_angular_threshold_step`: angle <= 5 degrees;
+- `first_threshold_step`, `stable_threshold_step`: mean normalized regret <= 0.01;
+- `first_joint_threshold_step`, `stable_joint_threshold_step`: both simultaneously;
+- `first_zero_regret_step`, `stable_zero_regret_step`: every hidden query has zero regret.
+
+All thresholds are configurable. A sustained time means the threshold holds at
+EVERY remaining measured step; a hit at the final step alone is not proof of
+future stability. Times start after the first observation. `None` means not
+reached by T, never an invented time of T or T+1. Invalid estimates do not count
+as hits and break sustained success; a later failure does not erase an earlier
+first hit. Group summaries include reached rates and not-reached counts rather
+than treating non-recovery as a successful late finish. Final-only evaluations
+do not invent threshold times from an unmeasured trajectory.
+
+The CLI supports `--algorithm diffusion` as an alias for the new sampler and
+`--fixed-horizon --angular-threshold 5` in `active-research`. Use `uniform-incenter`
+for the comparison baseline; the older `random` CLI option is a meaningless
+random-estimate plumbing test, NOT the Random + incenter research baseline.
+For the notebook's small sampler configuration, use its Python factories rather
+than the default CLI sampler settings.
+
+The optional `run_completed` callback in `run_active_research_benchmark` receives
+each successfully executed, evaluated run for incremental checkpointing. Stored
+algorithm failure statuses are distinct from execution errors.
+
+Report final regret, angle, failures, query-based threshold times and runtime
+together. These two methods change BOTH estimation and query selection; their
+comparison alone cannot isolate the effect of active queries. A one-seed,
+small-budget comparison is exploratory and must not be presented as a universal
+ranking or a claim of exact recovery under noise.

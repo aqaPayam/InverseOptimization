@@ -1,0 +1,4262 @@
+{
+  "scenario": {
+    "name": "parameter-anisotropic",
+    "dimension": 5,
+    "horizon": 30,
+    "seed": 0,
+    "true_theta": null,
+    "normalize_true_theta": true,
+    "expert": {
+      "kind": "min",
+      "temperature": "medium",
+      "reference_gap": null,
+      "tie_breaking": "lexicographic",
+      "gibbs_burn_in": 40,
+      "gibbs_steps": 20
+    },
+    "decision_space": {
+      "kind": "independent_binary",
+      "cardinality": null,
+      "lower": null,
+      "upper": null,
+      "A": null,
+      "b": null,
+      "A_eq": null,
+      "b_eq": null,
+      "C_ub": null,
+      "r_ub": null,
+      "edges": null,
+      "source": null,
+      "sink": null,
+      "max_enumeration": 65536,
+      "mcmc_burn_in": 40,
+      "mcmc_steps": 20
+    },
+    "query_space": {
+      "kind": "dense",
+      "candidate_count": 32,
+      "clusters": 4,
+      "cluster_radius": 0.12,
+      "boundary_epsilon": 0.08,
+      "rank": null,
+      "informative_fraction": 0.08,
+      "sparsity": null,
+      "construction_attempts": 2000,
+      "allow_repeated_queries": true
+    },
+    "observation_noise": {
+      "kind": "clean",
+      "sigma": 0.1,
+      "outlier_probability": 0.05,
+      "bias": null,
+      "confusion_matrix": null,
+      "mask_probability": 0.25,
+      "query_profile": "first_coordinate",
+      "minimum_scale": 0.02,
+      "maximum_scale": 0.2,
+      "distance": "euclidean",
+      "target_decision_change_rate": null,
+      "calibration_trials": 96
+    },
+    "parameter_noise": {
+      "kind": "anisotropic",
+      "sigma": 0.1,
+      "covariance": null,
+      "query_profile": "first_coordinate",
+      "minimum_scale": 0.02,
+      "maximum_scale": 0.2,
+      "target_decision_change_rate": null,
+      "calibration_trials": 96
+    },
+    "metadata": {
+      "category": "Parameter"
+    }
+  },
+  "algorithm_name": "uniform-random-sequential-incenter",
+  "seed": 0,
+  "true_theta": [
+    0.7080925840086401,
+    -0.43943802479788946,
+    0.36096697185474574,
+    0.0028825343216454372,
+    0.41856140655774277
+  ],
+  "runtime_seconds": 0.6327100000344217,
+  "stopped_early": false,
+  "error": null,
+  "metadata": {
+    "algorithm_class": "UniformRandomIncenterAlgorithm",
+    "environment_class": "ActiveInverseEnvironment",
+    "scoring_applied": false,
+    "evaluation_applied": true,
+    "external_stopping_enabled": true,
+    "stopping_rule": {
+      "enabled": true,
+      "test_query_count": 100,
+      "seed": 501,
+      "zero_regret_tolerance": 1e-08,
+      "minimum_steps": 1,
+      "consecutive_successes": 1,
+      "query_distribution": "uniform_unit_sphere"
+    },
+    "stopping_time": 30,
+    "stopping_criterion_met": false,
+    "stopping_reason": null,
+    "final_stopping_diagnostics": {
+      "step": 30,
+      "should_stop": false,
+      "mean_normalized_regret": 0.5087046867912363,
+      "maximum_normalized_regret": 1.0,
+      "zero_regret_rate": 0.02,
+      "consecutive_successes": 0,
+      "reason": null
+    },
+    "noise_calibration": {},
+    "algorithm_failed": true,
+    "final_estimate_status": "degenerate_cone",
+    "algorithm_failure_reason": "the consistency cone has no valid nonzero parameter direction"
+  },
+  "evaluation": {
+    "final_angular_error_degrees": null,
+    "final_normalized_regret": null,
+    "final_zero_regret_rate": null,
+    "final_estimate_valid": false,
+    "final_status": "degenerate_cone",
+    "final_failure_reason": "the consistency cone has no valid nonzero parameter direction",
+    "test_query_count": 100,
+    "angular_error_history_degrees": [],
+    "normalized_regret_history": [],
+    "zero_regret_rate_history": [],
+    "maximum_normalized_regret_history": [],
+    "valid_estimate_history": [],
+    "estimate_status_history": [],
+    "mean_angular_error_degrees": null,
+    "mean_normalized_regret": null,
+    "first_threshold_step": null,
+    "stable_threshold_step": null,
+    "first_zero_regret_step": null,
+    "stable_zero_regret_step": null,
+    "metadata": {
+      "test_query_distribution": "uniform_unit_sphere",
+      "test_queries_hidden_from_algorithm": true,
+      "clean_true_parameter_evaluation": true,
+      "scenario_seed": 0,
+      "evaluation_seed": 501,
+      "trajectory_evaluated": false,
+      "learning_regret_threshold": 0.01,
+      "independent_from_stopping": false
+    }
+  },
+  "records": [
+    {
+      "step": 1,
+      "query": [
+        -0.3318723474768846,
+        -0.420976622906941,
+        0.25599669993904994,
+        0.0758523819676922,
+        0.8008442630850225
+      ],
+      "theta_hat_before": [
+        0.4472135954999579,
+        0.4472135954999579,
+        0.4472135954999579,
+        0.4472135954999579,
+        0.4472135954999579
+      ],
+      "theta_hat_after": [
+        0.4472135955116953,
+        -0.4472135955116954,
+        0.44721359551169526,
+        -0.44721359551169515,
+        0.44721359551169493
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.7705662631128104,
+        -0.41793645032829607,
+        0.23905700087354761,
+        -0.13517835578072127,
+        0.3951396210216181
+      ],
+      "true_decision": [
+        1,
+        0,
+        0,
+        1,
+        0
+      ],
+      "observed_decision": [
+        1,
+        0,
+        0,
+        1,
+        0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.26598323490218295,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 1,
+        "should_stop": false,
+        "mean_normalized_regret": 0.001801721130197195,
+        "maximum_normalized_regret": 0.0061044782152804115,
+        "zero_regret_rate": 0.0,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 13,
+        "constraint_count": 0,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 5,
+        "incenter_radius": 0.44721359551169526,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "valid",
+        "failure_reason": null
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          0.09618311088476618,
+          0.003218396324661384,
+          -0.11145210895377516,
+          -0.14397444456294684,
+          -0.006135884587345847
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 2,
+      "query": [
+        0.33110427995488817,
+        -0.5602033050664533,
+        -0.16734941650260274,
+        0.7404612950541833,
+        0.015920304993855154
+      ],
+      "theta_hat_before": [
+        0.4472135955116953,
+        -0.4472135955116954,
+        0.44721359551169526,
+        -0.44721359551169515,
+        0.44721359551169493
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.7133003930739729,
+        -0.36907002221923335,
+        0.4254780069094087,
+        0.13583031181999486,
+        0.3943456097979164
+      ],
+      "true_decision": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "observed_decision": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.07120349619097992,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 2,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 18,
+        "constraint_count": 5,
+        "incenter_radius": 0.44721359551169526,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          -0.011939094326982196,
+          0.07924001229215202,
+          0.05428304366300001,
+          0.12968257638933514,
+          -0.03369540190240645
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 3,
+      "query": [
+        -0.11060156951920329,
+        0.49576462728639686,
+        0.4715843122967333,
+        0.3171655882437555,
+        0.6473012847052589
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.6359690128066947,
+        -0.5778772437027024,
+        0.31203652996052517,
+        -0.06757185129273356,
+        0.3995854787693272
+      ],
+      "true_decision": [
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      "observed_decision": [
+        1,
+        1,
+        0,
+        1,
+        0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.37826173328753876,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 3,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 11,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          -0.07265197869799483,
+          -0.13795907810986868,
+          -0.04918970364778422,
+          -0.07039824219854267,
+          -0.01930793132639051
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 4,
+      "query": [
+        0.0690798437362351,
+        -0.7157610748208604,
+        -0.41549970316107293,
+        -0.4345242832015556,
+        -0.34851499672452935
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.6376757780295614,
+        -0.3828846147490475,
+        0.34672275853565904,
+        0.2218456354971008,
+        0.5266277780626252
+      ],
+      "true_decision": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "observed_decision": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "observation_mask": null,
+      "objective_value": -0.423998197343068,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 4,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 31,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          0.021577671115818816,
+          0.0013164524363685618,
+          0.035775843843739476,
+          0.25096772474200224,
+          0.18404047736824328
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 5,
+      "query": [
+        0.012754334355226845,
+        0.30067736738724143,
+        -0.47476656655867183,
+        -0.5150785833695918,
+        -0.6470867081993709
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.6243456883696357,
+        -0.5530232377522778,
+        0.30600849581686856,
+        -0.08973105623255968,
+        0.4501831826662566
+      ],
+      "true_decision": [
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "observed_decision": [
+        0,
+        1,
+        1,
+        0,
+        1
+      ],
+      "observation_mask": null,
+      "objective_value": -0.6028717278863058,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 5,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 6,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          0.03189184477143181,
+          -0.2160139024170651,
+          0.0017191589171428358,
+          -0.10923320771777881,
+          0.11500285355845802
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 6,
+      "query": [
+        -0.12225213646995774,
+        0.16285509006294746,
+        -0.9386251963697272,
+        0.16917845752414923,
+        -0.22111993356267318
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.6748874512761558,
+        -0.49459082168573565,
+        0.3673400377542349,
+        0.07516486190169641,
+        0.39914707491377105
+      ],
+      "true_decision": [
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "observed_decision": [
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "observation_mask": null,
+      "objective_value": -0.5961070553634125,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 6,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 4,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          0.008305233185182424,
+          -0.08557364105804455,
+          0.02896708413846263,
+          0.07690549980793936,
+          0.005136045020028858
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 7,
+      "query": [
+        -0.12225213646995774,
+        0.16285509006294746,
+        -0.9386251963697272,
+        0.16917845752414923,
+        -0.22111993356267318
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.6364737896898187,
+        -0.5181335420174433,
+        0.2175189366241459,
+        0.020326224909824532,
+        0.527930965624441
+      ],
+      "true_decision": [
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "observed_decision": [
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "observation_mask": null,
+      "objective_value": -0.48309577989412306,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 7,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 4,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          -0.023898000958820775,
+          -0.11754353278913371,
+          -0.12713915276807672,
+          0.018967686696775093,
+          0.14895215449641294
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 8,
+      "query": [
+        -0.32822031850552474,
+        0.6263668579320478,
+        -0.10506322206600324,
+        0.6751462746156928,
+        -0.18186590952162254
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.6162133995181271,
+        -0.4394360630163448,
+        0.44049181221779904,
+        -0.022726522598015667,
+        0.48231469116613995
+      ],
+      "true_decision": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "observed_decision": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "observation_mask": null,
+      "objective_value": -0.626841760447674,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 8,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 30,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          -0.09464372288973874,
+          0.001973418213948336,
+          0.07754864748835602,
+          -0.02550709817541403,
+          0.06158946037918984
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 9,
+      "query": [
+        -0.4751442113096655,
+        0.5515003586393155,
+        0.2282076985690434,
+        -0.5054046810362235,
+        -0.4032030351821724
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.7397092416938074,
+        -0.427650103264804,
+        0.43881300245801086,
+        0.0579288692555773,
+        0.27209009888441527
+      ],
+      "true_decision": [
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "observed_decision": [
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "observation_mask": null,
+      "objective_value": -0.7263028249678724,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 9,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 17,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          -0.019031830669743656,
+          0.04106946900380057,
+          0.047800150421903394,
+          0.0510798985363199,
+          -0.16510153618484086
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 10,
+      "query": [
+        -0.4751442113096655,
+        0.5515003586393155,
+        0.2282076985690434,
+        -0.5054046810362235,
+        -0.4032030351821724
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.804566219915813,
+        -0.26521320628824446,
+        0.3253620401852178,
+        -0.11598423525738018,
+        0.40376026669171156
+      ],
+      "true_decision": [
+        1,
+        1,
+        0,
+        0,
+        1
+      ],
+      "observed_decision": [
+        1,
+        1,
+        0,
+        0,
+        1
+      ],
+      "observation_mask": null,
+      "objective_value": -0.6913475254082089,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 10,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 17,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          0.12747897635100355,
+          0.164004372326822,
+          -0.023066546917931557,
+          -0.1233364211891177,
+          0.000758455126383785
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 11,
+      "query": [
+        -0.21731705381076571,
+        0.624117261992452,
+        0.11610749188353615,
+        0.5304374912715233,
+        0.5180792020416773
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.604864805186937,
+        -0.4488576814064175,
+        0.27292579202027345,
+        0.14755304617261053,
+        0.5800042757634756
+      ],
+      "true_decision": [
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "observed_decision": [
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.41158726456070155,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 11,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 19,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          0.013068826869132518,
+          -0.09572096615437274,
+          -0.03556607639771136,
+          0.17304035298251247,
+          0.2729595717465874
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 12,
+      "query": [
+        0.1493243072783025,
+        0.5493497744101387,
+        0.3694277038973806,
+        -0.5872155858262649,
+        -0.4411554192880449
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.6252632548679685,
+        -0.5189527593044025,
+        0.39769007129568074,
+        0.09680540799878647,
+        0.4149761630470906
+      ],
+      "true_decision": [
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "observed_decision": [
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "observation_mask": null,
+      "objective_value": -0.5250012088261339,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 12,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 3,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          0.010199051431622893,
+          -0.1567259482085026,
+          0.09589251810464605,
+          0.10832584757118346,
+          0.058156047255789975
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 13,
+      "query": [
+        -0.32822031850552474,
+        0.6263668579320478,
+        -0.10506322206600324,
+        0.6751462746156928,
+        -0.18186590952162254
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.7288624969139011,
+        -0.4514510042564896,
+        0.3141351058853384,
+        0.026329101639101033,
+        0.4069119868049177
+      ],
+      "true_decision": [
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "observed_decision": [
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "observation_mask": null,
+      "objective_value": -0.6290088928941032,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 13,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 30,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          0.08854933190274585,
+          -0.053994953979029384,
+          -0.01761936696750478,
+          0.025895000621926737,
+          0.026190719046369354
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 14,
+      "query": [
+        -0.497015553569474,
+        -0.17683999186412516,
+        0.2897986166706152,
+        -0.7841519796251618,
+        0.15108140657692834
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.6075840511788911,
+        -0.563089895479831,
+        0.5025964846056702,
+        0.11763667563408935,
+        0.21755407734478754
+      ],
+      "true_decision": [
+        1,
+        0,
+        0,
+        1,
+        0
+      ],
+      "observed_decision": [
+        1,
+        0,
+        0,
+        1,
+        0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.3942237556116544,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 14,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 8,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          -0.09917430857520972,
+          -0.12488838799107345,
+          0.1427331895487369,
+          0.11501246558140692,
+          -0.2005295913162739
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 15,
+      "query": [
+        0.445991831363845,
+        -0.17822135821804067,
+        -0.527304254295405,
+        -0.3128942113506433,
+        -0.6271968349225516
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.6851427897606565,
+        -0.2997824605817064,
+        0.4026063183050976,
+        -0.10781377049031397,
+        0.5167147930145208
+      ],
+      "true_decision": [
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "observed_decision": [
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "observation_mask": null,
+      "objective_value": -0.5363779071848568,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 15,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 5,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          -0.08586170516988403,
+          0.16718250858153624,
+          0.004670800313198847,
+          -0.10079651395579307,
+          0.05070705042876017
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 16,
+      "query": [
+        -0.4917291516242985,
+        0.32350148753014774,
+        -0.13432821354835314,
+        0.379799722466691,
+        0.7008975180921687
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.7094675273106672,
+        -0.41934770672186483,
+        0.39193611554168767,
+        0.05215272752236992,
+        0.4055483977343161
+      ],
+      "true_decision": [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "observed_decision": [
+        1,
+        1,
+        1,
+        0,
+        0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.5371735504521384,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 16,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 21,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          -0.05884943665747482,
+          0.0556873745339794,
+          -0.002301032372712854,
+          0.04484311858867359,
+          -0.04743868703550887
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 17,
+      "query": [
+        -0.32822031850552474,
+        0.6263668579320478,
+        -0.10506322206600324,
+        0.6751462746156928,
+        -0.18186590952162254
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.7832025503219627,
+        -0.34501152480784675,
+        0.3057012075244516,
+        0.03589382072926068,
+        0.4157153091605913
+      ],
+      "true_decision": [
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "observed_decision": [
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "observation_mask": null,
+      "objective_value": -0.5808891719197898,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 17,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 30,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          0.07136601034865843,
+          0.09607576422654353,
+          -0.05672711281395995,
+          0.03283970258915262,
+          -0.004833348090722584
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 18,
+      "query": [
+        0.33110427995488817,
+        -0.5602033050664533,
+        -0.16734941650260274,
+        0.7404612950541833,
+        0.015920304993855154
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.7232071792994107,
+        -0.3576340588387064,
+        0.3303222230481599,
+        -0.004193309674247958,
+        0.48983558556197265
+      ],
+      "true_decision": [
+        0,
+        0,
+        1,
+        1,
+        0
+      ],
+      "observed_decision": [
+        0,
+        0,
+        1,
+        1,
+        0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.05838421479690903,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 18,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 18,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          0.024229237204367024,
+          0.07729667333858348,
+          -0.02648166958756635,
+          -0.00712869263623822,
+          0.07744761876911058
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 19,
+      "query": [
+        -0.21731705381076571,
+        0.624117261992452,
+        0.11610749188353615,
+        0.5304374912715233,
+        0.5180792020416773
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.7607415743831993,
+        -0.4787842039718297,
+        0.3088345373774888,
+        0.12993314012631818,
+        0.28244742989055427
+      ],
+      "true_decision": [
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "observed_decision": [
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.4641396041244543,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 19,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 19,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          0.046592969461856176,
+          -0.0355347309113996,
+          -0.054590967676838534,
+          0.1260162495392141,
+          -0.13836245052448132
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 20,
+      "query": [
+        0.4141064180922906,
+        0.21753261453331366,
+        0.23989257309376816,
+        -0.8109063242351686,
+        -0.2570562638780324
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.689175249168091,
+        -0.21165041529925813,
+        0.43959192446686113,
+        0.2745915087256709,
+        0.4600000227359041
+      ],
+      "true_decision": [
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "observed_decision": [
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "observation_mask": null,
+      "objective_value": -0.3869547464423338,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 20,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 1,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          -0.046655899962569435,
+          0.23630631186782977,
+          0.06093184880628749,
+          0.26065696048458314,
+          0.022924108290373488
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 21,
+      "query": [
+        0.029054491443086174,
+        -0.2761447269154785,
+        -0.6223295503729527,
+        0.6728402982649844,
+        -0.28790934352161096
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.7451186741481367,
+        -0.4655983900232365,
+        0.433660130172001,
+        -0.031983944807797156,
+        0.19731249179215155
+      ],
+      "true_decision": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "observed_decision": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "observation_mask": null,
+      "objective_value": -0.34820771076927814,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 21,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 29,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          -0.03526014207888461,
+          0.019008752808370263,
+          0.030622468155979684,
+          -0.03176361922020796,
+          -0.24039080061026044
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 22,
+      "query": [
+        -0.3318723474768846,
+        -0.420976622906941,
+        0.25599669993904994,
+        0.0758523819676922,
+        0.8008442630850225
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.6245443705264997,
+        -0.5090077608033637,
+        0.48181968832686595,
+        0.0728065281950338,
+        0.3367557365189065
+      ],
+      "true_decision": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "observed_decision": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.20726900635010267,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 22,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 13,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          -0.006420317755327537,
+          -0.13242947720574272,
+          0.18035487586084717,
+          0.07891521143912184,
+          -0.0402181342969955
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 23,
+      "query": [
+        0.33110427995488817,
+        -0.5602033050664533,
+        -0.16734941650260274,
+        0.7404612950541833,
+        0.015920304993855154
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.6047983255846907,
+        -0.5502337535175909,
+        0.17441851019427812,
+        0.13211128497107472,
+        0.5325284908291738
+      ],
+      "true_decision": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "observed_decision": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.029188835908265712,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 23,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 18,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          -0.1152545389422885,
+          -0.09991449812706216,
+          -0.1899977012189562,
+          0.12661616400517106,
+          0.10343598677183505
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 24,
+      "query": [
+        -0.11987973211541442,
+        -0.04453990228272488,
+        -0.41726779687678217,
+        0.6588781131018917,
+        -0.6127089559468419
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.6913959569757964,
+        -0.405059308132076,
+        0.29297154758447896,
+        0.17960050281184076,
+        0.48970390979527234
+      ],
+      "true_decision": [
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "observed_decision": [
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "observation_mask": null,
+      "objective_value": -0.5051779256098438,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 24,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 27,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          0.023466815692607175,
+          0.01084867406369435,
+          -0.05097660046478156,
+          0.1871510270514534,
+          0.0995895815506883
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 25,
+      "query": [
+        0.43634390424711866,
+        -0.39409432904161823,
+        -0.8027118043767199,
+        -0.055456542966616534,
+        0.08289745472618928
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.7453114342908728,
+        -0.36769943348061246,
+        0.37523660426737965,
+        0.12384889068280021,
+        0.3913654757740444
+      ],
+      "true_decision": [
+        0,
+        0,
+        1,
+        1,
+        0
+      ],
+      "observed_decision": [
+        0,
+        0,
+        1,
+        1,
+        0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.30807508300718,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 25,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 14,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          0.03979980822587828,
+          0.07046527558635886,
+          0.015569048804188218,
+          0.12139523583826031,
+          -0.02584066131231467
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 26,
+      "query": [
+        -0.3318723474768846,
+        -0.420976622906941,
+        0.25599669993904994,
+        0.0758523819676922,
+        0.8008442630850225
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.6738931546611626,
+        -0.35145912492090503,
+        0.37482799453265264,
+        0.05777010347055929,
+        0.5277414985296196
+      ],
+      "true_decision": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "observed_decision": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.2236465031860033,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 26,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 13,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          0.055945121651183136,
+          0.04096532689254431,
+          0.06400057526894563,
+          0.06261529275387935,
+          0.17977439924338023
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 27,
+      "query": [
+        -0.12225213646995774,
+        0.16285509006294746,
+        -0.9386251963697272,
+        0.16917845752414923,
+        -0.22111993356267318
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.6282918812160351,
+        -0.4165670494205126,
+        0.3944627462140175,
+        0.004586506620106045,
+        0.5254515307251688
+      ],
+      "true_decision": [
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "observed_decision": [
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "observation_mask": null,
+      "objective_value": -0.6310905693460512,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 27,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 4,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          0.03747064698901242,
+          -0.05488170871833232,
+          0.10712266668445752,
+          0.0025600486511919854,
+          0.20496621283770064
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 28,
+      "query": [
+        0.029054491443086174,
+        -0.2761447269154785,
+        -0.6223295503729527,
+        0.6728402982649844,
+        -0.28790934352161096
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.657114056753469,
+        -0.4646413014813359,
+        0.38597370838584166,
+        -0.03514389180495287,
+        0.4495539797159093
+      ],
+      "true_decision": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "observed_decision": [
+        0,
+        0,
+        1,
+        1,
+        1
+      ],
+      "observation_mask": null,
+      "objective_value": -0.3932798622173139,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 28,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 29,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          -0.007343768760470037,
+          -0.05605714560989995,
+          0.05063679173632024,
+          -0.040360108104198045,
+          0.06084458915695813
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 29,
+      "query": [
+        -0.497015553569474,
+        -0.17683999186412516,
+        0.2897986166706152,
+        -0.7841519796251618,
+        0.15108140657692834
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.6966340497487105,
+        -0.5230084336033879,
+        0.1754151716608579,
+        -0.16565738740856498,
+        0.4277269300132996
+      ],
+      "true_decision": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "observed_decision": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.3462379578711998,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 29,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 8,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          -0.12316431948625411,
+          0.00029438042886484187,
+          -0.21367975273662518,
+          -0.14197663711084635,
+          -0.05942080619171759
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 30,
+      "query": [
+        -0.06939271279704988,
+        -0.47684789242930586,
+        -0.6701010480343749,
+        0.374407669271896,
+        0.4225922639022327
+      ],
+      "theta_hat_before": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "theta_hat_after": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.7614620716034208,
+        -0.43552129189909583,
+        0.35366431447062785,
+        -0.053288444707695504,
+        0.32027895988126565
+      ],
+      "true_decision": [
+        1,
+        0,
+        1,
+        1,
+        0
+      ],
+      "observed_decision": [
+        1,
+        0,
+        1,
+        1,
+        0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.30978234900188184,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {
+        "step": 30,
+        "should_stop": false,
+        "mean_normalized_regret": 0.5087046867912363,
+        "maximum_normalized_regret": 1.0,
+        "zero_regret_rate": 0.02,
+        "consecutive_successes": 0,
+        "reason": null
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 22,
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 6,
+        "incenter_radius": 0.0,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "degenerate_cone",
+        "failure_reason": "the consistency cone has no valid nonzero parameter direction"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "anisotropic",
+        "perturbation": [
+          0.06729682571960524,
+          -0.004049064110723336,
+          -0.0008340456515009394,
+          -0.05714563845791537,
+          -0.09242446170929332
+        ],
+        "covariance": [
+          [
+            0.005000000000000001,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0075000000000000015,
+            0.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.010000000000000002,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.012500000000000002,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.015000000000000003
+          ]
+        ]
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    }
+  ]
+}

@@ -1,0 +1,247 @@
+{
+  "scenario": {
+    "name": "expert-gibbs-high",
+    "dimension": 5,
+    "horizon": 30,
+    "seed": 0,
+    "true_theta": null,
+    "normalize_true_theta": true,
+    "expert": {
+      "kind": "gibbs",
+      "temperature": "high",
+      "reference_gap": null,
+      "tie_breaking": "lexicographic",
+      "gibbs_burn_in": 40,
+      "gibbs_steps": 20
+    },
+    "decision_space": {
+      "kind": "independent_binary",
+      "cardinality": null,
+      "lower": null,
+      "upper": null,
+      "A": null,
+      "b": null,
+      "A_eq": null,
+      "b_eq": null,
+      "C_ub": null,
+      "r_ub": null,
+      "edges": null,
+      "source": null,
+      "sink": null,
+      "max_enumeration": 65536,
+      "mcmc_burn_in": 40,
+      "mcmc_steps": 20
+    },
+    "query_space": {
+      "kind": "dense",
+      "candidate_count": 32,
+      "clusters": 4,
+      "cluster_radius": 0.12,
+      "boundary_epsilon": 0.08,
+      "rank": null,
+      "informative_fraction": 0.08,
+      "sparsity": null,
+      "construction_attempts": 2000,
+      "allow_repeated_queries": true
+    },
+    "observation_noise": {
+      "kind": "clean",
+      "sigma": 0.1,
+      "outlier_probability": 0.05,
+      "bias": null,
+      "confusion_matrix": null,
+      "mask_probability": 0.25,
+      "query_profile": "first_coordinate",
+      "minimum_scale": 0.02,
+      "maximum_scale": 0.2,
+      "distance": "euclidean",
+      "target_decision_change_rate": null,
+      "calibration_trials": 96
+    },
+    "parameter_noise": {
+      "kind": "none",
+      "sigma": 0.1,
+      "covariance": null,
+      "query_profile": "first_coordinate",
+      "minimum_scale": 0.02,
+      "maximum_scale": 0.2,
+      "target_decision_change_rate": null,
+      "calibration_trials": 96
+    },
+    "metadata": {
+      "category": "Expert"
+    }
+  },
+  "algorithm_name": "uniform-random-sequential-incenter",
+  "seed": 0,
+  "true_theta": [
+    0.7080925840086401,
+    -0.43943802479788946,
+    0.36096697185474574,
+    0.0028825343216454372,
+    0.41856140655774277
+  ],
+  "runtime_seconds": 0.03550399997038767,
+  "stopped_early": true,
+  "error": null,
+  "metadata": {
+    "algorithm_class": "UniformRandomIncenterAlgorithm",
+    "environment_class": "ActiveInverseEnvironment",
+    "scoring_applied": false,
+    "evaluation_applied": true,
+    "external_stopping_enabled": true,
+    "stopping_rule": {
+      "enabled": true,
+      "test_query_count": 100,
+      "seed": 501,
+      "zero_regret_tolerance": 1e-08,
+      "minimum_steps": 1,
+      "consecutive_successes": 1,
+      "query_distribution": "uniform_unit_sphere"
+    },
+    "stopping_time": 1,
+    "stopping_criterion_met": true,
+    "stopping_reason": "zero hidden-test regret",
+    "final_stopping_diagnostics": {
+      "step": 1,
+      "should_stop": true,
+      "mean_normalized_regret": 0.0,
+      "maximum_normalized_regret": 0.0,
+      "zero_regret_rate": 1.0,
+      "consecutive_successes": 1,
+      "reason": "zero hidden-test regret"
+    },
+    "noise_calibration": {},
+    "algorithm_failed": false,
+    "final_estimate_status": "valid",
+    "algorithm_failure_reason": null
+  },
+  "evaluation": {
+    "final_angular_error_degrees": 30.33399080339246,
+    "final_normalized_regret": 0.0,
+    "final_zero_regret_rate": 1.0,
+    "final_estimate_valid": true,
+    "final_status": "valid",
+    "final_failure_reason": null,
+    "test_query_count": 100,
+    "angular_error_history_degrees": [],
+    "normalized_regret_history": [],
+    "zero_regret_rate_history": [],
+    "maximum_normalized_regret_history": [],
+    "valid_estimate_history": [],
+    "estimate_status_history": [],
+    "mean_angular_error_degrees": null,
+    "mean_normalized_regret": null,
+    "first_threshold_step": null,
+    "stable_threshold_step": null,
+    "first_zero_regret_step": null,
+    "stable_zero_regret_step": null,
+    "metadata": {
+      "test_query_distribution": "uniform_unit_sphere",
+      "test_queries_hidden_from_algorithm": true,
+      "clean_true_parameter_evaluation": true,
+      "scenario_seed": 0,
+      "evaluation_seed": 501,
+      "trajectory_evaluated": false,
+      "learning_regret_threshold": 0.01,
+      "independent_from_stopping": false
+    }
+  },
+  "records": [
+    {
+      "step": 1,
+      "query": [
+        -0.3318723474768846,
+        -0.420976622906941,
+        0.25599669993904994,
+        0.0758523819676922,
+        0.8008442630850225
+      ],
+      "theta_hat_before": [
+        0.4472135954999579,
+        0.4472135954999579,
+        0.4472135954999579,
+        0.4472135954999579,
+        0.4472135954999579
+      ],
+      "theta_hat_after": [
+        0.4472135955117064,
+        -0.4472135955117065,
+        0.44721359551170664,
+        0.44721359551170614,
+        0.44721359551170653
+      ],
+      "true_theta": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "expert_parameter": [
+        0.7080925840086401,
+        -0.43943802479788946,
+        0.36096697185474574,
+        0.0028825343216454372,
+        0.41856140655774277
+      ],
+      "true_decision": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "observed_decision": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.2349963480859205,
+      "stop_requested": false,
+      "benchmark_stop_requested": true,
+      "benchmark_stop_reason": "zero hidden-test regret",
+      "stopping_diagnostics": {
+        "step": 1,
+        "should_stop": true,
+        "mean_normalized_regret": 0.0,
+        "maximum_normalized_regret": 0.0,
+        "zero_regret_rate": 1.0,
+        "consecutive_successes": 1,
+        "reason": "zero hidden-test regret"
+      },
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 13,
+        "constraint_count": 0,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 5,
+        "incenter_radius": 0.4472135955117065,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "binary-coordinate-optimality",
+        "constraints_exact": true,
+        "skipped_reason": null,
+        "estimate_status": "valid",
+        "failure_reason": null
+      },
+      "expert_metadata": {
+        "kind": "gibbs",
+        "normalized_temperature": 2.0,
+        "reference_gap": 0.0012809080014580055,
+        "temperature": 0.002561816002916011
+      },
+      "parameter_noise_metadata": {
+        "kind": "none"
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    }
+  ]
+}

@@ -24,6 +24,8 @@ def test_all_query_geometries_construct_unit_candidates(kind):
     query_space = make_query_space(
         QuerySpaceConfig(
             kind=kind,
+            candidates=(np.random.default_rng(8).normal(size=(12, dimension))
+                        if kind == QuerySpaceKind.EXPLICIT else None),
             candidate_count=12,
             construction_attempts=400,
         ),
@@ -74,4 +76,3 @@ def test_all_observation_noise_models_return_valid_shapes(kind):
     else:
         assert result.mask is None
         assert decision_space.contains(result.decision)
-

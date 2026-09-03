@@ -72,7 +72,9 @@ class ActiveBenchmarkRunner:
         seed = scenario.seed if algorithm_seed is None else int(algorithm_seed)
         algorithm_rng = np.random.default_rng(np.random.SeedSequence([scenario.seed, seed, 99173]))
         context = environment.algorithm_context(algorithm_seed=seed)
+        initialization_started = time.perf_counter()
         algorithm.reset(context, algorithm_rng)
+        initialization_seconds = time.perf_counter() - initialization_started
         stopping_rule = None
         if self.stopping_config.enabled:
             stopping_rule = RegretStoppingRule(self.stopping_config)
@@ -95,8 +97,9 @@ class ActiveBenchmarkRunner:
                 scenario.dimension,
                 "algorithm current estimate",
             )
+            update_diagnostics = dict(algorithm.diagnostics())
             stopping_check = (
-                stopping_rule.check(theta_after, feedback.step)
+                stopping_rule.check(theta_after, feedback.step, update_diagnostics)
                 if stopping_rule is not None
                 else None
             )
@@ -127,7 +130,7 @@ class ActiveBenchmarkRunner:
                     ),
                     stopping_diagnostics=stopping_diagnostics,
                     action_diagnostics=dict(action.diagnostics),
-                    update_diagnostics=dict(algorithm.diagnostics()),
+                    update_diagnostics=update_diagnostics,
                     expert_metadata=dict(feedback.expert_metadata),
                     parameter_noise_metadata=dict(feedback.parameter_noise_metadata),
                     observation_noise_metadata=dict(feedback.observation_noise_metadata),
@@ -142,7 +145,7 @@ class ActiveBenchmarkRunner:
             if benchmark_stop_requested or algorithm_stop:
                 stopped_early = feedback.step < scenario.horizon
                 break
-        runtime = time.perf_counter() - started
+        runtime = initialization_seconds + time.perf_counter() - started
         return ActiveRunResult(
             scenario=scenario,
             algorithm_name=getattr(algorithm, "name", type(algorithm).__name__),
@@ -153,6 +156,7 @@ class ActiveBenchmarkRunner:
             stopped_early=stopped_early,
             metadata={
                 "algorithm_class": type(algorithm).__name__,
+                "algorithm_initialization_seconds": float(initialization_seconds),
                 "environment_class": type(environment).__name__,
                 "scoring_applied": False,
                 "evaluation_applied": False,

@@ -24,6 +24,7 @@ class ActiveEvaluationConfig:
     numerical_tolerance: float = 1e-12
     query_distribution: str = "uniform_unit_sphere"
     learning_regret_threshold: float = 0.01
+    learning_angular_threshold_degrees: float = 5.0
 
     def __post_init__(self) -> None:
         if self.test_query_count < 1:
@@ -34,6 +35,8 @@ class ActiveEvaluationConfig:
             raise ValidationError("query_distribution must be uniform_unit_sphere or scenario")
         if not 0 <= self.learning_regret_threshold <= 1:
             raise ValidationError("learning_regret_threshold must lie in [0, 1]")
+        if not 0 <= self.learning_angular_threshold_degrees <= 180:
+            raise ValidationError("learning angular threshold must lie in [0, 180]")
 
     def to_dict(self) -> dict[str, Any]:
         return _jsonable(asdict(self))
@@ -60,6 +63,10 @@ class ActiveEvaluationResult:
     stable_threshold_step: int | None = None
     first_zero_regret_step: int | None = None
     stable_zero_regret_step: int | None = None
+    first_angular_threshold_step: int | None = None
+    stable_angular_threshold_step: int | None = None
+    first_joint_threshold_step: int | None = None
+    stable_joint_threshold_step: int | None = None
     metadata: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -127,6 +134,12 @@ def sample_scenario_hidden_queries(
         [int(scenario.seed), int(evaluation_seed), 6_431_909]
     )
     rng = np.random.default_rng(sequence)
+    if scenario.query_space.kind.value == "explicit":
+        # A finite scenario distribution means uniform over its configured rows.
+        # Truly new held-out queries can instead be supplied to evaluate_active_run.
+        values = np.asarray(scenario.query_space.candidates, dtype=float)
+        values = values / np.linalg.norm(values, axis=1, keepdims=True)
+        return values[rng.integers(len(values), size=count)].copy()
     query_config = replace(scenario.query_space, candidate_count=count)
     return make_query_space(
         query_config,
@@ -165,10 +178,16 @@ def _estimate_status(
     estimate: Array,
     tolerance: float,
 ) -> tuple[str, str | None]:
-    diagnostics = run.records[index].update_diagnostics
+    return estimate_status(estimate, run.records[index].update_diagnostics, tolerance)
+
+
+def estimate_status(estimate: Array, diagnostics: dict | None = None,
+                    tolerance: float = 1e-12) -> tuple[str, str | None]:
+    """Shared validity contract for evaluation AND benchmark stopping."""
+    diagnostics = diagnostics or {}
     reported = diagnostics.get("estimate_status")
     reason = diagnostics.get("failure_reason")
-    if reported in {"insufficient_information", "degenerate_cone", "solver_failure"}:
+    if reported is not None and reported != "valid":
         return str(reported), None if reason is None else str(reason)
     value = np.asarray(estimate, dtype=float).reshape(-1)
     if not np.all(np.isfinite(value)):
@@ -248,6 +267,7 @@ def normalized_test_regret(
 def evaluate_active_run(
     run: ActiveRunResult,
     config: ActiveEvaluationConfig | None = None,
+    *, test_queries: Array | None = None,
 ) -> ActiveEvaluationResult:
     settings = config or ActiveEvaluationConfig()
     if run.error is not None:
@@ -255,14 +275,19 @@ def evaluate_active_run(
     if not run.records:
         raise ValidationError("an active run must contain at least one estimate")
     decision_space = _decision_space_for_evaluation(run)
-    test_queries = sample_scenario_hidden_queries(
-        run.scenario,
-        run.true_theta,
-        settings.test_query_count,
-        evaluation_seed=settings.seed,
-        distribution=settings.query_distribution,
-        decision_space=decision_space,
-    )
+    explicit_test = test_queries is not None
+    if explicit_test:
+        test_queries = np.asarray(test_queries, dtype=float).copy()
+        if (test_queries.ndim != 2 or test_queries.shape[1] != run.scenario.dimension
+                or not len(test_queries) or not np.all(np.isfinite(test_queries))
+                or not np.allclose(np.linalg.norm(test_queries, axis=1), 1., atol=1e-8, rtol=0)):
+            raise ValidationError("held-out queries must be a nonempty finite unit-norm (N, d) matrix")
+    else:
+        test_queries = sample_scenario_hidden_queries(
+            run.scenario, run.true_theta, settings.test_query_count,
+            evaluation_seed=settings.seed, distribution=settings.query_distribution,
+            decision_space=decision_space,
+        )
     estimates = run.parameter_history
     angles: list[float | None] = []
     valid: list[bool] = []
@@ -312,6 +337,8 @@ def evaluate_active_run(
 
     first_threshold, stable_threshold = (None, None)
     first_zero, stable_zero = (None, None)
+    first_angle, stable_angle = (None, None)
+    first_joint, stable_joint = (None, None)
     if settings.evaluate_trajectory:
         first_threshold, stable_threshold = _first_and_stable_step(
             regret_history, settings.learning_regret_threshold
@@ -319,6 +346,18 @@ def evaluate_active_run(
         first_zero, stable_zero = _first_and_stable_step(
             maximum_regret_history, settings.zero_regret_tolerance
         )
+        first_angle, stable_angle = _first_and_stable_step(
+            angles, settings.learning_angular_threshold_degrees
+        )
+        # Zero marks a simultaneous hit; invalid estimates break stability.
+        joint = [
+            None if angle is None or regret is None else float(not (
+                angle <= settings.learning_angular_threshold_degrees
+                and regret <= settings.learning_regret_threshold
+            ))
+            for angle, regret in zip(angles, regret_history)
+        ]
+        first_joint, stable_joint = _first_and_stable_step(joint, 0.0)
 
     result = ActiveEvaluationResult(
         final_angular_error_degrees=angles[-1],
@@ -327,7 +366,7 @@ def evaluate_active_run(
         final_estimate_valid=valid[-1],
         final_status=statuses[-1],
         final_failure_reason=failure_reasons[-1],
-        test_query_count=settings.test_query_count,
+        test_query_count=len(test_queries),
         angular_error_history_degrees=angles if settings.evaluate_trajectory else [],
         normalized_regret_history=regret_history if settings.evaluate_trajectory else [],
         zero_regret_rate_history=zero_regret_history if settings.evaluate_trajectory else [],
@@ -346,16 +385,24 @@ def evaluate_active_run(
         stable_threshold_step=stable_threshold,
         first_zero_regret_step=first_zero,
         stable_zero_regret_step=stable_zero,
+        first_angular_threshold_step=first_angle,
+        stable_angular_threshold_step=stable_angle,
+        first_joint_threshold_step=first_joint,
+        stable_joint_threshold_step=stable_joint,
         metadata={
-            "test_query_distribution": settings.query_distribution,
+            "test_query_distribution": "explicit-heldout" if explicit_test else settings.query_distribution,
+            "explicit_test_queries": test_queries.tolist() if explicit_test else None,
             "test_queries_hidden_from_algorithm": True,
             "clean_true_parameter_evaluation": True,
             "scenario_seed": run.scenario.seed,
             "evaluation_seed": settings.seed,
             "trajectory_evaluated": settings.evaluate_trajectory,
             "learning_regret_threshold": settings.learning_regret_threshold,
+            "learning_angular_threshold_degrees": settings.learning_angular_threshold_degrees,
+            "stable_threshold_definition": "at or below threshold at every remaining step through T",
             "independent_from_stopping": (
-                not run.metadata.get("external_stopping_enabled", False)
+                None if explicit_test and run.metadata.get("external_stopping_enabled", False)
+                else not run.metadata.get("external_stopping_enabled", False)
                 or settings.seed != run.metadata.get("stopping_rule", {}).get("seed")
                 or settings.query_distribution
                 != run.metadata.get("stopping_rule", {}).get("query_distribution")

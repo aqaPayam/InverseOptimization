@@ -28,6 +28,7 @@ class DecisionSpaceKind(_StringEnum):
 
 
 class QuerySpaceKind(_StringEnum):
+    EXPLICIT = "explicit"
     BALANCED = "balanced"
     CLUSTERED = "clustered"
     SHARP_BOUNDARY = "sharp_boundary"
@@ -152,9 +153,20 @@ class QuerySpaceConfig:
     sparsity: int | None = None
     construction_attempts: int = 2_000
     allow_repeated_queries: bool = True
+    candidates: Sequence[Sequence[float]] | None = None
 
     def __post_init__(self) -> None:
         self.kind = coerce_enum(self.kind, QuerySpaceKind, "query-space kind")
+        if self.kind == QuerySpaceKind.EXPLICIT:
+            values = np.asarray(self.candidates, dtype=float)
+            if (values.ndim != 2 or values.shape[0] < 2 or values.shape[1] < 1
+                    or not np.all(np.isfinite(values))
+                    or np.any(np.linalg.norm(values, axis=1) <= 1e-15)):
+                raise ValidationError("explicit candidates must be a finite nonzero (N, d) matrix")
+            self.candidates = values.tolist()
+            self.candidate_count = len(values)
+        elif self.candidates is not None:
+            raise ValidationError("candidates require query-space kind explicit")
         if self.candidate_count < 2:
             raise ValidationError("candidate_count must be at least two")
         if self.clusters < 1 or self.cluster_radius < 0 or self.boundary_epsilon <= 0:
@@ -289,6 +301,9 @@ class ActiveScenarioConfig:
             raise ValidationError("low-rank query dimension must be smaller than ambient dimension")
         if self.query_space.sparsity is not None and self.query_space.sparsity > self.dimension:
             raise ValidationError("query sparsity cannot exceed dimension")
+        if (self.query_space.kind == QuerySpaceKind.EXPLICIT
+                and np.asarray(self.query_space.candidates).shape[1] != self.dimension):
+            raise ValidationError("explicit query dimension must match the scenario")
 
     def to_dict(self) -> dict[str, Any]:
         return _jsonable(asdict(self))

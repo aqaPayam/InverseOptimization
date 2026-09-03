@@ -1,0 +1,18 @@
+{
+  "runs": [
+    {
+      "file": "00000-tiny-active-smoke-random-smoke-test.json",
+      "scenario": "tiny-active-smoke",
+      "algorithm": "random-smoke-test",
+      "seed": 7,
+      "error": null
+    }
+  ],
+  "metadata": {
+    "scenario_count": 1,
+    "algorithm_count": 1,
+    "run_count": 1,
+    "scoring_applied": false,
+    "evaluation_applied": false
+  }
+}

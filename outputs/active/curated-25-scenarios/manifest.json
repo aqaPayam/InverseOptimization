@@ -1,0 +1,224 @@
+{
+  "runs": [
+    {
+      "file": "00000-reference-uniform-random-sequential-incenter.json",
+      "scenario": "reference",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00001-dimension-20-uniform-random-sequential-incenter.json",
+      "scenario": "dimension-20",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00002-dimension-50-uniform-random-sequential-incenter.json",
+      "scenario": "dimension-50",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00003-expert-gibbs-low-uniform-random-sequential-incenter.json",
+      "scenario": "expert-gibbs-low",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00004-expert-gibbs-medium-uniform-random-sequential-incenter.json",
+      "scenario": "expert-gibbs-medium",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00005-expert-gibbs-high-uniform-random-sequential-incenter.json",
+      "scenario": "expert-gibbs-high",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00006-decision-fixed-cardinality-uniform-random-sequential-incenter.json",
+      "scenario": "decision-fixed-cardinality",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00007-decision-continuous-polytope-uniform-random-sequential-incenter.json",
+      "scenario": "decision-continuous-polytope",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00008-decision-structured-uniform-random-sequential-incenter.json",
+      "scenario": "decision-structured",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00009-query-balanced-uniform-random-sequential-incenter.json",
+      "scenario": "query-balanced",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00010-query-clustered-uniform-random-sequential-incenter.json",
+      "scenario": "query-clustered",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00011-query-sharp-boundary-uniform-random-sequential-incenter.json",
+      "scenario": "query-sharp-boundary",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00012-query-low-rank-uniform-random-sequential-incenter.json",
+      "scenario": "query-low-rank",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00013-query-rare-informative-uniform-random-sequential-incenter.json",
+      "scenario": "query-rare-informative",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00014-query-aliased-uniform-random-sequential-incenter.json",
+      "scenario": "query-aliased",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00015-query-sparse-uniform-random-sequential-incenter.json",
+      "scenario": "query-sparse",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00016-observation-local-uniform-random-sequential-incenter.json",
+      "scenario": "observation-local",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00017-observation-outlier-uniform-random-sequential-incenter.json",
+      "scenario": "observation-outlier",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00018-observation-biased-uniform-random-sequential-incenter.json",
+      "scenario": "observation-biased",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00019-observation-query-dependent-uniform-random-sequential-incenter.json",
+      "scenario": "observation-query-dependent",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00020-observation-partial-uniform-random-sequential-incenter.json",
+      "scenario": "observation-partial",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00021-parameter-isotropic-uniform-random-sequential-incenter.json",
+      "scenario": "parameter-isotropic",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00022-parameter-anisotropic-uniform-random-sequential-incenter.json",
+      "scenario": "parameter-anisotropic",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00023-parameter-query-dependent-uniform-random-sequential-incenter.json",
+      "scenario": "parameter-query-dependent",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    },
+    {
+      "file": "00024-parameter-persistent-uniform-random-sequential-incenter.json",
+      "scenario": "parameter-persistent",
+      "algorithm": "uniform-random-sequential-incenter",
+      "seed": 0,
+      "error": null
+    }
+  ],
+  "metadata": {
+    "scenario_count": 25,
+    "algorithm_count": 1,
+    "run_count": 25,
+    "scoring_applied": false,
+    "evaluation_applied": true,
+    "external_stopping_enabled": true,
+    "stopping_rule": {
+      "enabled": true,
+      "test_query_count": 100,
+      "seed": 501,
+      "zero_regret_tolerance": 1e-08,
+      "minimum_steps": 1,
+      "consecutive_successes": 1,
+      "query_distribution": "uniform_unit_sphere"
+    },
+    "evaluation": {
+      "config": {
+        "test_query_count": 100,
+        "seed": 501,
+        "evaluate_trajectory": false,
+        "zero_regret_tolerance": 1e-08,
+        "numerical_tolerance": 1e-12,
+        "query_distribution": "uniform_unit_sphere",
+        "learning_regret_threshold": 0.01
+      },
+      "algorithms": {
+        "uniform-random-sequential-incenter": {
+          "evaluated_runs": 25,
+          "successful_estimate_runs": 23,
+          "failed_estimate_runs": 2,
+          "algorithm_failure_rate": 0.07999999999999996,
+          "mean_final_angular_error_degrees": 28.891355524329605,
+          "median_final_angular_error_degrees": 30.33399080339246,
+          "mean_final_normalized_regret": 0.0009395907242493712,
+          "median_final_normalized_regret": 0.0,
+          "mean_final_zero_regret_rate": 0.9908695652173912,
+          "valid_final_estimate_rate": 0.92,
+          "mean_runtime_seconds": 0.2263257519970648
+        }
+      },
+      "evaluated_run_count": 25,
+      "failed_run_count": 0
+    }
+  }
+}

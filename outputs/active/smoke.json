@@ -1,0 +1,296 @@
+{
+  "scenario": {
+    "name": "active-smoke",
+    "dimension": 5,
+    "horizon": 3,
+    "seed": 7,
+    "true_theta": null,
+    "normalize_true_theta": true,
+    "expert": {
+      "kind": "min",
+      "temperature": "medium",
+      "reference_gap": null,
+      "tie_breaking": "lexicographic",
+      "gibbs_burn_in": 40,
+      "gibbs_steps": 20
+    },
+    "decision_space": {
+      "kind": "independent_binary",
+      "cardinality": null,
+      "lower": null,
+      "upper": null,
+      "A": null,
+      "b": null,
+      "A_eq": null,
+      "b_eq": null,
+      "C_ub": null,
+      "r_ub": null,
+      "edges": null,
+      "source": null,
+      "sink": null,
+      "max_enumeration": 65536,
+      "mcmc_burn_in": 40,
+      "mcmc_steps": 20
+    },
+    "query_space": {
+      "kind": "balanced",
+      "candidate_count": 10,
+      "clusters": 4,
+      "cluster_radius": 0.12,
+      "boundary_epsilon": 0.08,
+      "rank": null,
+      "informative_fraction": 0.08,
+      "sparsity": null,
+      "construction_attempts": 2000,
+      "allow_repeated_queries": true
+    },
+    "observation_noise": {
+      "kind": "clean",
+      "sigma": 0.1,
+      "outlier_probability": 0.05,
+      "bias": null,
+      "confusion_matrix": null,
+      "mask_probability": 0.25,
+      "query_profile": "first_coordinate",
+      "minimum_scale": 0.02,
+      "maximum_scale": 0.2,
+      "distance": "euclidean"
+    },
+    "parameter_noise": {
+      "kind": "none",
+      "sigma": 0.1,
+      "covariance": null,
+      "query_profile": "first_coordinate",
+      "minimum_scale": 0.02,
+      "maximum_scale": 0.2
+    },
+    "metadata": {}
+  },
+  "algorithm_name": "random-smoke-test",
+  "seed": 7,
+  "true_theta": [
+    -0.22040844477407864,
+    0.5125114501759314,
+    -0.15367201091174626,
+    0.7473340063737822,
+    0.3265408502630069
+  ],
+  "runtime_seconds": 0.0005637999856844544,
+  "stopped_early": false,
+  "error": null,
+  "metadata": {
+    "algorithm_class": "RandomActiveAlgorithm",
+    "environment_class": "ActiveInverseEnvironment",
+    "scoring_applied": false,
+    "evaluation_applied": false
+  },
+  "records": [
+    {
+      "step": 1,
+      "query": [
+        -0.05506808902378393,
+        0.23648301196791402,
+        0.5245502255860383,
+        0.7934719359368133,
+        -0.19050626850624666
+      ],
+      "theta_hat_before": [
+        -0.7692891654236991,
+        0.3664406301025374,
+        0.46780890812513704,
+        0.2250456593871558,
+        0.06651857816829358
+      ],
+      "theta_hat_after": [
+        -0.49789922769650025,
+        -0.29251395347881426,
+        -0.7334500381314846,
+        0.281840002308181,
+        -0.22169619018664027
+      ],
+      "true_theta": [
+        -0.22040844477407864,
+        0.5125114501759314,
+        -0.15367201091174626,
+        0.7473340063737822,
+        0.3265408502630069
+      ],
+      "expert_parameter": [
+        -0.22040844477407864,
+        0.5125114501759314,
+        -0.15367201091174626,
+        0.7473340063737822,
+        0.3265408502630069
+      ],
+      "true_decision": [
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "observed_decision": [
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "observation_mask": null,
+      "objective_value": -0.1428167668884791,
+      "stop_requested": false,
+      "action_diagnostics": {
+        "candidate_index": 3,
+        "purpose": "plumbing-only"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "none"
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 2,
+      "query": [
+        0.13508422880803667,
+        0.4205664028759976,
+        -0.6810746671310032,
+        0.4293185618167019,
+        0.395852273166789
+      ],
+      "theta_hat_before": [
+        -0.49789922769650025,
+        -0.29251395347881426,
+        -0.7334500381314846,
+        0.281840002308181,
+        -0.22169619018664027
+      ],
+      "theta_hat_after": [
+        -0.2335969023591859,
+        -0.08024311616570502,
+        -0.7555415547591902,
+        -0.39910558150222475,
+        -0.4570177495043785
+      ],
+      "true_theta": [
+        -0.22040844477407864,
+        0.5125114501759314,
+        -0.15367201091174626,
+        0.7473340063737822,
+        0.3265408502630069
+      ],
+      "expert_parameter": [
+        -0.22040844477407864,
+        0.5125114501759314,
+        -0.15367201091174626,
+        0.7473340063737822,
+        0.3265408502630069
+      ],
+      "true_decision": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "observed_decision": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.02977370478508515,
+      "stop_requested": false,
+      "action_diagnostics": {
+        "candidate_index": 2,
+        "purpose": "plumbing-only"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "none"
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 3,
+      "query": [
+        -0.8449343067412534,
+        0.41348253738646645,
+        0.11226617741517154,
+        -0.19514538091789121,
+        0.25383615637478346
+      ],
+      "theta_hat_before": [
+        -0.2335969023591859,
+        -0.08024311616570502,
+        -0.7555415547591902,
+        -0.39910558150222475,
+        -0.4570177495043785
+      ],
+      "theta_hat_after": [
+        0.031028935343614752,
+        0.5347177868540078,
+        0.42700675756907747,
+        -0.6972027576469499,
+        0.21139450634589596
+      ],
+      "true_theta": [
+        -0.22040844477407864,
+        0.5125114501759314,
+        -0.15367201091174626,
+        0.7473340063737822,
+        0.3265408502630069
+      ],
+      "expert_parameter": [
+        -0.22040844477407864,
+        0.5125114501759314,
+        -0.15367201091174626,
+        0.7473340063737822,
+        0.3265408502630069
+      ],
+      "true_decision": [
+        0,
+        0,
+        1,
+        1,
+        0
+      ],
+      "observed_decision": [
+        0,
+        0,
+        1,
+        1,
+        0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.16309094858746975,
+      "stop_requested": false,
+      "action_diagnostics": {
+        "candidate_index": 1,
+        "purpose": "plumbing-only"
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "none"
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    }
+  ]
+}

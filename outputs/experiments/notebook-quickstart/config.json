@@ -1,0 +1,8 @@
+{
+  "name": "quickstart-2d",
+  "seed": 7,
+  "validate_feasibility": true,
+  "compute_geometry": true,
+  "geometry_samples": 800,
+  "tags": {}
+}

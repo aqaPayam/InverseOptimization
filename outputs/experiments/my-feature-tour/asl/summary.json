@@ -1,0 +1,64 @@
+{
+  "name": "noisy-learning",
+  "theta": [
+    -0.050637403286480226,
+    0.04009684881878652
+  ],
+  "metrics": {
+    "observed_decision_accuracy": 0.5,
+    "mean_observed_decision_distance": 0.75,
+    "mean_surrogate_suboptimality": 0.01692431257961412,
+    "max_surrogate_suboptimality": 0.06266137343707333,
+    "clean_decision_accuracy": 0.25,
+    "mean_clean_decision_distance": 1.375,
+    "mean_true_regret": 1.1640703422921561,
+    "cumulative_true_regret": 9.312562738337249,
+    "max_true_regret": 3.9555960782878605,
+    "true_regret_cvar_20": 3.3421181473895736,
+    "parameter_angular_error": 1.521830463402143,
+    "parameter_cosine_similarity": 0.04894629852417894,
+    "parameter_l1_error_normalized": 1.5582861219231945,
+    "parameter_l2_error_normalized": 1.3791690987517238,
+    "parameter_linf_error_normalized": 1.3656494906204832,
+    "parameter_sign_accuracy": 0.5,
+    "constraint_count": 24.0,
+    "constraint_violation_rate": 0.2916666666666667,
+    "mean_constraint_violation": 0.008345066958277823,
+    "max_constraint_violation": 0.06266137343707333,
+    "minimum_margin": -0.06383740338768142,
+    "median_margin": 0.02653472857159799,
+    "mean_margin": 0.02213380816803437,
+    "fit_time_seconds": 0.04295220000494737
+  },
+  "dataset": {
+    "name": "random-choice-data",
+    "size": 8,
+    "fingerprint": "98606cefaa83fde77cb775cdacf952cf4771ba4a2a71f38a317adcb540515cdb",
+    "weight_sum": 8.0,
+    "timestamped_fraction": 1.0,
+    "ground_truth_theta_fraction": 1.0,
+    "clean_decision_fraction": 1.0,
+    "experts": [],
+    "noise_types": {
+      "random_feasible": 8
+    },
+    "validation_warnings": []
+  },
+  "diagnostics": {
+    "warnings": [],
+    "estimator": "ProjectedSubgradientEstimator",
+    "problem_capabilities": [
+      "differentiable_in_theta",
+      "finite_feasible_set",
+      "linear_in_theta",
+      "supports_enumeration",
+      "supports_separation"
+    ],
+    "python": "3.13.0",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "solver_result": {
+      "best_loss": 1.017550681924741,
+      "epochs": 20
+    }
+  }
+}

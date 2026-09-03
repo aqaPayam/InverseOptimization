@@ -8,7 +8,7 @@ import numpy as np
 from ..exceptions import ValidationError
 from .config import ActiveScenarioConfig, _jsonable
 from .decision_spaces import DecisionSpace
-from .evaluation import normalized_test_regret, sample_scenario_hidden_queries
+from .evaluation import estimate_status, normalized_test_regret, sample_scenario_hidden_queries
 
 
 Array = np.ndarray
@@ -44,11 +44,12 @@ class RegretStoppingConfig:
 class RegretStoppingCheck:
     step: int
     should_stop: bool
-    mean_normalized_regret: float
-    maximum_normalized_regret: float
-    zero_regret_rate: float
+    mean_normalized_regret: float | None
+    maximum_normalized_regret: float | None
+    zero_regret_rate: float | None
     consecutive_successes: int = 0
     reason: str | None = None
+    estimate_status: str = "valid"
 
     def to_dict(self) -> dict[str, Any]:
         return _jsonable(asdict(self))
@@ -84,9 +85,18 @@ class RegretStoppingRule:
             decision_space=decision_space,
         )
 
-    def check(self, theta_hat: Array, step: int) -> RegretStoppingCheck:
+    def check(self, theta_hat: Array, step: int,
+              diagnostics: dict | None = None) -> RegretStoppingCheck:
         if self.test_queries is None or self.theta_true is None or self.decision_space is None:
             raise RuntimeError("the regret stopping rule must be reset before use")
+        status, failure_reason = estimate_status(theta_hat, diagnostics)
+        if status != "valid":
+            self.success_streak = 0
+            check = RegretStoppingCheck(int(step), False, None, None, None,
+                reason=failure_reason or "invalid estimate cannot meet stopping criterion",
+                estimate_status=status)
+            self.history.append(check)
+            return check
         mean_regret, zero_rate, regrets = normalized_test_regret(
             theta_hat,
             self.theta_true,

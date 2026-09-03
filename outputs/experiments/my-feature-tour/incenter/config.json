@@ -1,0 +1,8 @@
+{
+  "name": "clean-incenter",
+  "seed": 21,
+  "validate_feasibility": true,
+  "compute_geometry": true,
+  "geometry_samples": 150,
+  "tags": {}
+}

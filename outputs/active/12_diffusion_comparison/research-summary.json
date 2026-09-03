@@ -1,0 +1,2388 @@
+{
+  "group_count": 24,
+  "successful_run_count": 24,
+  "failed_run_count": 0,
+  "groups": [
+    {
+      "algorithm": "Diffusion",
+      "family": "cardinality-balanced-d20",
+      "run_count": 1,
+      "stochastic": false,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.010162002632120401,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 19.401230333499857,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.53125,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 2.4175578000722453,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 0.0,
+      "first_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "stable_threshold_reached_rate": 0.0,
+      "stable_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      }
+    },
+    {
+      "algorithm": "Diffusion",
+      "family": "cardinality-parameter-noise-mild-d20",
+      "run_count": 1,
+      "stochastic": true,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.010162002632120401,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 19.401230333499857,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.53125,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 2.4157941000303254,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 0.0,
+      "first_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "stable_threshold_reached_rate": 0.0,
+      "stable_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      }
+    },
+    {
+      "algorithm": "Diffusion",
+      "family": "cardinality-parameter-noise-moderate-d20",
+      "run_count": 1,
+      "stochastic": true,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 1,
+          "mean": 6.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "stable_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.010680390464401649,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 21.03296661622328,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.53125,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 2.3658349000616,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 1.0,
+      "first_threshold_step": {
+        "count": 1,
+        "mean": 6.0,
+        "std": 0.0
+      },
+      "stable_threshold_reached_rate": 0.0,
+      "stable_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      }
+    },
+    {
+      "algorithm": "Diffusion",
+      "family": "cardinality-rare-informative-d20",
+      "run_count": 1,
+      "stochastic": false,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.012881209548656706,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 21.83181319930843,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.375,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 2.357198499958031,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 0.0,
+      "first_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "stable_threshold_reached_rate": 0.0,
+      "stable_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      }
+    },
+    {
+      "algorithm": "Diffusion",
+      "family": "cardinality-small-margin-d20",
+      "run_count": 1,
+      "stochastic": false,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.03588490883319411,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 27.024842178575437,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.15625,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 2.4524015999631956,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 0.0,
+      "first_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "stable_threshold_reached_rate": 0.0,
+      "stable_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      }
+    },
+    {
+      "algorithm": "Diffusion",
+      "family": "cardinality-sparse-queries-d20",
+      "run_count": 1,
+      "stochastic": false,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.1680662451229744,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 34.76760368946476,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.5625,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 2.4209250999847427,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 0.0,
+      "first_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "stable_threshold_reached_rate": 0.0,
+      "stable_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      }
+    },
+    {
+      "algorithm": "Diffusion",
+      "family": "continuous-simplex-d10",
+      "run_count": 1,
+      "stochastic": false,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.20432130226627962,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 51.40182530192124,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.53125,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 43.57559139991645,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 0.0,
+      "first_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "stable_threshold_reached_rate": 0.0,
+      "stable_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      }
+    },
+    {
+      "algorithm": "Diffusion",
+      "family": "dag-path-d18",
+      "run_count": 1,
+      "stochastic": false,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.16637814466400572,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 48.80793737749666,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.34375,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 3.202780600055121,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 0.0,
+      "first_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "stable_threshold_reached_rate": 0.0,
+      "stable_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      }
+    },
+    {
+      "algorithm": "Diffusion",
+      "family": "dag-path-parameter-noise-moderate-d18",
+      "run_count": 1,
+      "stochastic": true,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.16637814466400572,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 48.80793737749666,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.34375,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 3.23861759994179,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 0.0,
+      "first_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "stable_threshold_reached_rate": 0.0,
+      "stable_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      }
+    },
+    {
+      "algorithm": "Diffusion",
+      "family": "geometry-cardinality-3d",
+      "run_count": 1,
+      "stochastic": false,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 1,
+          "mean": 8.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "stable_angular_threshold_step": {
+          "count": 1,
+          "mean": 8.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "first_threshold_step": {
+          "count": 1,
+          "mean": 8.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "stable_threshold_step": {
+          "count": 1,
+          "mean": 8.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "first_joint_threshold_step": {
+          "count": 1,
+          "mean": 8.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "stable_joint_threshold_step": {
+          "count": 1,
+          "mean": 8.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.0008884165227414885,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 3.225757834969096,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.96875,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 2.397655799984932,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 1.0,
+      "first_threshold_step": {
+        "count": 1,
+        "mean": 8.0,
+        "std": 0.0
+      },
+      "stable_threshold_reached_rate": 1.0,
+      "stable_threshold_step": {
+        "count": 1,
+        "mean": 8.0,
+        "std": 0.0
+      }
+    },
+    {
+      "algorithm": "Diffusion",
+      "family": "knapsack-d20",
+      "run_count": 1,
+      "stochastic": false,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 1,
+          "mean": 6.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "stable_threshold_step": {
+          "count": 1,
+          "mean": 8.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.00656015853091038,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 24.177757262630717,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.59375,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 48.12711180001497,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 1.0,
+      "first_threshold_step": {
+        "count": 1,
+        "mean": 6.0,
+        "std": 0.0
+      },
+      "stable_threshold_reached_rate": 1.0,
+      "stable_threshold_step": {
+        "count": 1,
+        "mean": 8.0,
+        "std": 0.0
+      }
+    },
+    {
+      "algorithm": "Diffusion",
+      "family": "knapsack-parameter-noise-moderate-d20",
+      "run_count": 1,
+      "stochastic": true,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 1,
+          "mean": 6.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "stable_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.012329847791264151,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 24.7353855852193,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.46875,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 46.25642190000508,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 1.0,
+      "first_threshold_step": {
+        "count": 1,
+        "mean": 6.0,
+        "std": 0.0
+      },
+      "stable_threshold_reached_rate": 0.0,
+      "stable_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      }
+    },
+    {
+      "algorithm": "Random + incenter",
+      "family": "cardinality-balanced-d20",
+      "run_count": 1,
+      "stochastic": false,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 1,
+          "mean": 3.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "stable_threshold_step": {
+          "count": 1,
+          "mean": 3.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.002644201276569288,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 13.964550615871946,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.625,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 0.13801620004232973,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 1.0,
+      "first_threshold_step": {
+        "count": 1,
+        "mean": 3.0,
+        "std": 0.0
+      },
+      "stable_threshold_reached_rate": 1.0,
+      "stable_threshold_step": {
+        "count": 1,
+        "mean": 3.0,
+        "std": 0.0
+      }
+    },
+    {
+      "algorithm": "Random + incenter",
+      "family": "cardinality-parameter-noise-mild-d20",
+      "run_count": 1,
+      "stochastic": true,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 1,
+          "mean": 3.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "stable_threshold_step": {
+          "count": 1,
+          "mean": 3.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.002644201276569288,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 13.964550615871946,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.625,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 0.13064540002960712,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 1.0,
+      "first_threshold_step": {
+        "count": 1,
+        "mean": 3.0,
+        "std": 0.0
+      },
+      "stable_threshold_reached_rate": 1.0,
+      "stable_threshold_step": {
+        "count": 1,
+        "mean": 3.0,
+        "std": 0.0
+      }
+    },
+    {
+      "algorithm": "Random + incenter",
+      "family": "cardinality-parameter-noise-moderate-d20",
+      "run_count": 1,
+      "stochastic": true,
+      "valid_estimate_rate": 0.0,
+      "algorithm_failure_rate": 1.0,
+      "failure_statuses": {
+        "degenerate_cone": 1
+      },
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 1,
+          "mean": 3.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "stable_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "final_angular_error_degrees": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "final_zero_regret_rate": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 0.12182699993718415,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 1.0,
+      "first_threshold_step": {
+        "count": 1,
+        "mean": 3.0,
+        "std": 0.0
+      },
+      "stable_threshold_reached_rate": 0.0,
+      "stable_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      }
+    },
+    {
+      "algorithm": "Random + incenter",
+      "family": "cardinality-rare-informative-d20",
+      "run_count": 1,
+      "stochastic": false,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 1,
+          "mean": 2.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "stable_threshold_step": {
+          "count": 1,
+          "mean": 2.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.002533745965241511,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 19.848245816715703,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.71875,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 0.13674250000622123,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 1.0,
+      "first_threshold_step": {
+        "count": 1,
+        "mean": 2.0,
+        "std": 0.0
+      },
+      "stable_threshold_reached_rate": 1.0,
+      "stable_threshold_step": {
+        "count": 1,
+        "mean": 2.0,
+        "std": 0.0
+      }
+    },
+    {
+      "algorithm": "Random + incenter",
+      "family": "cardinality-small-margin-d20",
+      "run_count": 1,
+      "stochastic": false,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.038254317712004327,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 26.773280472130466,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.25,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 0.16115430009085685,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 0.0,
+      "first_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "stable_threshold_reached_rate": 0.0,
+      "stable_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      }
+    },
+    {
+      "algorithm": "Random + incenter",
+      "family": "cardinality-sparse-queries-d20",
+      "run_count": 1,
+      "stochastic": false,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.22272626717331706,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 39.13427110719639,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.46875,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 0.07369559991639107,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 0.0,
+      "first_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "stable_threshold_reached_rate": 0.0,
+      "stable_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      }
+    },
+    {
+      "algorithm": "Random + incenter",
+      "family": "continuous-simplex-d10",
+      "run_count": 1,
+      "stochastic": false,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.09003566532552144,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 39.779738088332195,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.46875,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 0.39388460002373904,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 0.0,
+      "first_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "stable_threshold_reached_rate": 0.0,
+      "stable_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      }
+    },
+    {
+      "algorithm": "Random + incenter",
+      "family": "dag-path-d18",
+      "run_count": 1,
+      "stochastic": false,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.08982669683267654,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 38.51263580714719,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.46875,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 0.07038219994865358,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 0.0,
+      "first_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "stable_threshold_reached_rate": 0.0,
+      "stable_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      }
+    },
+    {
+      "algorithm": "Random + incenter",
+      "family": "dag-path-parameter-noise-moderate-d18",
+      "run_count": 1,
+      "stochastic": true,
+      "valid_estimate_rate": 0.0,
+      "algorithm_failure_rate": 1.0,
+      "failure_statuses": {
+        "degenerate_cone": 1
+      },
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "final_angular_error_degrees": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "final_zero_regret_rate": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 0.06555289996322244,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 0.0,
+      "first_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      },
+      "stable_threshold_reached_rate": 0.0,
+      "stable_threshold_step": {
+        "count": 0,
+        "mean": null,
+        "std": null
+      }
+    },
+    {
+      "algorithm": "Random + incenter",
+      "family": "geometry-cardinality-3d",
+      "run_count": 1,
+      "stochastic": false,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 1,
+          "mean": 6.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "stable_threshold_step": {
+          "count": 1,
+          "mean": 6.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 1,
+          "mean": 6.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "stable_zero_regret_step": {
+          "count": 1,
+          "mean": 6.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 5.89681527675956,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 0.5022142000962049,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 1.0,
+      "first_threshold_step": {
+        "count": 1,
+        "mean": 6.0,
+        "std": 0.0
+      },
+      "stable_threshold_reached_rate": 1.0,
+      "stable_threshold_step": {
+        "count": 1,
+        "mean": 6.0,
+        "std": 0.0
+      }
+    },
+    {
+      "algorithm": "Random + incenter",
+      "family": "knapsack-d20",
+      "run_count": 1,
+      "stochastic": false,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 1,
+          "mean": 2.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "stable_threshold_step": {
+          "count": 1,
+          "mean": 2.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.002808497013916167,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 15.840942036304801,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.71875,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 0.3788457999471575,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 1.0,
+      "first_threshold_step": {
+        "count": 1,
+        "mean": 2.0,
+        "std": 0.0
+      },
+      "stable_threshold_reached_rate": 1.0,
+      "stable_threshold_step": {
+        "count": 1,
+        "mean": 2.0,
+        "std": 0.0
+      }
+    },
+    {
+      "algorithm": "Random + incenter",
+      "family": "knapsack-parameter-noise-moderate-d20",
+      "run_count": 1,
+      "stochastic": true,
+      "valid_estimate_rate": 1.0,
+      "algorithm_failure_rate": 0.0,
+      "failure_statuses": {},
+      "threshold_times": {
+        "first_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_angular_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_threshold_step": {
+          "count": 1,
+          "mean": 2.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "stable_threshold_step": {
+          "count": 1,
+          "mean": 2.0,
+          "std": 0.0,
+          "reached_rate": 1.0,
+          "not_reached_count": 0
+        },
+        "first_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_joint_threshold_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "first_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        },
+        "stable_zero_regret_step": {
+          "count": 0,
+          "mean": null,
+          "std": null,
+          "reached_rate": 0.0,
+          "not_reached_count": 1
+        }
+      },
+      "final_normalized_regret": {
+        "count": 1,
+        "mean": 0.009068692855807785,
+        "std": 0.0
+      },
+      "final_angular_error_degrees": {
+        "count": 1,
+        "mean": 30.797992679044402,
+        "std": 0.0
+      },
+      "final_zero_regret_rate": {
+        "count": 1,
+        "mean": 0.5625,
+        "std": 0.0
+      },
+      "runtime_seconds": {
+        "count": 1,
+        "mean": 0.3785973999183625,
+        "std": 0.0
+      },
+      "threshold_reached_rate": 1.0,
+      "first_threshold_step": {
+        "count": 1,
+        "mean": 2.0,
+        "std": 0.0
+      },
+      "stable_threshold_reached_rate": 1.0,
+      "stable_threshold_step": {
+        "count": 1,
+        "mean": 2.0,
+        "std": 0.0
+      }
+    }
+  ],
+  "composite_score_created": false
+}

@@ -31,6 +31,14 @@ from .decision_spaces import (
     make_decision_space,
 )
 from .environment import ActiveInverseEnvironment
+from .langevin import (
+    GaussianSmoothedSampler,
+    InverseLossTarget,
+    NestedLangevinActiveAlgorithm,
+    NestedLangevinConfig,
+    create_nested_langevin_algorithm,
+    disagreement_score,
+)
 from .evaluation import (
     ActiveEvaluationConfig,
     ActiveEvaluationResult,
@@ -42,6 +50,10 @@ from .evaluation import (
     sample_scenario_hidden_queries,
 )
 from .experts import Expert, GibbsExpert, MinExpert
+from .sampling import GaussianGibbsSampler
+from .query_designs import QueryDesign, build_query_sensitive_scenarios
+from .comparison import (PedroAlgorithm, ScoreBaseAlgorithm, ComparisonDesign,
+                         build_pedro_score_scenarios, run_pedro_score_design)
 from .noise import ObservationNoise, ParameterNoise
 from .query_spaces import QuerySpace, make_query_space
 from .public import ConsistencyNormalBatch, PublicDecisionProblem
@@ -102,6 +114,20 @@ __all__ = [
     "GibbsExpert",
     "IndependentBinaryDecisionSpace",
     "MinExpert",
+    "GaussianSmoothedSampler",
+    "GaussianGibbsSampler",
+    "QueryDesign",
+    "PedroAlgorithm",
+    "ScoreBaseAlgorithm",
+    "ComparisonDesign",
+    "build_pedro_score_scenarios",
+    "run_pedro_score_design",
+    "build_query_sensitive_scenarios",
+    "InverseLossTarget",
+    "NestedLangevinActiveAlgorithm",
+    "NestedLangevinConfig",
+    "create_nested_langevin_algorithm",
+    "disagreement_score",
     "ObservationNoise",
     "ObservationNoiseConfig",
     "ObservationNoiseKind",

@@ -1,0 +1,1236 @@
+{
+  "scenario": {
+    "name": "research-continuous-simplex-d10-s0",
+    "dimension": 10,
+    "horizon": 8,
+    "seed": 0,
+    "true_theta": [
+      -1.0,
+      -0.975,
+      -0.95,
+      -0.925,
+      -0.9,
+      0.9,
+      0.925,
+      0.95,
+      0.975,
+      1.0
+    ],
+    "normalize_true_theta": true,
+    "expert": {
+      "kind": "min",
+      "temperature": "medium",
+      "reference_gap": null,
+      "tie_breaking": "lexicographic",
+      "gibbs_burn_in": 40,
+      "gibbs_steps": 20
+    },
+    "decision_space": {
+      "kind": "continuous_polytope",
+      "cardinality": null,
+      "lower": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "upper": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "A": [
+        [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        [
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0,
+          -1.0
+        ]
+      ],
+      "b": [
+        1.0,
+        -1.0
+      ],
+      "A_eq": null,
+      "b_eq": null,
+      "C_ub": null,
+      "r_ub": null,
+      "edges": null,
+      "source": null,
+      "sink": null,
+      "max_enumeration": 65536,
+      "mcmc_burn_in": 40,
+      "mcmc_steps": 20
+    },
+    "query_space": {
+      "kind": "balanced",
+      "candidate_count": 16,
+      "clusters": 4,
+      "cluster_radius": 0.12,
+      "boundary_epsilon": 0.08,
+      "rank": null,
+      "informative_fraction": 0.08,
+      "sparsity": null,
+      "construction_attempts": 2000,
+      "allow_repeated_queries": true
+    },
+    "observation_noise": {
+      "kind": "clean",
+      "sigma": 0.1,
+      "outlier_probability": 0.05,
+      "bias": null,
+      "confusion_matrix": null,
+      "mask_probability": 0.25,
+      "query_profile": "first_coordinate",
+      "minimum_scale": 0.02,
+      "maximum_scale": 0.2,
+      "distance": "euclidean",
+      "target_decision_change_rate": null,
+      "calibration_trials": 96
+    },
+    "parameter_noise": {
+      "kind": "none",
+      "sigma": 0.1,
+      "covariance": null,
+      "query_profile": "first_coordinate",
+      "minimum_scale": 0.02,
+      "maximum_scale": 0.2,
+      "target_decision_change_rate": null,
+      "calibration_trials": 96
+    },
+    "metadata": {
+      "research_family": "continuous-simplex-d10",
+      "difficulty": "hard",
+      "stochastic": false,
+      "rationale": "A simplex equality creates a genuinely coupled continuous decision.",
+      "objective_family": "linear-in-parameter",
+      "role": "research"
+    }
+  },
+  "algorithm_name": "Random + incenter",
+  "seed": 0,
+  "true_theta": [
+    -0.3326410515199428,
+    -0.32432502523194423,
+    -0.31600899894394563,
+    -0.3076929726559471,
+    -0.29937694636794854,
+    0.29937694636794854,
+    0.3076929726559471,
+    0.31600899894394563,
+    0.32432502523194423,
+    0.3326410515199428
+  ],
+  "runtime_seconds": 0.39388460002373904,
+  "stopped_early": false,
+  "error": null,
+  "metadata": {
+    "algorithm_class": "UniformRandomIncenterAlgorithm",
+    "algorithm_initialization_seconds": 2.2499938495457172e-05,
+    "environment_class": "ActiveInverseEnvironment",
+    "scoring_applied": false,
+    "evaluation_applied": true,
+    "external_stopping_enabled": false,
+    "stopping_rule": {
+      "enabled": false,
+      "test_query_count": 16,
+      "seed": 40001,
+      "zero_regret_tolerance": 1e-08,
+      "minimum_steps": 1,
+      "consecutive_successes": 3,
+      "query_distribution": "scenario"
+    },
+    "stopping_time": 8,
+    "stopping_criterion_met": false,
+    "stopping_reason": null,
+    "final_stopping_diagnostics": {},
+    "noise_calibration": {},
+    "algorithm_failed": false,
+    "final_estimate_status": "valid",
+    "algorithm_failure_reason": null
+  },
+  "evaluation": {
+    "final_angular_error_degrees": 39.779738088332195,
+    "final_normalized_regret": 0.09003566532552144,
+    "final_zero_regret_rate": 0.46875,
+    "final_estimate_valid": true,
+    "final_status": "valid",
+    "final_failure_reason": null,
+    "test_query_count": 32,
+    "angular_error_history_degrees": [
+      78.6440277096397,
+      65.86328615721472,
+      55.330941990871516,
+      50.3478996241542,
+      45.8177787442645,
+      41.8211744110411,
+      39.7797381145492,
+      39.779738088332195
+    ],
+    "normalized_regret_history": [
+      0.4098828188908883,
+      0.2685239447844921,
+      0.1868650736752255,
+      0.14847905334893668,
+      0.11327804987618315,
+      0.10891541764802795,
+      0.09003566532552144,
+      0.09003566532552144
+    ],
+    "zero_regret_rate_history": [
+      0.15625,
+      0.25,
+      0.34375,
+      0.40625,
+      0.5,
+      0.4375,
+      0.46875,
+      0.46875
+    ],
+    "maximum_normalized_regret_history": [
+      1.0,
+      0.8275538313558213,
+      0.6870196234449596,
+      0.5367121610838117,
+      0.588898559530453,
+      0.5367121610838117,
+      0.4407399571922541,
+      0.4407399571922541
+    ],
+    "valid_estimate_history": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "estimate_status_history": [
+      "valid",
+      "valid",
+      "valid",
+      "valid",
+      "valid",
+      "valid",
+      "valid",
+      "valid"
+    ],
+    "mean_angular_error_degrees": 52.17307310500839,
+    "mean_normalized_regret": 0.17700196110934957,
+    "first_threshold_step": null,
+    "stable_threshold_step": null,
+    "first_zero_regret_step": null,
+    "stable_zero_regret_step": null,
+    "first_angular_threshold_step": null,
+    "stable_angular_threshold_step": null,
+    "first_joint_threshold_step": null,
+    "stable_joint_threshold_step": null,
+    "metadata": {
+      "test_query_distribution": "scenario",
+      "test_queries_hidden_from_algorithm": true,
+      "clean_true_parameter_evaluation": true,
+      "scenario_seed": 0,
+      "evaluation_seed": 90001,
+      "trajectory_evaluated": true,
+      "learning_regret_threshold": 0.01,
+      "learning_angular_threshold_degrees": 5.0,
+      "stable_threshold_definition": "at or below threshold at every remaining step through T",
+      "independent_from_stopping": true
+    }
+  },
+  "records": [
+    {
+      "step": 1,
+      "query": [
+        0.08662017086106519,
+        0.39266126535805174,
+        -0.09893325800155628,
+        0.5303774831513245,
+        0.526286887842917,
+        0.32421310587001534,
+        0.17966402741561535,
+        0.15262155750315543,
+        0.20994837944437,
+        0.25589677916731945
+      ],
+      "theta_hat_before": [
+        0.31622776601683794,
+        0.31622776601683794,
+        0.31622776601683794,
+        0.31622776601683794,
+        0.31622776601683794,
+        0.31622776601683794,
+        0.31622776601683794,
+        0.31622776601683794,
+        0.31622776601683794,
+        0.31622776601683794
+      ],
+      "theta_hat_after": [
+        -2.4628534951524717e-09,
+        0.19747888841714384,
+        -2.4628534951524676e-09,
+        -0.9240407117477257,
+        0.28997067241480706,
+        0.1375866683615561,
+        -2.462853495152455e-09,
+        -2.4628534951524386e-09,
+        0.00268924734510099,
+        0.06426925734343905
+      ],
+      "true_theta": [
+        -0.3326410515199428,
+        -0.32432502523194423,
+        -0.31600899894394563,
+        -0.3076929726559471,
+        -0.29937694636794854,
+        0.29937694636794854,
+        0.3076929726559471,
+        0.31600899894394563,
+        0.32432502523194423,
+        0.3326410515199428
+      ],
+      "expert_parameter": [
+        -0.3326410515199428,
+        -0.32432502523194423,
+        -0.31600899894394563,
+        -0.3076929726559471,
+        -0.29937694636794854,
+        0.29937694636794854,
+        0.3076929726559471,
+        0.31600899894394563,
+        0.32432502523194423,
+        0.3326410515199428
+      ],
+      "true_decision": [
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "observed_decision": [
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.16319342442061052,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {},
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 6,
+        "constraint_count": 0,
+        "incenter_radius": 0.0,
+        "all_constraints_exact": true
+      },
+      "update_diagnostics": {
+        "constraint_count": 9,
+        "incenter_radius": 0.8601649248952817,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "forward-oracle-cuts",
+        "constraints_exact": false,
+        "skipped_reason": null,
+        "estimate_status": "valid",
+        "failure_reason": null
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "none"
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 2,
+      "query": [
+        -0.34812324823964735,
+        -0.14451444388549564,
+        -0.1838912774494776,
+        0.34001186325102584,
+        -0.39837584196910564,
+        0.4606083268009405,
+        -0.0574401502906537,
+        -0.4997002442269749,
+        0.2768852099753749,
+        -0.08929302233732116
+      ],
+      "theta_hat_before": [
+        -2.4628534951524717e-09,
+        0.19747888841714384,
+        -2.4628534951524676e-09,
+        -0.9240407117477257,
+        0.28997067241480706,
+        0.1375866683615561,
+        -2.462853495152455e-09,
+        -2.4628534951524386e-09,
+        0.00268924734510099,
+        0.06426925734343905
+      ],
+      "theta_hat_after": [
+        -6.826193656499243e-09,
+        0.13609739224686612,
+        -6.826193656499243e-09,
+        -0.45363647855063643,
+        0.17542664172499858,
+        0.11220891421724592,
+        0.04961560393843731,
+        0.8476070559089309,
+        0.06461132249539643,
+        0.08515894419173885
+      ],
+      "true_theta": [
+        -0.3326410515199428,
+        -0.32432502523194423,
+        -0.31600899894394563,
+        -0.3076929726559471,
+        -0.29937694636794854,
+        0.29937694636794854,
+        0.3076929726559471,
+        0.31600899894394563,
+        0.32432502523194423,
+        0.3326410515199428
+      ],
+      "expert_parameter": [
+        -0.3326410515199428,
+        -0.32432502523194423,
+        -0.31600899894394563,
+        -0.3076929726559471,
+        -0.29937694636794854,
+        0.29937694636794854,
+        0.3076929726559471,
+        0.31600899894394563,
+        0.32432502523194423,
+        0.3326410515199428
+      ],
+      "true_decision": [
+        0.0,
+        0.0,
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "observed_decision": [
+        0.0,
+        0.0,
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.1579097739502115,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {},
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 9,
+        "constraint_count": 9,
+        "incenter_radius": 0.8601649248952817,
+        "all_constraints_exact": false
+      },
+      "update_diagnostics": {
+        "constraint_count": 18,
+        "incenter_radius": 0.44557302430212153,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "forward-oracle-cuts",
+        "constraints_exact": false,
+        "skipped_reason": null,
+        "estimate_status": "valid",
+        "failure_reason": null
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "none"
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 3,
+      "query": [
+        -0.46280545124629063,
+        0.34835385366505267,
+        -0.5510267103800692,
+        -0.04701318502916017,
+        0.028561599142448588,
+        0.02475386784123381,
+        0.3002481035220425,
+        0.17280520159863424,
+        -0.1559807375806423,
+        -0.4613577365034141
+      ],
+      "theta_hat_before": [
+        -6.826193656499243e-09,
+        0.13609739224686612,
+        -6.826193656499243e-09,
+        -0.45363647855063643,
+        0.17542664172499858,
+        0.11220891421724592,
+        0.04961560393843731,
+        0.8476070559089309,
+        0.06461132249539643,
+        0.08515894419173885
+      ],
+      "theta_hat_after": [
+        -0.12496537370930423,
+        0.09423195262743667,
+        -0.15113922255918932,
+        -0.4159726045398926,
+        0.13504074783920758,
+        0.06802167334037587,
+        0.05866207825615737,
+        0.7552349392077832,
+        0.009832948530556565,
+        0.4276061632283888
+      ],
+      "true_theta": [
+        -0.3326410515199428,
+        -0.32432502523194423,
+        -0.31600899894394563,
+        -0.3076929726559471,
+        -0.29937694636794854,
+        0.29937694636794854,
+        0.3076929726559471,
+        0.31600899894394563,
+        0.32432502523194423,
+        0.3326410515199428
+      ],
+      "expert_parameter": [
+        -0.3326410515199428,
+        -0.32432502523194423,
+        -0.31600899894394563,
+        -0.3076929726559471,
+        -0.29937694636794854,
+        0.29937694636794854,
+        0.3076929726559471,
+        0.31600899894394563,
+        0.32432502523194423,
+        0.3326410515199428
+      ],
+      "true_decision": [
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "observed_decision": [
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.15346652259735635,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {},
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 10,
+        "constraint_count": 18,
+        "incenter_radius": 0.44557302430212153,
+        "all_constraints_exact": false
+      },
+      "update_diagnostics": {
+        "constraint_count": 27,
+        "incenter_radius": 0.3903913688314429,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "forward-oracle-cuts",
+        "constraints_exact": false,
+        "skipped_reason": null,
+        "estimate_status": "valid",
+        "failure_reason": null
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "none"
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 4,
+      "query": [
+        -0.038881746734313244,
+        0.5831124504605392,
+        0.06173975279855904,
+        0.18658239568980933,
+        -0.3226668013340293,
+        -0.5170479716060015,
+        0.28424215880353937,
+        -0.08694252949276358,
+        0.2701218370372947,
+        -0.29508034107087633
+      ],
+      "theta_hat_before": [
+        -0.12496537370930423,
+        0.09423195262743667,
+        -0.15113922255918932,
+        -0.4159726045398926,
+        0.13504074783920758,
+        0.06802167334037587,
+        0.05866207825615737,
+        0.7552349392077832,
+        0.009832948530556565,
+        0.4276061632283888
+      ],
+      "theta_hat_after": [
+        -2.3011752352455003e-09,
+        -0.4332615010762443,
+        -2.3011752352455003e-09,
+        -0.5105786739186965,
+        -2.3011752352455003e-09,
+        -2.3011752352455007e-09,
+        -2.3011752352455007e-09,
+        0.5319382656230257,
+        -2.3011752352455003e-09,
+        0.5183006573021435
+      ],
+      "true_theta": [
+        -0.3326410515199428,
+        -0.32432502523194423,
+        -0.31600899894394563,
+        -0.3076929726559471,
+        -0.29937694636794854,
+        0.29937694636794854,
+        0.3076929726559471,
+        0.31600899894394563,
+        0.32432502523194423,
+        0.3326410515199428
+      ],
+      "expert_parameter": [
+        -0.3326410515199428,
+        -0.32432502523194423,
+        -0.31600899894394563,
+        -0.3076929726559471,
+        -0.29937694636794854,
+        0.29937694636794854,
+        0.3076929726559471,
+        0.31600899894394563,
+        0.32432502523194423,
+        0.3326410515199428
+      ],
+      "true_decision": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "observed_decision": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.1891179602086752,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {},
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 1,
+        "constraint_count": 27,
+        "incenter_radius": 0.3903913688314429,
+        "all_constraints_exact": false
+      },
+      "update_diagnostics": {
+        "constraint_count": 36,
+        "incenter_radius": 0.1525574684680277,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "forward-oracle-cuts",
+        "constraints_exact": false,
+        "skipped_reason": null,
+        "estimate_status": "valid",
+        "failure_reason": null
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "none"
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 5,
+      "query": [
+        0.01567108342679706,
+        -0.21743414148793822,
+        0.24468751993246043,
+        0.1620085438698886,
+        0.4747626708356636,
+        -0.0727033125688429,
+        -0.20029558805813957,
+        0.6196748904955718,
+        -0.40062444825321747,
+        -0.22595896583262354
+      ],
+      "theta_hat_before": [
+        -2.3011752352455003e-09,
+        -0.4332615010762443,
+        -2.3011752352455003e-09,
+        -0.5105786739186965,
+        -2.3011752352455003e-09,
+        -2.3011752352455007e-09,
+        -2.3011752352455007e-09,
+        0.5319382656230257,
+        -2.3011752352455003e-09,
+        0.5183006573021435
+      ],
+      "theta_hat_after": [
+        -3.906819931108122e-09,
+        -0.3666353572011654,
+        -3.906819931108112e-09,
+        -0.5308757480466526,
+        -0.35171972641676635,
+        -3.9068199311081365e-09,
+        -3.906819931108142e-09,
+        0.517373223892977,
+        -3.906819931108366e-09,
+        0.4385973509197591
+      ],
+      "true_theta": [
+        -0.3326410515199428,
+        -0.32432502523194423,
+        -0.31600899894394563,
+        -0.3076929726559471,
+        -0.29937694636794854,
+        0.29937694636794854,
+        0.3076929726559471,
+        0.31600899894394563,
+        0.32432502523194423,
+        0.3326410515199428
+      ],
+      "expert_parameter": [
+        -0.3326410515199428,
+        -0.32432502523194423,
+        -0.31600899894394563,
+        -0.3076929726559471,
+        -0.29937694636794854,
+        0.29937694636794854,
+        0.3076929726559471,
+        0.31600899894394563,
+        0.32432502523194423,
+        0.3326410515199428
+      ],
+      "true_decision": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "observed_decision": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.0,
+        0.0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.14213299864427245,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {},
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 13,
+        "constraint_count": 36,
+        "incenter_radius": 0.1525574684680277,
+        "all_constraints_exact": false
+      },
+      "update_diagnostics": {
+        "constraint_count": 45,
+        "incenter_radius": 0.1290974660950578,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "forward-oracle-cuts",
+        "constraints_exact": false,
+        "skipped_reason": null,
+        "estimate_status": "valid",
+        "failure_reason": null
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "none"
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 6,
+      "query": [
+        -0.19391274565415634,
+        -0.10443958576011679,
+        -0.5929611389757475,
+        0.20075143071086018,
+        -0.22607982840250918,
+        -0.32715158462358684,
+        0.18765079992542738,
+        0.11696281989176237,
+        -0.30548556662003945,
+        0.5091476870576598
+      ],
+      "theta_hat_before": [
+        -3.906819931108122e-09,
+        -0.3666353572011654,
+        -3.906819931108112e-09,
+        -0.5308757480466526,
+        -0.35171972641676635,
+        -3.9068199311081365e-09,
+        -3.906819931108142e-09,
+        0.517373223892977,
+        -3.906819931108366e-09,
+        0.4385973509197591
+      ],
+      "theta_hat_after": [
+        -1.9960015439838255e-09,
+        -0.2402617603027239,
+        -1.9960015439838255e-09,
+        -0.537153834322094,
+        -0.4488596554296822,
+        -2.4819513252163583e-09,
+        -2.48195132521635e-09,
+        0.4442762539858491,
+        0.4309304455879673,
+        0.2630258842048993
+      ],
+      "true_theta": [
+        -0.3326410515199428,
+        -0.32432502523194423,
+        -0.31600899894394563,
+        -0.3076929726559471,
+        -0.29937694636794854,
+        0.29937694636794854,
+        0.3076929726559471,
+        0.31600899894394563,
+        0.32432502523194423,
+        0.3326410515199428
+      ],
+      "expert_parameter": [
+        -0.3326410515199428,
+        -0.32432502523194423,
+        -0.31600899894394563,
+        -0.3076929726559471,
+        -0.29937694636794854,
+        0.29937694636794854,
+        0.3076929726559471,
+        0.31600899894394563,
+        0.32432502523194423,
+        0.3326410515199428
+      ],
+      "true_decision": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "observed_decision": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.09907661410203908,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {},
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 8,
+        "constraint_count": 45,
+        "incenter_radius": 0.1290974660950578,
+        "all_constraints_exact": false
+      },
+      "update_diagnostics": {
+        "constraint_count": 54,
+        "incenter_radius": 0.06513201424244332,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "forward-oracle-cuts",
+        "constraints_exact": false,
+        "skipped_reason": null,
+        "estimate_status": "valid",
+        "failure_reason": null
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "none"
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 7,
+      "query": [
+        0.3457536781383516,
+        0.044185777405645374,
+        -0.09148700793991214,
+        0.008098866673172198,
+        -0.34614107558696683,
+        -0.028455629203276264,
+        -0.5518448960186573,
+        0.32629375575672137,
+        0.5043050439932186,
+        0.2900330983166303
+      ],
+      "theta_hat_before": [
+        -1.9960015439838255e-09,
+        -0.2402617603027239,
+        -1.9960015439838255e-09,
+        -0.537153834322094,
+        -0.4488596554296822,
+        -2.4819513252163583e-09,
+        -2.48195132521635e-09,
+        0.4442762539858491,
+        0.4309304455879673,
+        0.2630258842048993
+      ],
+      "theta_hat_after": [
+        -1.95099628367119e-09,
+        -0.23940699404903054,
+        -1.95099628367119e-09,
+        -0.5352428312142943,
+        -0.44726277174070733,
+        -1.950996283671176e-09,
+        0.08427713124899586,
+        0.44269567641599916,
+        0.4293973476779293,
+        0.26209013126034836
+      ],
+      "true_theta": [
+        -0.3326410515199428,
+        -0.32432502523194423,
+        -0.31600899894394563,
+        -0.3076929726559471,
+        -0.29937694636794854,
+        0.29937694636794854,
+        0.3076929726559471,
+        0.31600899894394563,
+        0.32432502523194423,
+        0.3326410515199428
+      ],
+      "expert_parameter": [
+        -0.3326410515199428,
+        -0.32432502523194423,
+        -0.31600899894394563,
+        -0.3076929726559471,
+        -0.29937694636794854,
+        0.29937694636794854,
+        0.3076929726559471,
+        0.31600899894394563,
+        0.32432502523194423,
+        0.3326410515199428
+      ],
+      "true_decision": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "observed_decision": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.16979879650099267,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {},
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 0,
+        "constraint_count": 54,
+        "incenter_radius": 0.06513201424244332,
+        "all_constraints_exact": false
+      },
+      "update_diagnostics": {
+        "constraint_count": 63,
+        "incenter_radius": 0.06490029760247794,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "forward-oracle-cuts",
+        "constraints_exact": false,
+        "skipped_reason": null,
+        "estimate_status": "valid",
+        "failure_reason": null
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "none"
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    },
+    {
+      "step": 8,
+      "query": [
+        -0.038881746734313244,
+        0.5831124504605392,
+        0.06173975279855904,
+        0.18658239568980933,
+        -0.3226668013340293,
+        -0.5170479716060015,
+        0.28424215880353937,
+        -0.08694252949276358,
+        0.2701218370372947,
+        -0.29508034107087633
+      ],
+      "theta_hat_before": [
+        -1.95099628367119e-09,
+        -0.23940699404903054,
+        -1.95099628367119e-09,
+        -0.5352428312142943,
+        -0.44726277174070733,
+        -1.950996283671176e-09,
+        0.08427713124899586,
+        0.44269567641599916,
+        0.4293973476779293,
+        0.26209013126034836
+      ],
+      "theta_hat_after": [
+        -2.7892144289243945e-09,
+        -0.23940699443252414,
+        -2.7892144289243945e-09,
+        -0.5352428320716683,
+        -0.4472627724570662,
+        -2.7892144289243834e-09,
+        0.084277131384007,
+        0.44269567712521257,
+        0.4293973483658076,
+        0.2620901316801815
+      ],
+      "true_theta": [
+        -0.3326410515199428,
+        -0.32432502523194423,
+        -0.31600899894394563,
+        -0.3076929726559471,
+        -0.29937694636794854,
+        0.29937694636794854,
+        0.3076929726559471,
+        0.31600899894394563,
+        0.32432502523194423,
+        0.3326410515199428
+      ],
+      "expert_parameter": [
+        -0.3326410515199428,
+        -0.32432502523194423,
+        -0.31600899894394563,
+        -0.3076929726559471,
+        -0.29937694636794854,
+        0.29937694636794854,
+        0.3076929726559471,
+        0.31600899894394563,
+        0.32432502523194423,
+        0.3326410515199428
+      ],
+      "true_decision": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "observed_decision": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "observation_mask": null,
+      "objective_value": -0.1891179602086752,
+      "stop_requested": false,
+      "benchmark_stop_requested": false,
+      "benchmark_stop_reason": null,
+      "stopping_diagnostics": {},
+      "action_diagnostics": {
+        "query_rule": "uniform-random",
+        "candidate_index": 1,
+        "constraint_count": 63,
+        "incenter_radius": 0.06490029760247794,
+        "all_constraints_exact": false
+      },
+      "update_diagnostics": {
+        "constraint_count": 63,
+        "incenter_radius": 0.06490029770644372,
+        "solver_message": "Optimization terminated successfully",
+        "constraint_method": "forward-oracle-cuts",
+        "constraints_exact": false,
+        "skipped_reason": null,
+        "estimate_status": "valid",
+        "failure_reason": null
+      },
+      "expert_metadata": {
+        "kind": "min",
+        "tie_breaking": "lexicographic"
+      },
+      "parameter_noise_metadata": {
+        "kind": "none"
+      },
+      "observation_noise_metadata": {
+        "kind": "clean"
+      }
+    }
+  ]
+}

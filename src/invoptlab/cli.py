@@ -22,6 +22,7 @@ from .active import (
     RandomActiveAlgorithm,
     RegretStoppingConfig,
     UniformRandomIncenterAlgorithm,
+    NestedLangevinActiveAlgorithm,
     evaluate_active_benchmark,
     load_active_benchmark,
     load_algorithm_factory,
@@ -105,6 +106,12 @@ def _active_run(arguments: argparse.Namespace) -> int:
         if specification == "random":
             algorithms["random-smoke-test"] = lambda: RandomActiveAlgorithm()
             continue
+        if specification == "nested-langevin":
+            algorithms["nested-langevin-disagreement"] = NestedLangevinActiveAlgorithm
+            continue
+        if specification == "diffusion":
+            algorithms["Diffusion"] = NestedLangevinActiveAlgorithm
+            continue
         if specification == "uniform-incenter":
             algorithms["uniform-random-sequential-incenter"] = (
                 lambda: UniformRandomIncenterAlgorithm()
@@ -155,6 +162,12 @@ def _active_research(arguments: argparse.Namespace) -> int:
         if specification == "random":
             algorithms["random-smoke-test"] = lambda: RandomActiveAlgorithm()
             continue
+        if specification == "nested-langevin":
+            algorithms["nested-langevin-disagreement"] = NestedLangevinActiveAlgorithm
+            continue
+        if specification == "diffusion":
+            algorithms["Diffusion"] = NestedLangevinActiveAlgorithm
+            continue
         if specification == "uniform-incenter":
             algorithms["uniform-random-sequential-incenter"] = (
                 lambda: UniformRandomIncenterAlgorithm()
@@ -171,6 +184,8 @@ def _active_research(arguments: argparse.Namespace) -> int:
         candidate_count=arguments.candidates,
         validation_query_count=arguments.validation_queries,
         test_query_count=arguments.test_queries,
+        fixed_horizon=arguments.fixed_horizon,
+        learning_angular_threshold_degrees=arguments.angular_threshold,
     )
     result, summary = run_active_research_benchmark(
         algorithms,
@@ -225,7 +240,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--algorithm",
         action="append",
         required=True,
-        help="random, uniform-incenter, or name=python.module:factory",
+        help="random, uniform-incenter, diffusion (nested-langevin), or name=python.module:factory",
     )
     active_run.add_argument("--output", default="outputs/active/benchmark")
     active_run.add_argument("--limit", type=int)
@@ -259,7 +274,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--algorithm",
         action="append",
         required=True,
-        help="random, uniform-incenter, or name=python.module:factory",
+        help="random, uniform-incenter, diffusion (nested-langevin), or name=python.module:factory",
     )
     active_research.add_argument("--output", default="outputs/active/research")
     active_research.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2, 3, 4])
@@ -267,6 +282,10 @@ def build_parser() -> argparse.ArgumentParser:
     active_research.add_argument("--candidates", type=int, default=64)
     active_research.add_argument("--validation-queries", type=int, default=64)
     active_research.add_argument("--test-queries", type=int, default=128)
+    active_research.add_argument("--fixed-horizon", action="store_true",
+                                 help="Run all algorithms to T, including clean scenarios")
+    active_research.add_argument("--angular-threshold", type=float, default=5.0,
+                                 help="Angular-error threshold in degrees for first/stable recovery")
     active_research.add_argument("--continue-on-error", action="store_true")
     active_research.set_defaults(function=_active_research)
     return parser
