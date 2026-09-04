@@ -1,0 +1,5 @@
+algorithm,valid_at_T,ever_invalid,final_angle_mean_degrees_valid_only,final_regret_mean_valid_only,final_angle_le_5,final_regret_le_0_01,sustained_joint_successes,mean_sustained_joint_step_successes_only,mean_runtime_seconds
+Pedro algorithm,38,2,15.626672354038494,0.013870861818873292,4,18,4,14.5,0.10331552749848924
+Genious Pedro,15,25,12.421594164460002,0.01737769820205495,5,10,5,15.8,0.22215155251324176
+Score base model,40,0,3.8257666768567247,0.0009765925876815205,31,40,31,16.451612903225808,13.683789947500918
+Uniform Online SAMD,40,0,42.48552072697474,0.0754854610455997,0,0,0,,0.004423557492555119

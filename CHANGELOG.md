@@ -1,5 +1,37 @@
 # Changelog
 
+## Uniform Online SAMD implementation
+
+- Added the fourth active method: uniform query selection with one online ASL
+  exponentiated mirror update per newly received observation.
+- Implemented the paper's signed `2d` positive/negative parameter construction,
+  enabling the method to estimate the mixed-sign parameters in this benchmark.
+- Uses exact finite loss-augmented decisions in the current scenarios
+  (`epsilon=0`), records complete update diagnostics, and skips incomplete
+  observations without accessing latent values.
+- Added `run_four_algorithm_design`, the `uniform-online-samd` CLI name, focused
+  unit/integration tests, documentation, and a four-step sanity check.
+- Ran the locked four-way comparison: 160 fixed-horizon runs and 3,200 observed
+  steps across the unchanged eight scenarios and five paired seeds.
+- Added executed notebook 17 with all per-step tables, convergence figures,
+  estimator diagnostics, pairwise comparisons, and expandable full outputs.
+
+## Genious Pedro implementation
+
+- Added `GeniousPedroAlgorithm`: Pedro's exact cone incenter with minimum
+  normalized decision-margin query selection.
+- Uses a uniform first query for the empty dataset and an explicit uniform
+  fallback when the incenter is invalid; invalid estimates remain failures.
+- Records every candidate margin, the selected margin, predicted optimizer,
+  nearest alternative, tie indices, and fallback reason for later analysis.
+- Added a tiny five-step sanity script and focused tests.
+- Ran the authorized exact three-way comparison separately from the preserved
+  two-method snapshot: 120 fixed-horizon runs and 2,400 observed steps.
+- Added executed notebook 16 and a visually verified 141-page PDF containing
+  convergence plots, all run summaries, and the complete time-step appendix.
+- Verified that the Pedro and Score Base scientific trajectories reproduce the
+  earlier comparison exactly; only Genious Pedro is added.
+
 All notable changes to this project will be documented here.
 
 ## Pedro versus Score base: eight-scenario experiment

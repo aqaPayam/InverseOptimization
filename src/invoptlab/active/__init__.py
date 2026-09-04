@@ -52,8 +52,14 @@ from .evaluation import (
 from .experts import Expert, GibbsExpert, MinExpert
 from .sampling import GaussianGibbsSampler
 from .query_designs import QueryDesign, build_query_sensitive_scenarios
-from .comparison import (PedroAlgorithm, ScoreBaseAlgorithm, ComparisonDesign,
-                         build_pedro_score_scenarios, run_pedro_score_design)
+from .comparison import (PedroAlgorithm, GeniousPedroAlgorithm, ScoreBaseAlgorithm, ComparisonDesign,
+                         build_pedro_score_scenarios, run_pedro_score_design,
+                         run_three_algorithm_design, run_four_algorithm_design)
+from .samd import (
+    OnlineSAMDConfig,
+    UniformOnlineSAMDAlgorithm,
+    create_uniform_online_samd_algorithm,
+)
 from .noise import ObservationNoise, ParameterNoise
 from .query_spaces import QuerySpace, make_query_space
 from .public import ConsistencyNormalBatch, PublicDecisionProblem
@@ -118,10 +124,15 @@ __all__ = [
     "GaussianGibbsSampler",
     "QueryDesign",
     "PedroAlgorithm",
+    "GeniousPedroAlgorithm",
     "ScoreBaseAlgorithm",
+    "UniformOnlineSAMDAlgorithm",
+    "OnlineSAMDConfig",
     "ComparisonDesign",
     "build_pedro_score_scenarios",
     "run_pedro_score_design",
+    "run_three_algorithm_design",
+    "run_four_algorithm_design",
     "build_query_sensitive_scenarios",
     "InverseLossTarget",
     "NestedLangevinActiveAlgorithm",
@@ -150,6 +161,7 @@ __all__ = [
     "active_grid_from_dict",
     "angular_error_degrees",
     "create_uniform_random_incenter_algorithm",
+    "create_uniform_online_samd_algorithm",
     "evaluate_active_benchmark",
     "evaluate_active_run",
     "make_decision_space",

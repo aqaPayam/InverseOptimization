@@ -180,6 +180,23 @@ See [all corrected and legacy sampler inputs](active_nested_langevin.md#all-samp
 an ensemble-mean estimate and disagreement queries. `query_policy="uniform"` changes
 only query selection, for a matched-estimator comparison.
 
+`GeniousPedroAlgorithm` is available from Python and as `--algorithm genious-pedro` in both
+active command-line runners. It uses Pedro's sequential hard-cone incenter as `theta_hat`. At
+an empty initial dataset it chooses a query uniformly. Thereafter, for every available candidate
+query, it predicts the minimizing decision and calculates the smallest normalized objective gap
+to an alternative; it selects the query having the smallest such margin. Candidate ties are
+resolved reproducibly from the algorithm seed. If the incenter is invalid, query selection falls
+back explicitly to uniform and the invalid estimate remains visible rather than being replaced.
+This exact rule requires a finite enumerable decision set with at least two decisions.
+
+`UniformOnlineSAMDAlgorithm` is available from Python and as
+`--algorithm uniform-online-samd` in both active command-line runners. It accepts an optional
+`OnlineSAMDConfig` with `learning_rate`, `l1_radius`, `margin_scale`,
+`normalize_subgradient`, `tolerance`, and `exponent_clip`. It selects queries uniformly and takes
+exactly one signed exponentiated ASL update from each new complete observation. The default
+`l1_radius=None` resolves to `sqrt(d)`; current finite comparison spaces use exact loss-augmented
+enumeration and record `epsilon=0`.
+
 `QuerySpaceConfig(kind="explicit", candidates=my_matrix)` accepts a finite nonzero N-by-d
 candidate matrix. Rows are normalized to unit length; `candidate_count` is inferred.
 Duplicates count as repeated rows in the uniform candidate distribution. With repeats

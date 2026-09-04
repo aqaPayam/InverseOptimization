@@ -7,13 +7,25 @@ reproducible reports.
 
 ## Documentation
 
+- [Four-algorithm benchmark results](notebooks/17_four_algorithm_eight_scenarios.ipynb):
+  the locked eight-scenario protocol expanded with Uniform Online SAMD, containing all 160
+  runs, 3,200 observed steps, every-time-step plots/tables, diagnostics, and full outputs.
+- [Pedro, Genious Pedro, and Score Base results](notebooks/16_pedro_genious_score_base_eight_scenarios.ipynb):
+  the preserved three-algorithm comparison, with 120 complete runs and 2,400 observed steps.
+- [Complete three-algorithm PDF report](output/pdf/Pedro_Genious_Pedro_Score_Base_Complete_Results.pdf):
+  a shareable 141-page report containing protocol, conclusions, convergence charts, all run
+  summaries, and the complete 2,400-step appendix.
 - [Pedro versus Score base: eight-scenario results](notebooks/15_pedro_vs_score_base_eight_scenarios.ipynb):
-  the actual incenter Pedro algorithm versus the sample-mean Score base model, five paired
-  seeds, T=20, explicit failures, every-step tables, full parameter/query outputs and plots.
+  the preserved historical two-method view. Its scientific Pedro/Score trajectories are
+  reproduced exactly in the new three-algorithm run.
 - [Pedro/Score base comparison protocol](docs/pedro_score_comparison.md): exact algorithm
   definitions, eight scenario designs, noise, test distributions and reproducibility.
-- [Saved experiment outputs](outputs/README.md): versioned raw trajectories, reports and
-  overview plots, including all 80 runs of the current comparison and historical snapshots.
+- [Genious Pedro algorithm](docs/genious_pedro.md): Pedro's same sequential incenter estimate
+  with a minimum normalized decision-margin query rule.
+- [Uniform Online SAMD](docs/uniform_online_samd.md): uniform queries with one signed
+  exponentiated ASL update per new observation; the noise-tolerant fourth comparison method.
+- [Saved experiment outputs](outputs/README.md): raw trajectories and historical snapshots,
+  including all 160 runs of the current four-algorithm comparison.
 - [Complete input reference](docs/input_reference.md): every model, data, noise, estimator,
   statistical, and plotting input in one place.
 - [User guide](docs/user_guide.md): the core workflow and extension rules.
@@ -161,10 +173,15 @@ behavior-calibrated noise, robust validation stopping, and a separate final test
 
 ```bash
 python -m invoptlab active-research --algorithm uniform-incenter
+python -m invoptlab active-research --algorithm uniform-online-samd
 ```
 
 The first estimation baseline is available as `--algorithm uniform-incenter`. It chooses queries
 uniformly at random and updates a sequential consistency-cone incenter using only observed `Y`.
+The third algorithm is available as `--algorithm genious-pedro`. It uses the same incenter but,
+after the initial uniform query, chooses the smallest normalized predicted decision margin.
+The fourth algorithm is available as `--algorithm uniform-online-samd`. It keeps uniform queries
+and replaces the hard cone with one online ASL mirror update per observation.
 Add `--evaluate` to calculate final angular error and normalized regret on a shared hidden set of
 new uniform test queries. No single composite score is imposed.
 

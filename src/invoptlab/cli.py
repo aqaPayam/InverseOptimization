@@ -21,6 +21,8 @@ from .active import (
     QuerySpaceConfig,
     RandomActiveAlgorithm,
     RegretStoppingConfig,
+    GeniousPedroAlgorithm,
+    UniformOnlineSAMDAlgorithm,
     UniformRandomIncenterAlgorithm,
     NestedLangevinActiveAlgorithm,
     evaluate_active_benchmark,
@@ -117,6 +119,12 @@ def _active_run(arguments: argparse.Namespace) -> int:
                 lambda: UniformRandomIncenterAlgorithm()
             )
             continue
+        if specification == "genious-pedro":
+            algorithms["Genious Pedro"] = GeniousPedroAlgorithm
+            continue
+        if specification == "uniform-online-samd":
+            algorithms["Uniform Online SAMD"] = UniformOnlineSAMDAlgorithm
+            continue
         name, separator, import_path = specification.partition("=")
         if not separator:
             import_path = name
@@ -172,6 +180,12 @@ def _active_research(arguments: argparse.Namespace) -> int:
             algorithms["uniform-random-sequential-incenter"] = (
                 lambda: UniformRandomIncenterAlgorithm()
             )
+            continue
+        if specification == "genious-pedro":
+            algorithms["Genious Pedro"] = GeniousPedroAlgorithm
+            continue
+        if specification == "uniform-online-samd":
+            algorithms["Uniform Online SAMD"] = UniformOnlineSAMDAlgorithm
             continue
         name, separator, import_path = specification.partition("=")
         if not separator:
@@ -240,7 +254,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--algorithm",
         action="append",
         required=True,
-        help="random, uniform-incenter, diffusion (nested-langevin), or name=python.module:factory",
+        help="random, uniform-incenter, genious-pedro, uniform-online-samd, diffusion (nested-langevin), or name=python.module:factory",
     )
     active_run.add_argument("--output", default="outputs/active/benchmark")
     active_run.add_argument("--limit", type=int)
@@ -274,7 +288,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--algorithm",
         action="append",
         required=True,
-        help="random, uniform-incenter, diffusion (nested-langevin), or name=python.module:factory",
+        help="random, uniform-incenter, genious-pedro, uniform-online-samd, diffusion (nested-langevin), or name=python.module:factory",
     )
     active_research.add_argument("--output", default="outputs/active/research")
     active_research.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2, 3, 4])

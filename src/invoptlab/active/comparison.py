@@ -1,4 +1,4 @@
-"""The two user-named algorithms and eight predeclared comparison scenarios.
+"""The user-named algorithms and eight predeclared comparison scenarios.
 
 Pedro is the ORIGINAL uniform-query INCENTER method, not a uniform-query
 ablation of the loss sampler. The latter remains only in historical notebook 14.
@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 import scipy
 
-from ..exceptions import ValidationError
+from ..exceptions import CapabilityError, SolverError, ValidationError
 from .algorithms import UniformRandomIncenterAlgorithm
 from .config import (ActiveScenarioConfig, DecisionSpaceConfig, ParameterNoiseConfig,
                      QuerySpaceConfig)
@@ -23,13 +23,163 @@ from .evaluation import ActiveEvaluationConfig, evaluate_active_run
 from .langevin import NestedLangevinActiveAlgorithm, NestedLangevinConfig
 from .query_spaces import normalize_rows, random_unit
 from .runner import ActiveBenchmarkRunner
+from .samd import OnlineSAMDConfig, UniformOnlineSAMDAlgorithm
 from .stopping import RegretStoppingConfig
+from .types import ActiveAction
 
 
 class PedroAlgorithm(UniformRandomIncenterAlgorithm):
     """Uniform next S; theta_hat is the hard-consistency cone incenter."""
 
     name = "Pedro algorithm"
+
+
+class GeniousPedroAlgorithm(UniformRandomIncenterAlgorithm):
+    """Pedro's incenter with minimum normalized decision-margin queries.
+
+    The first query is uniform because D_0 contains no constraints. After each
+    valid incenter update, every available candidate is scored by the distance
+    from the incenter to its nearest predicted decision boundary. No latent
+    parameter, test query, probability distribution, or parameter sample is
+    used. An invalid incenter triggers the agreed uniform-query fallback while
+    the estimate remains explicitly invalid in benchmark evaluation.
+
+    This exact implementation requires a finite, enumerable decision space,
+    which covers all eight predeclared Pedro/Score comparison scenarios.
+    """
+
+    name = "Genious Pedro"
+
+    def reset(self, context, rng) -> None:
+        super().reset(context, rng)
+        try:
+            decisions = np.asarray(self.decision_problem.enumerate_decisions(), dtype=float)
+        except CapabilityError as exc:
+            raise ValidationError(
+                "Genious Pedro requires a finite enumerable public decision space"
+            ) from exc
+        if (decisions.ndim != 2 or decisions.shape[0] < 2
+                or decisions.shape[1] != context.dimension
+                or not np.all(np.isfinite(decisions))):
+            raise ValidationError(
+                "Genious Pedro requires at least two finite enumerable decisions"
+            )
+        self._margin_decisions = decisions
+
+    def _candidate_margin(self, query: np.ndarray) -> tuple[float, np.ndarray, np.ndarray | None]:
+        """Return distance to the closest informative decision boundary."""
+
+        query = np.asarray(query, dtype=float)
+        theta = self._estimate
+        predicted = self.decision_problem.minimize(query * theta, self.rng)
+        differences = (self._margin_decisions - predicted) * query
+        norms = np.linalg.norm(differences, axis=1)
+        informative = norms > 1e-12
+        if not np.any(informative):
+            return float("inf"), predicted, None
+        candidate_indices = np.flatnonzero(informative)
+        margins = differences[informative] @ theta / norms[informative]
+        minimum = float(np.min(margins))
+        if minimum < -max(1e-8, 10 * self.tolerance):
+            raise SolverError(
+                "the public MIN solution has a negative normalized competitor margin"
+            )
+        margins = np.maximum(margins, 0.0)
+        minimum = float(np.min(margins))
+        nearest_positions = np.flatnonzero(
+            np.isclose(margins, minimum, rtol=1e-10, atol=1e-12)
+        )
+        nearest_position = int(nearest_positions[0])
+        nearest = self._margin_decisions[candidate_indices[nearest_position]].copy()
+        return minimum, predicted.copy(), nearest
+
+    def _fallback_action(self, reason: str) -> ActiveAction:
+        index = self._select_query_index()
+        return ActiveAction(
+            query=self.context.query_candidates[index].copy(),
+            theta_hat=self._estimate.copy(),
+            diagnostics={
+                "query_rule": "uniform-random-fallback",
+                "fallback_reason": reason,
+                "candidate_index": index,
+                "selected_margin": None,
+                "candidate_margins": None,
+                "predicted_decision": None,
+                "nearest_alternative": None,
+                "margin_tie_candidate_indices": [],
+                "constraint_count": int(self.constraints_.shape[0]),
+                "incenter_radius": self.incenter_radius_,
+                "estimate_status_before_query": self.estimate_status_,
+                "all_constraints_exact": all(
+                    bool(item["exact"]) for item in self.constraint_sources_
+                ),
+            },
+        )
+
+    def propose(self, history) -> ActiveAction:
+        if not history:
+            return self._fallback_action("D_0 is empty; the first query is uniform")
+        if self.estimate_status_ != "valid":
+            return self._fallback_action(
+                f"the current incenter estimate is {self.estimate_status_}"
+            )
+
+        if self.allow_repeated_queries:
+            available = np.arange(self.context.query_candidates.shape[0], dtype=int)
+        else:
+            if not self._available_queries:
+                raise ValidationError("the non-repeating query set has been exhausted")
+            available = np.asarray(self._available_queries, dtype=int)
+
+        scores = np.full(self.context.query_candidates.shape[0], np.inf)
+        predictions: dict[int, np.ndarray] = {}
+        alternatives: dict[int, np.ndarray | None] = {}
+        for index in available:
+            score, predicted, alternative = self._candidate_margin(
+                self.context.query_candidates[index]
+            )
+            scores[index] = score
+            predictions[int(index)] = predicted
+            alternatives[int(index)] = alternative
+
+        finite_available = available[np.isfinite(scores[available])]
+        if finite_available.size == 0:
+            return self._fallback_action(
+                "no candidate has a distinct informative feature alternative"
+            )
+        best = float(np.min(scores[finite_available]))
+        tied = finite_available[
+            np.isclose(scores[finite_available], best, rtol=1e-10, atol=1e-12)
+        ]
+        index = int(self.rng.choice(tied))
+        if not self.allow_repeated_queries:
+            self._available_queries.remove(index)
+        serializable_scores = [
+            float(value) if np.isfinite(value) else None for value in scores
+        ]
+        alternative = alternatives[index]
+        return ActiveAction(
+            query=self.context.query_candidates[index].copy(),
+            theta_hat=self._estimate.copy(),
+            diagnostics={
+                "query_rule": "minimum-normalized-decision-margin",
+                "fallback_reason": None,
+                "candidate_index": index,
+                "selected_margin": best,
+                "candidate_margins": serializable_scores,
+                "predicted_decision": predictions[index].copy(),
+                "nearest_alternative": (
+                    None if alternative is None else alternative.copy()
+                ),
+                "margin_tie_candidate_indices": tied.tolist(),
+                "constraint_count": int(self.constraints_.shape[0]),
+                "incenter_radius": self.incenter_radius_,
+                "estimate_status_before_query": self.estimate_status_,
+                "all_constraints_exact": all(
+                    bool(item["exact"]) for item in self.constraint_sources_
+                ),
+            },
+        )
 
 
 class ScoreBaseAlgorithm(NestedLangevinActiveAlgorithm):
@@ -148,10 +298,12 @@ def build_pedro_score_scenarios(*, seed: int = 0, horizon: int = 20) -> list[Com
 
 
 def comparison_fingerprint(design: ComparisonDesign, algorithm: str,
-                           score_config: NestedLangevinConfig) -> str:
+                           score_config: NestedLangevinConfig,
+                           samd_config: OnlineSAMDConfig | None = None) -> str:
     """Cache identity includes settings, hidden tests and relevant source bytes."""
     payload = {"protocol": 1, "scenario": design.scenario.to_dict(), "algorithm": algorithm,
                "score_config": asdict(score_config),
+               "samd_config": asdict(samd_config or OnlineSAMDConfig()),
                "tests": {k: v.tolist() for k, v in design.test_queries.items()}}
     digest = hashlib.sha256(json.dumps(payload, sort_keys=True).encode())
     for path in sorted(Path(__file__).parent.glob("*.py")):
@@ -160,22 +312,38 @@ def comparison_fingerprint(design: ComparisonDesign, algorithm: str,
     return digest.hexdigest()
 
 
-def run_pedro_score_design(design: ComparisonDesign, directory: str | Path, *,
-                           score_config: NestedLangevinConfig | None = None,
-                           use_cache: bool = True, progress=print) -> list[dict]:
-    """Run EXACTLY the two named methods; checkpoint every complete run.
-
-    Algorithmic invalid estimates remain in every trajectory with None metrics.
-    Unexpected exceptions fail loudly; they are not disguised as cone failures.
-    """
+def _run_comparison_design(design: ComparisonDesign, directory: str | Path, *,
+                           score_config: NestedLangevinConfig | None,
+                           samd_config: OnlineSAMDConfig | None,
+                           use_cache: bool, progress,
+                           include_genious_pedro: bool,
+                           include_online_samd: bool) -> list[dict]:
     cfg = score_config or NestedLangevinConfig(record_chain_trace=False)
+    samd_cfg = samd_config or OnlineSAMDConfig()
     directory = Path(directory)
     directory.mkdir(parents=True, exist_ok=True)
     results = []
-    for label, constructor in (("Pedro algorithm", PedroAlgorithm),
-                               ("Score base model", lambda: ScoreBaseAlgorithm(cfg))):
-        fingerprint = comparison_fingerprint(design, label, cfg)
-        slug = "pedro" if label == "Pedro algorithm" else "score-base"
+    methods = [("Pedro algorithm", PedroAlgorithm)]
+    if include_genious_pedro:
+        methods.append(("Genious Pedro", GeniousPedroAlgorithm))
+    methods.append(("Score base model", lambda: ScoreBaseAlgorithm(cfg)))
+    if include_online_samd:
+        methods.append(("Uniform Online SAMD", lambda: UniformOnlineSAMDAlgorithm(samd_cfg)))
+    slugs = {
+        "Pedro algorithm": "pedro",
+        "Genious Pedro": "genious-pedro",
+        "Score base model": "score-base",
+        "Uniform Online SAMD": "uniform-online-samd",
+    }
+    estimators = {
+        "Pedro algorithm": "incenter",
+        "Genious Pedro": "incenter",
+        "Score base model": "mean of parameter samples",
+        "Uniform Online SAMD": "online signed exponentiated ASL",
+    }
+    for label, constructor in methods:
+        fingerprint = comparison_fingerprint(design, label, cfg, samd_cfg)
+        slug = slugs[label]
         destination = directory / f"{design.family}-seed{design.scenario.seed}-{slug}.json"
         if use_cache and destination.exists():
             cached = json.loads(destination.read_text(encoding="utf-8"))
@@ -202,7 +370,7 @@ def run_pedro_score_design(design: ComparisonDesign, directory: str | Path, *,
             runtime_versions={"python": platform.python_version(), "numpy": np.__version__,
                               "scipy": scipy.__version__},
             comparison_title=design.title, comparison_description=design.description,
-            comparison_estimator="incenter" if slug == "pedro" else "mean of parameter samples",
+            comparison_estimator=estimators[label],
             evaluations_by_distribution=evaluations,
             candidate_group_labels=design.group_labels,
             selected_candidate_groups=design.candidate_groups[indices].tolist(),
@@ -211,7 +379,8 @@ def run_pedro_score_design(design: ComparisonDesign, directory: str | Path, *,
                 if r.update_diagnostics.get("estimate_status") != "valid"), None))
         if len(run.records) != design.scenario.horizon:
             raise RuntimeError("fixed-horizon comparison ended before T")
-        if slug == "pedro" and any(not r.update_diagnostics["constraints_exact"] for r in run.records):
+        if label in {"Pedro algorithm", "Genious Pedro"} and any(
+                not r.update_diagnostics["constraints_exact"] for r in run.records):
             raise RuntimeError("this small comparison requires exact Pedro constraints")
         # Atomic checkpoint: incomplete writes cannot be reused as finished runs.
         temporary = destination.with_suffix(".json.tmp")
@@ -224,3 +393,66 @@ def run_pedro_score_design(design: ComparisonDesign, directory: str | Path, *,
                  f"regret={run.evaluation['final_normalized_regret']}, "
                  f"seconds={run.runtime_seconds:.1f}")
     return results
+
+
+def run_pedro_score_design(design: ComparisonDesign, directory: str | Path, *,
+                           score_config: NestedLangevinConfig | None = None,
+                           use_cache: bool = True, progress=print) -> list[dict]:
+    """Run exactly Pedro and Score Base; checkpoint every complete run."""
+
+    return _run_comparison_design(
+        design,
+        directory,
+        score_config=score_config,
+        samd_config=None,
+        use_cache=use_cache,
+        progress=progress,
+        include_genious_pedro=False,
+        include_online_samd=False,
+    )
+
+
+def run_three_algorithm_design(design: ComparisonDesign, directory: str | Path, *,
+                               score_config: NestedLangevinConfig | None = None,
+                               use_cache: bool = True, progress=print) -> list[dict]:
+    """Run Pedro, Genious Pedro and Score Base under the identical protocol.
+
+    Algorithmic invalid estimates remain in every trajectory with ``None``
+    metrics. Unexpected exceptions fail loudly; they are not disguised as cone
+    failures. Each complete run is checkpointed atomically.
+    """
+
+    return _run_comparison_design(
+        design,
+        directory,
+        score_config=score_config,
+        samd_config=None,
+        use_cache=use_cache,
+        progress=progress,
+        include_genious_pedro=True,
+        include_online_samd=False,
+    )
+
+
+def run_four_algorithm_design(design: ComparisonDesign, directory: str | Path, *,
+                              score_config: NestedLangevinConfig | None = None,
+                              samd_config: OnlineSAMDConfig | None = None,
+                              use_cache: bool = True, progress=print) -> list[dict]:
+    """Run Pedro, Genious Pedro, Score Base, and Uniform Online SAMD.
+
+    Uniform Online SAMD receives the same one-query-per-time-step protocol and
+    uses exactly one update from the newly received public observation.  This
+    function checkpoints complete runs but does not alter the existing two- or
+    three-algorithm comparison entry points.
+    """
+
+    return _run_comparison_design(
+        design,
+        directory,
+        score_config=score_config,
+        samd_config=samd_config,
+        use_cache=use_cache,
+        progress=progress,
+        include_genious_pedro=True,
+        include_online_samd=True,
+    )
