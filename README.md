@@ -10,6 +10,9 @@ reproducible reports.
 - [Four-algorithm benchmark results](notebooks/17_four_algorithm_eight_scenarios.ipynb):
   the locked eight-scenario protocol expanded with Uniform Online SAMD, containing all 160
   runs, 3,200 observed steps, every-time-step plots/tables, diagnostics, and full outputs.
+- [Complete four-algorithm PDF report](output/pdf/Four_Algorithm_Active_Inverse_Optimization_Complete_Results.pdf):
+  a shareable 185-page report with the principal convergence figures, comparison tables,
+  all 160 run summaries, and the complete 3,200-step appendix.
 - [Pedro, Genious Pedro, and Score Base results](notebooks/16_pedro_genious_score_base_eight_scenarios.ipynb):
   the preserved three-algorithm comparison, with 120 complete runs and 2,400 observed steps.
 - [Complete three-algorithm PDF report](output/pdf/Pedro_Genious_Pedro_Score_Base_Complete_Results.pdf):

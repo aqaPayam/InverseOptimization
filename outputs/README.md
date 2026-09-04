@@ -9,7 +9,8 @@ for reading explanations, tables, plots, and per-step results without rerunning.
 `active/17_four_algorithm_comparison/` contains 160 complete JSON trajectories:
 eight scenarios, five paired seeds, Pedro, Genious Pedro, Score Base and Uniform
 Online SAMD at T=20. Notebook 17 contains every-step tables, convergence plots,
-query diagnostics and full theta/S/Y outputs.
+query diagnostics and full theta/S/Y outputs. The corresponding 185-page PDF is
+`output/pdf/Four_Algorithm_Active_Inverse_Optimization_Complete_Results.pdf`.
 
 The scenarios, seeds, horizon, noise realizations, held-out queries and metrics
 are identical to notebook 16. Uniform Online SAMD is the only added method. It

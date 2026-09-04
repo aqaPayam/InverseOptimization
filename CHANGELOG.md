@@ -15,6 +15,8 @@
   steps across the unchanged eight scenarios and five paired seeds.
 - Added executed notebook 17 with all per-step tables, convergence figures,
   estimator diagnostics, pairwise comparisons, and expandable full outputs.
+- Added a visually verified 185-page four-algorithm PDF with convergence figures,
+  complete run summaries, and the full 3,200-step appendix.
 
 ## Genious Pedro implementation
 
